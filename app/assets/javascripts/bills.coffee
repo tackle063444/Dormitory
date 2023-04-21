@@ -2,22 +2,20 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+$(document).on 'change', '#bill_form', (event) ->
+  selected_form = $(this).val()
+
+  # ส่ง AJAX request ไปยัง server
+  $.ajax
+    url: '/bill_form_partial'
+    data: { form: selected_form }
+    dataType: 'json'
+    success: (data) ->
+      # แทรก partial ของฟอร์มกลับมาในหน้าเดิม
+      $('#bill-form-partial').html(data.html)
+
 $(document).on 'click', '#submit-bill-form', (event) ->
   event.preventDefault()
-
-
-  $(document).on 'change', '#bill_form', (event) ->
-    selected_form = $(this).val()
-
-    # ส่ง AJAX request ไปยัง server
-    $.ajax
-      url: '/bill_form_partial'
-      data: { form: selected_form }
-      dataType: 'json'
-      success: (data) ->
-        # แทรก partial ของฟอร์มกลับมาในหน้าเดิม
-        $('#bill-form-partial').html(data.html)
-
 
   # ส่ง AJAX request ไปยัง server
   $.ajax

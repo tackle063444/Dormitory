@@ -1,0 +1,15 @@
+{
+  "name": "jquery-3.6.4.min",
+  "_cacheHeaders": {
+    "ETag": "W/\"28feccc0-15ec3\"",
+    "Last-Modified": "Fri, 18 Oct 1991 12:00:00 GMT",
+    "Content-Length": "31011",
+    "Content-Type": "application/javascript; charset=utf-8"
+  },
+  "_release": "e-tag:W/\"28feccc",
+  "main": "index.js",
+  "_source": "https://code.jquery.com/jquery-3.6.4.min.js",
+  "_target": "*",
+  "_originalSource": "https://code.jquery.com/jquery-3.6.4.min.js",
+  "_direct": true
+}

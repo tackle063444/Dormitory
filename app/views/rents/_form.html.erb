@@ -16,10 +16,11 @@
     <%= form.collection_select :room_id, Room.all, :id, :room_num, class: 'form-control'  %>
   </div>
 
-  <div class="field">
-    <%= form.label :User_id %>
-    <%= form.collection_select :user_id, User.all, :id, :user_fname, class: 'form-control'  %>
-  </div>
+ <div class="field">
+  <%= form.label :User_id %>
+  <%= form.collection_select :user_id, User.all, :id, :user_fname, {class: 'form-control', multiple: true} %>
+  <%= link_to 'Add User', '#', id: 'add-user-btn', class: 'btn btn-primary' %>
+</div>
 
   <div class="field">
     <%= form.label :rent_start %>

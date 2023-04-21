@@ -1,0 +1,3 @@
+class BillList < ApplicationRecord
+
+end

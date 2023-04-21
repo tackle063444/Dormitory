@@ -1,0 +1,27 @@
+<%= form_with(model: bill_list, local: true) do |form| %>
+  <% if bill_list.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bill_list.errors.count, "error") %> prohibited this bill_list from being saved:</h2>
+
+      <ul>
+      <% bill_list.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <div class="field">
+    <%= form.label :ชื่อรายการ %>
+    <%= form.text_field :list_typeName, id: :list_typeName , class:"form-control" %>
+  </div>
+
+   <div class="field">
+    <%= form.label :ราคาต่อหหน่วย %>
+    <%= form.text_field :unit_price, id: :unit_price , class:"form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Confirm"  , class: "btn btn-primary" %> |
+  </div>
+<% end %>

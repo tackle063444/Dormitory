@@ -1,0 +1,57 @@
+<%= form_with(model: bill, local: true) do |form| %>
+  <% if bill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+
+      <ul>
+      <% bill.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= form.label :Room_num %>
+    <%= form.collection_select :rent_id, Room.all, :id, :room_num , class:"form-control" %>
+  </div>
+
+<div class="field">
+  <%= form.label :bill_list_id %>
+  <%= form.collection_select :bill_list_id, BillList.all, :id, :list_typeName, class:"form-control" %><br>
+  <% if bill.bill_list.present? %>
+    <%= form.label :unit_price %>
+    <%= bill.bill_list.unit_price %>
+  <% end %>
+  <%= form.label :old_unit %>
+  <%= form.text_field :old_unit, id: :old_unit , class:"form-control" %>
+  <%= form.label :new_unit %>
+  <%= form.text_field :new_unit, id: :new_unit , class:"form-control" %>
+</div>
+
+  <div class="field">
+    <%= form.label :bill_date %>
+    <%= form.date_select :bill_date, id: :bill_bill_date , class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bill_no %>
+    <%= form.text_field :bill_no, id: :bill_bill_no , class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bill_total %>
+    <%= form.text_field :bill_total, id: :bill_bill_total , class:"form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bill_remark %>
+    <%= form.text_field :bill_remark, id: :bill_bill_remark , class:"form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Create Bill", class: 'btn btn-primary'%>
+  </div>
+ 
+<% end %>

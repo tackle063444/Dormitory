@@ -1,0 +1,54 @@
+
+
+<!DOCTYPE html>
+
+
+	</head>
+	<body>
+	<div id="fh5co-page">
+		<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+		<aside id="fh5co-aside" role="complementary" class="border js-fullheight">
+
+			<h1 id="fh5co-logo"><a href="index.html">Room</a></h1>
+			<nav id="fh5co-main-menu" role="navigation">
+				<ul>
+					<li><%= link_to 'Dormitory', halls_path %></li>
+					<li class="fh5co-active"><%= link_to 'Room', rooms_path %></li>
+					<li><%= link_to 'User', users_path %></li>
+					<li><%= link_to 'Rent', rents_path %></li>
+					<li><%= link_to 'Bill', bills_path %></li>
+					<li><%= link_to 'List', bill_lists_path %></li>
+
+				</ul>
+			</nav>
+
+		</aside>
+
+	<div id="fh5co-main">
+		<div class="fh5co-narrow-content">
+				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Room</h2>
+				<%= link_to 'เพิ่มห้องพักใหม่', new_room_path,  id: 'open-form' ,class: 'btn btn-outline-success' %>
+			<div class="row row-bottom-padded-md">
+					
+        <% @room.each do |room| %>
+            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
+			<%= link_to users_path(room_id: room.id), class: "work image-popup", style: "background-image: url('/assets/images1/img_bg_3.jpg')" do %>
+				<div class="card">
+				<h2>เลขห้อง</h2>
+				<h3> <%= room.room_num %> </h3>
+				</div>
+         	<% end %> 
+			<div class="card"> 
+		<%= link_to 'แสดงผู้เช่า', users_path(room_id: room.id), class: 'btn btn-outline-info' %>
+        <%= link_to 'แก้ไข', edit_room_path(room), class: 'btn btn-outline-warning' %>
+        <%= link_to 'ลบ', room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+			</div>
+				</div>
+        <% end %>
+			</div>
+		</div>
+	</div>
+             
+	</body>
+</html>
+

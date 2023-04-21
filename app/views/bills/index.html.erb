@@ -1,0 +1,79 @@
+
+
+<!DOCTYPE html>
+
+	</head>
+	<body>
+	<div id="fh5co-page">
+		<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+		<aside id="fh5co-aside" role="complementary" class="border js-fullheight">
+
+			<h1 id="fh5co-logo"><a href="index.html">Bill</a></h1>
+			<nav id="fh5co-main-menu" role="navigation">
+				<ul>
+					<li><%= link_to 'Dormitory', halls_path %></li>
+					<li><%= link_to 'Room', rooms_path %></li>
+					<li><%= link_to 'User', users_path %></li>
+					<li><%= link_to 'Rent', rents_path %></li>
+					<li  class="fh5co-active"><%= link_to 'Bill', bills_path %></li>
+					<li><%= link_to 'List', bill_lists_path %></li>
+				</ul>
+			</nav>
+		</aside>
+
+	<div id="fh5co-main">
+		<div class="fh5co-narrow-content">
+				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Bill</h2>
+				<%= link_to 'เพิ่มบิล', new_bill_path, class:"btn btn-outline-success" %>
+          <p id="notice"><%= notice %></p>
+	
+        <table class="table table-dark table-hover">
+          <thead>
+            <tr>
+              <th>Bill type</th>
+              <th>Rent</th>
+              <th>List</th>
+              <th>Bill date</th>
+              <th>Bill no</th>
+              <th>Bill total</th>
+              <th>Bill remark</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @bills.each do |bill| %>
+              <tr>
+                <td><%= bill.Bill_type %></td>
+                <td><%= bill.Rent %></td>
+                <td><%= bill.List %></td>
+                <td><%= bill.bill_date %></td>
+                <td><%= bill.bill_no %></td>
+                <td><%= bill.bill_total %></td>
+                <td><%= bill.bill_remark %></td>
+                <td><%= link_to 'Show', bill, class: "btn btn-outline-info" %></td>
+                <td><%= link_to 'Edit', edit_bill_path(bill), class:"btn btn-outline-warning" %></td>
+                <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+         <br>
+			</div>
+		</div>
+	</div>
+             
+
+	
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+

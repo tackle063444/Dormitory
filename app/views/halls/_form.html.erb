@@ -1,0 +1,38 @@
+<%= form_with(model: hall, local: true, multipart: true) do |form| %>
+  <% if hall.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hall.errors.count, "error") %> prohibited this hall from being saved:</h2>
+
+      <ul>
+      <% hall.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="row g-3 align-items-center">
+  <div class="field">
+    <%= form.label :ชื่อหอพัก %>
+    <%= form.text_field :hall_name, id: :hall_name , class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ที่อยู่หอพัก %>
+    <%= form.text_field :hall_address, id: :hall_address, class: 'form-control'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :เบอร์โทร %>
+    <%= form.text_field :hall_tel, id: :hall_tel, class: 'form-control'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :โลโก้หอพัก %>
+     <%= form.file_field :hall_logo, id: :hall_logo, class: 'form-control' %>
+  </div>
+</div>
+
+  <div class="actions">
+  <%= form.submit "Create Hall", class: "btn btn-primary" %>
+</div>
+<% end %>

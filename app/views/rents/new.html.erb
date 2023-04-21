@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+
+
+
+	</head>
+	<body>
+	<div id="fh5co-page">
+		<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+		<aside id="fh5co-aside" role="complementary" class="border js-fullheight">
+
+			<h1 id="fh5co-logo"><a href="index.html">Dormitory</a></h1>
+			<nav id="fh5co-main-menu" role="navigation">
+				<ul>
+					<li><%= link_to 'Dormitory', halls_path %></li>
+					<li><%= link_to 'Room', rooms_path %></li>
+					<li><%= link_to 'User', users_path %></li>
+					<li  class="fh5co-active"><%= link_to 'Rent', rents_path %></li>
+                    <li><%= link_to 'Bill', bills_path %></li>
+                    <li><%= link_to 'List', bill_lists_path %></li>
+
+				</ul>
+			</nav>
+
+		</aside>
+
+	<div id="fh5co-main">
+		<div class="fh5co-narrow-content">
+				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">เพิ่มการเช่า</h2>
+				
+        <p id="notice"><%= notice %></p>
+    
+        <%= render 'form', rent: @rent %>
+
+        <%= link_to 'Back', rents_path, class: 'btn btn-primary' %>
+
+
+			</div>
+		</div>
+	</div>
+
+	</body>
+</html>
+
+

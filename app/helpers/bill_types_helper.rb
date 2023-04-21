@@ -1,0 +1,2 @@
+module BillTypesHelper
+end

@@ -1,0 +1,78 @@
+
+
+
+<!DOCTYPE html>
+
+
+	</head>
+	<body>
+	<div id="fh5co-page">
+		<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+		<aside id="fh5co-aside" role="complementary" class="border js-fullheight">
+
+			<h1 id="fh5co-logo"><a href="index.html">Rent</a></h1>
+			<nav id="fh5co-main-menu" role="navigation">
+				<ul>
+					<li><%= link_to 'Dormitory', halls_path %></li>
+					<li><%= link_to 'Room', rooms_path %></li>
+					<li><%= link_to 'User', users_path %></li>
+					<li class="fh5co-active"><%= link_to 'Rent', rents_path %></li>
+					<li><%= link_to 'Bill', bills_path %></li>
+					<li><%= link_to 'List', bill_lists_path %></li>
+
+				</ul>
+			</nav>
+
+		</aside>
+
+	<div id="fh5co-main">
+		<div class="fh5co-narrow-content">
+				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Rent</h2>
+				<%= link_to 'เพิ่มการเช่า', new_user_path, class:"btn btn-outline-success" %>
+         <p id="notice"><%= notice %></p>
+        <table class="table table-dark table-hover">
+          <thead>
+            <tr>
+              <th>Room</th>
+              <th>User</th>
+              <th>Rent start</th>
+              <th>Rent end</th>
+              <th>Rent history</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @rent.each do |rent| %>
+              <tr>
+                <td><%= rent.room.room_num %></td>
+                <td><%= rent.user.user_fname %></td>
+                <td><%= rent.rent_start %></td>
+                <td><%= rent.rent_end %></td>
+                <td><%= rent.rent_history %></td>
+                <td><%= link_to 'แสดงผู้เช่า', rent , class: 'btn btn-outline-info'%></td>
+                <td><%= link_to 'แก้ไข', edit_rent_path(rent), class: 'btn btn-outline-warning' %></td>
+                <td><%= link_to 'ลบ', rent, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-outline-danger' %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+         <br>
+        <%= link_to 'กลับ', rooms_path, class: 'btn btn-outline-dark' %>
+			</div>
+		</div>
+	</div>
+             
+
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+

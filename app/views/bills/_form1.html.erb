@@ -1,7 +1,7 @@
 <%= form_with(model: @bill, url: bills_path, id: 'bill-form', remote: true) do |form| %>
-  <% if bill.errors.any? %>
+  <% if @bill.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+      <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
 
       <ul>
       <% bill.errors.full_messages.each do |message| %>
@@ -10,17 +10,49 @@
       </ul>
     </div>
   <% end %>
+  <br>
 
 
   <div class="field">
-    <%= form.label :Room_num %>
+    <%= form.label :หมายเลขห้อง %>
     <%= form.collection_select :rent_id, Room.all, :id, :room_num , class:"form-control" %>
   </div>
+
+<% if @bill && @bill.room_id && @bill.room.hall %>
+  <div>
+    <h3><%= form.label :ใบแจ้งค่าบริการห้องพัก %></h3>
+    <%= @bill.room.hall.hall_address %>
+  </div>
+<% end %>
+
+<div>
+  <div>
+    <%= form.label :ชื่อผู้เช่า %>
+
+  </div>
+
+  <div>
+    <%= form.label :ที่อยู่ %>
+
+  </div>
+
+  <div>
+    <%= form.label :เบอร์โทร %>
+    
+  </div>
+
+<div>
+  <%= form.label :วันที่ %>
+  <%= form.date_select :bill_date, id: :bill_bill_date , class:"form-control" %>
+  <%= form.label :เลขที่ %>
+  <%= @bill.bill_no %>
+  </div>
+</div>
 
 <div class="field">
   <%= form.label :bill_list_id %>
   <%= form.collection_select :bill_list_id, BillList.all, :id, :list_typeName, class:"form-control" %><br>
-  <% if bill.bill_list.present? %>
+  <% if @bill.bill_list.present? %>
     <%= form.label :unit_price %>
     <%= bill.bill_list.unit_price %>
   <% end %>
@@ -29,11 +61,6 @@
   <%= form.label :new_unit %>
   <%= form.text_field :new_unit, id: :new_unit , class:"form-control" %>
 </div>
-
-  <div class="field">
-    <%= form.label :bill_date %>
-    <%= form.date_select :bill_date, id: :bill_bill_date , class:"form-control" %>
-  </div>
 
   <div class="field">
     <%= form.label :bill_no %>

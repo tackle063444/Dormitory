@@ -16,13 +16,23 @@ ActiveRecord::Schema.define(version: 20230419093828) do
   enable_extension "plpgsql"
 
   create_table "bill_lists", force: :cascade do |t|
+    t.bigint "list_type_id"
+    t.boolean "is_pay"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "unit_price"
     t.string "list_typeName"
+    t.index ["list_type_id"], name: "index_bill_lists_on_list_type_id"
+  end
+
+  create_table "bill_types", force: :cascade do |t|
+    t.string "bill_type_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "bills", force: :cascade do |t|
+    t.bigint "bill_type_id"
     t.bigint "rent_id"
     t.bigint "bill_list_id"
     t.date "bill_date"
@@ -35,6 +45,7 @@ ActiveRecord::Schema.define(version: 20230419093828) do
     t.float "old_unit"
     t.float "new_unit"
     t.index ["bill_list_id"], name: "index_bills_on_bill_list_id"
+    t.index ["bill_type_id"], name: "index_bills_on_bill_type_id"
     t.index ["rent_id"], name: "index_bills_on_rent_id"
   end
 
@@ -45,6 +56,17 @@ ActiveRecord::Schema.define(version: 20230419093828) do
     t.string "hall_logo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "list_types", force: :cascade do |t|
+    t.string "list_typeName"
+    t.integer "old_unit"
+    t.integer "new_unit"
+    t.integer "use_unit"
+    t.float "unit_per_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "is_default"
   end
 
   create_table "rents", force: :cascade do |t|

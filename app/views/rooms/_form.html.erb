@@ -12,33 +12,35 @@
     </div>
   <% end %>
 
-<div class="row g-3 align-items-center">
-  <div class="mb-3">
-  <%= form.label :Hall_id, class:"form-label" %>
-  <%= form.collection_select :hall_id, Hall.all, :id, :hall_name, class:"form-control" %>
-  </div>
-
-  <div class="mb-3">
-  <%= form.label :room_num, class:"form-label" %>
-    <%= form.text_field :room_num, id: :room_num, class:"form-control" %>
-  </div>
-
-  <div class="mb-3">
-  <%= form.label :User_id, class:"form-label" %>
-    <%= form.collection_select :user_id, User.all, :id, :user_fname, class:"form-control" %>
-  </div>
-
-  <div class="mb-3">
-  <%= form.label :room_status, class:"form-label" %>
-  <%= form.radio_button :room_status, true, id: :room_status_empty %>
-  <%= form.label :room_status_empty, 'Empty', class:"visually-hidden" %>
-  <%= form.radio_button :room_status, false, id: :room_status_occupied %>
-  <%= form.label :room_status_occupied, 'Occupied', class:"visually-hidden" %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit  "Create Room", class: "btn btn-primary" %>
-  </div>
-</div>
+  <table class="table">
+						<thead></thead>
+						<tbody>
+							<tr>
+								<td><%= form.label :Hall_id, class:"form-label" %></td>
+								<td><%= form.collection_select :hall_id, Hall.all, :id, :hall_name, class:"form-control" %></td>
+							</tr>
+              <tr>
+								<td><%= form.label :room_num, class:"form-label" %></td>
+								<td><%= form.text_field :room_num, id: :room_num %></td>
+							</tr>
+              <tr>
+								<td><%= form.label :User_id, class:"form-label" %></td>
+								<td><%= form.collection_select :user_id, User.all, :id, :user_fname, class:"form-control" %></td>
+							</tr>
+              <tr>
+								<td><%= form.label :สถานะห้อง, class:"form-label" %></td>
+                <td>
+                <%= form.radio_button :room_status, true, id: :room_status_empty %>
+                <%= form.label :room_status_empty, 'ห้องว่าง' %>
+                <br>
+                <%= form.radio_button :room_status, false, id: :room_status_occupied %>
+                <%= form.label :room_status_occupied, 'ห้องไม่ว่าง' %>
+                </td>
+							</tr>
+						</tbody>
+  				</table>
+            <div class="actions">
+              <%= form.submit  "Confirm", class: "btn btn-primary" %>
+            </div>
 <% end %>
 

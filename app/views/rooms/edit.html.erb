@@ -8,11 +8,11 @@
 		<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
 		<aside id="fh5co-aside" role="complementary" class="border js-fullheight">
 
-			<h1 id="fh5co-logo"><a href="index.html">Dormitory</a></h1>
+			<h1 id="fh5co-logo"><a href="index.html">Room</a></h1>
 			<nav id="fh5co-main-menu" role="navigation">
 				<ul>
-					<li class="fh5co-active"><%= link_to 'Dormitory', halls_path %></li>
-					<li><%= link_to 'Room', rooms_path %></li>
+					<li><%= link_to 'Dormitory', halls_path %></li>
+					<li class="fh5co-active"><%= link_to 'Room', rooms_path %></li>
 					<li><%= link_to 'User', users_path %></li>
 					<li><%= link_to 'Rent', rents_path %></li>
                     <li><%= link_to 'Bill', bills_path %></li>
@@ -20,18 +20,61 @@
 
 				</ul>
 			</nav>
-
 		</aside>
 
 	<div id="fh5co-main">
 		<div class="fh5co-narrow-content">
-				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">เพิ่มหอพักใหม่</h2>
+				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">แก้ไขข้อมูล</h2>
 				
+
+
+<%= form_with(model: @room, local: true) do |form| %>
+  <% if @room.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(room.errors.count, "error") %> prohibited this room from being saved:</h2>
+
+      <ul>
+      <% room.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
         <p id="notice"><%= notice %></p>
 
-        <%= render 'form', room: @room %>
+        <table class="table">
 
-        <%= link_to 'Show', @room , class: "btn btn-primary" %> |
+			<tbody>
+				<tr>
+					<td><%= form.label :Hall_id, class:"form-label" %></td>
+					<td><%= form.collection_select :hall_id, Hall.all, :id, :hall_name, class:"form-control" %></td>
+				</tr>
+            	<tr>
+					<td><%= form.label :room_num, class:"form-label" %></td>
+					<td><%= form.text_field :room_num, id: :room_num %></td>
+				</tr>
+            	<tr>
+					<td><%= form.label :user_id, class:"form-label" %></td>
+					<td><%= form.select :user_id, options_for_select(@room.rents.map { |r| [r.user.user_fname, r.user_id] }), {}, class: "form-control" %></td>
+				</tr>
+
+            	<tr>
+					<td><%= form.label :สถานะห้อง, class:"form-label" %></td>
+                <td>
+                	<%= form.radio_button :room_status, true, id: :room_status_empty %>
+                	<%= form.label :room_status_empty, 'ห้องว่าง' %>
+                		<br>
+                	<%= form.radio_button :room_status, false, id: :room_status_occupied %>
+                	<%= form.label :room_status_occupied, 'ห้องไม่ว่าง' %>
+                </td>
+				</tr>
+			</tbody>
+  		</table>
+            <div class="actions">
+              <%= form.submit  "Confirm", class: "btn btn-primary" %>
+            </div>
+
         <%= link_to 'Back', rooms_path , class: "btn btn-primary" %>
 
 			</div>
@@ -41,4 +84,4 @@
 
 	</body>
 </html>
-
+<% end %>

@@ -18,7 +18,6 @@
 					<li><%= link_to 'Rent', rents_path %></li>
 					<li><%= link_to 'Bill', bills_path %></li>
 					<li><%= link_to 'List', bill_lists_path %></li>
-
 				</ul>
 			</nav>
 		</aside>
@@ -52,7 +51,8 @@
             <% end %>
           </tbody>
         </table>
-         <br>
+        <br>
+        <%= link_to 'Back', rooms_path , class: "btn btn-primary"%>
 			</div>
 		</div>
 	</div>

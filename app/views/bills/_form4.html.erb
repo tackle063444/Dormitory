@@ -3,7 +3,7 @@
     <div id="error_explanation">
       <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
       <ul>
-      <% bill.errors.full_messages.each do |message| %>
+      <% @bill.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -84,7 +84,7 @@
                   <%= form.label :unit_price %>
                 </td>
                 <td>
-                  <%= bill.bill_list.unit_price %>
+                  <%= @bill.bill_list.unit_price %>
                 </td>
               </tr>
              <% end %> 

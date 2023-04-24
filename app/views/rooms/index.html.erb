@@ -30,7 +30,7 @@
 				<%= link_to 'เพิ่มห้องพักใหม่', new_room_path,  id: 'open-form' ,class: 'btn btn-outline-success' %>
 			<div class="row row-bottom-padded-md">
 					
-        <% @room.each do |room| %>
+        <% @room.order(room_num: :asc).each do |room| %>
             <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
 			<%= link_to users_path(room_id: room.id), class: "work image-popup", style: "background-image: url('/assets/images1/img_bg_3.jpg')" do %>
 				<div class="card">
@@ -39,9 +39,9 @@
 				</div>
          	<% end %> 
 			<div class="card"> 
-		<%= link_to 'แสดงผู้เช่า', users_path(room_id: room.id), class: 'btn btn-outline-info' %>
-        <%= link_to 'แก้ไข', edit_room_path(room), class: 'btn btn-outline-warning' %>
-        <%= link_to 'ลบ', room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+				<%= link_to 'แสดงผู้เช่า', users_path(room_id: room.id), class: 'btn btn-outline-info' %>
+				<%= link_to 'แก้ไข', edit_room_path(room), class: 'btn btn-outline-warning' %>
+				<%= link_to 'ลบ', room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
 			</div>
 				</div>
         <% end %>

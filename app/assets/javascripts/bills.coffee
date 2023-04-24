@@ -2,6 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+
+
+
 $(document).on 'change', '#bill_form', (event) ->
   selected_form = $(this).val()
 
@@ -28,7 +31,6 @@ $(document).on 'click', '#submit-bill-form', (event) ->
         alert(data.message)
       else
         alert(data.message)
-
 
   $(document).on 'ajax:success', '#bill-form', (event, data) ->
     # แสดง partial ของฟอร์มใหม่ที่ได้ร

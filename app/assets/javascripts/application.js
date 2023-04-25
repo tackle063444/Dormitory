@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
+// require rails-ujs ถูกโหลดแล้ว ไม่ต้องโหลดซ้ำ
 //= require turbolinks
 //= require_tree .
 //= require jquery 

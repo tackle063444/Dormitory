@@ -61,7 +61,7 @@
                   <%= form.label :เลขที่บิล %> 
                 </td>
                 <td>
-                  <%= form.text_field :bill_no, id: :bill_bill_no %>
+                  <%= form.text_field :bill_no, id: :bill_bill_no, value: "BN-#{form.object.bill_date.strftime('%y-%m')}-#{form.object.room.room_num}", readonly: true %>
                 </td>
               </tr>
                <tr>

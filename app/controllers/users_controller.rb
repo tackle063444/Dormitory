@@ -10,7 +10,14 @@ class UsersController < ApplicationController
     end
   end
 
-
+  def set_user
+    begin
+      @user = User.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      # handle the error, e.g. redirect to an error page
+    end
+  end
+  
   # GET /users/1 or /users/1.json
   def show
   end

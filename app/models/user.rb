@@ -1,3 +1,4 @@
 class User < ApplicationRecord
-    
-end
+    has_many :rents
+  end
+  

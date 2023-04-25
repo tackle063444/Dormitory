@@ -4,9 +4,9 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
       if params[:room_id]
-        @user = User.joins(:rents).where(rents: { room_id: params[:room_id] })
+        @users = User.joins(rents: :room).where(rooms: { id: params[:room_id] })
       else
-        @user = User.all
+        @users = User.all
     end
   end
 
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    @users = User.new
   end
 
   # GET /users/1/edit

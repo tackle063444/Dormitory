@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       # handle the error, e.g. redirect to an error page
     end
-  end
+  end 
   
   # GET /users/1 or /users/1.json
   def show

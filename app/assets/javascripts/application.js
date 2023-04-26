@@ -16,3 +16,37 @@
 //= require jquery 
 //= require jquery_ujs 
 
+$(document).on('change', '#bill_form', function(event) {
+    var selected_form = $(this).val();
+  
+    $.ajax({
+      url: '/bill_form_partial',
+      data: { form: selected_form },
+      dataType: 'json',
+      success: function(data) {
+        $('#bill-form-partial').html(data.html);
+      }
+    });
+  });
+  
+  $(document).on('click', '#submit-bill-form', function(event) {
+    event.preventDefault();
+  
+    $.ajax({
+      url: '/submit_bill_form',
+      data: $('#bill-form').serialize(),
+      dataType: 'json',
+      success: function(data) {
+        if (data.success) {
+          alert(data.message);
+        } else {
+          alert(data.message);
+        }
+      }
+    });
+  });
+  
+  $(document).on('ajax:success', '#bill-form', function(event, data) {
+    $('#bill-form-partial').html(data.html);
+  });
+  

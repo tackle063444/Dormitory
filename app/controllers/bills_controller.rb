@@ -1,5 +1,5 @@
 class BillsController < ApplicationController
-  before_action :set_bill, only: %i[ show edit update destroy ]
+  before_action :set_bill, only: %i[ show edit update destroy  ]
 
   # GET /bills or /bills.json
   def index
@@ -48,6 +48,8 @@ class BillsController < ApplicationController
 
   def bill_form_partial
     form = params[:form]
+    puts "mmmmm",form
+    @bill = Bill.new
   
     # แก้ไขตามลักษณะของ partial ของฟอร์มที่ต้องการ
     case form

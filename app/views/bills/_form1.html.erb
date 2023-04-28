@@ -37,15 +37,30 @@
                 <td>
                   <%= form.label :ชื่อผู้เช่า %>
                 </td>
+                <td>
+                <% if @bill && @bill.rent && @bill.rent.user %>
+                <%= @bill.rent.user.user_fname %>
+                <% end %>
+                </td>
               </tr>
               <tr>
                 <td>
                   <%= form.label :ที่อยู่ %>
                 </td>
+                <td>
+                <% if @bill && @bill.rent && @bill.rent.user %>
+                <%= @bill.rent.user.user_address %>
+                <% end %>
+                </td>
               </tr>
               <tr>
                 <td>
                   <%= form.label :เบอร์โทร %>
+                </td>
+                <td>
+                <% if @bill && @bill.rent && @bill.rent.user %>
+                <%= @bill.rent.user.user_tel %>
+                <% end %>
                 </td>
               </tr>
               <tr>

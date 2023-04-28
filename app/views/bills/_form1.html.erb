@@ -13,7 +13,7 @@
   <table class="table">
      <thead> <h3>ใบแจ้งค่าบริการห้องพัก</h3> </thead>
           <tbody>
-            <% @bills.each do |bill| %>
+       
               <tr>
                 <td>
                   <%= form.label :หมายเลขห้อง %>
@@ -22,7 +22,7 @@
                   <%= form.collection_select :rent_id, Room.all, :id, :room_num , class:"form-control" %>
                 </td>
               </tr>
-            <% end %>
+         
             <% if @bill && @bill.room_id && @bill.room.hall %>
               <tr>
                 <td>

@@ -8,6 +8,14 @@ class BillsController < ApplicationController
 
   # GET /bills/1 or /bills/1.json
   def show
+    @bill = Bill.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        send_data PdfGenerator.generate(@bill), filename: "bill_#{params[:id]}.pdf", type: 'application/pdf', disposition: 'attachment'
+      end
+    end
   end
 
   # GET /bills/new
@@ -48,7 +56,7 @@ class BillsController < ApplicationController
 
   def bill_form_partial
     form = params[:form]
-    puts "mmmmm",form
+ 
     @bill = Bill.new
   
     # แก้ไขตามลักษณะของ partial ของฟอร์มที่ต้องการ

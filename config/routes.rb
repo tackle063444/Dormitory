@@ -9,6 +9,5 @@ Rails.application.routes.draw do
 
   get '/bill_form_partial', to: 'bills#bill_form_partial'
 
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

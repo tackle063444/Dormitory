@@ -16,41 +16,50 @@
 //= require jquery 
 //= require jquery_ujs 
 
-$(document).ready(function() {
-  console.log(522252525)
-  $(document).on('change', '#bill_form', function(event) {
-    var selected_form = $(this).val();
 
-    $.ajax({
-      url: '/bill_form_partial',
-      data: { form: selected_form },
-      dataType: 'json',
-      success: function(data) {
-        $('#bill-form-partial').html(data.html);
+
+  $(document).ready(function() {
+    // ดักเหตุการณ์เมื่อผู้ใช้เลือกตัวเลือกในเลือกตัวเลือกฟอร์ม
+    $('#bill_form').on('change', function() {
+      var selectedOption = $(this).val();
+      var message = "";
+      switch(selectedOption) {
+        case "form1":
+          message = "ใบแจ้งค่าบริการห้องพัก";
+          $('#electricity-table').show(); //แสดงตารางค่าไฟที่ซ่อนอยู่
+          break;
+        case "form2":
+          message = "ใบเสร็จรับเงินค่าเช่าห้องพัก";
+          $('#electricity-table').hide(); //ซ่อนตารางค่าไฟ
+          break;
+        case "form3":
+          message = "ใบเสร็จรับเงินค่ามัดจำห้องพัก";
+          $('#electricity-table').hide(); //ซ่อนตารางค่าไฟ
+          break;
+        case "form4":
+          message = "ใบแจ้งคืนค่าบริการห้องพัก";
+          $('#electricity-table').hide(); //ซ่อนตารางค่าไฟ
+          break;
+        default:
+          message = "กรุณาเลือกแบบฟอร์มใบเสร็จ";
       }
+      // เปลี่ยนข้อความในแท็ก h3
+      $('#bill-form-heading').html(message);
     });
-  });
 
-  $(document).on('click', '#submit-bill-form', function(event) {
-    event.preventDefault();
-
-    $.ajax({
-      url: '/submit_bill_form',
-      data: $('#bill-form').serialize(),
-      dataType: 'json',
-      success: function(data) {
-        if (data.success) {
-          alert(data.message);
-        } else {
-          alert(data.message);
-        }
+    
+    $('.add-list').click(function() {
+      var template = $('.bill-list').first().clone();
+      template.find('select').val('');
+      $('#bill-lists').append(template);
+    });
+    
+    $(document).on('click', '.remove-list', function() {
+      var $billLists = $('.bill-list');
+      if ($billLists.length > 1) {
+        $(this).closest('.bill-list').remove();
       }
-    });
+    });  
+    
   });
-
-  $(document).on('ajax:success', '#bill-form', function(event, data) {
-    $('#bill-form-partial').html(data.html);
-  });
-
-
-})
+  

@@ -30,27 +30,19 @@
         <table class="table table-dark table-hover">
           <thead>
             <tr>
-              <th>Bill type</th>
-              <th>Rent</th>
-              <th>List</th>
-              <th>Bill date</th>
-              <th>Bill no</th>
-              <th>Bill total</th>
-              <th>Bill remark</th>
+              <th> เลขที่บิล </th>
+              <th> ห้อง </th>
+              <th> วันที่ </th>
             </tr>
           </thead>
 
           <tbody>
             <% @bills.each do |bill| %>
               <tr>
-                <td><%= bill.Bill_type %></td>
-                <td><%= bill.Rent %></td>
-                <td><%= bill.List %></td>
-                <td><%= bill.bill_date %></td>
                 <td><%= bill.bill_no %></td>
                 <td><%= bill.bill_total %></td>
                 <td><%= bill.bill_remark %></td>
-                <td><%= link_to 'Show', bill, class: "btn btn-outline-info" %></td>
+                <td><%= link_to 'Generate PDF', generate_bill_path(bill), class: "btn btn-outline-info", target: "_blank", remote: true %></td>
                 <td><%= link_to 'Edit', edit_bill_path(bill), class:"btn btn-outline-warning" %></td>
                 <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
               </tr>

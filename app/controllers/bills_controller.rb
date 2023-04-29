@@ -6,6 +6,24 @@ class BillsController < ApplicationController
     @bills = Bill.all
   end
 
+  def generate_bill
+    @bill = Bill.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = Prawn::Document.new
+        pdf.text "Hello, World!"
+        send_data pdf.render, filename: "example.pdf", type: "application/pdf", disposition: "inline"
+      end
+    end
+  end
+  
+  def self.bill_form
+    if params[:bill][:bill_form] == "form1"
+      # code here
+    end    
+  end
+
   # GET /bills/1 or /bills/1.json
   def show
     @bill = Bill.find(params[:id])
@@ -28,54 +46,6 @@ class BillsController < ApplicationController
     def edit
 
     end
-    
-    def submit_bill_form
-      # รับค่าจากฟอร์ม
-      bill_params = params[:bill]
-    
-      # สร้าง object ของ Bill จากข้อมูลในฟอร์ม
-      @bill = Bill.new(rent_id: bill_params[:rent_id],
-                       bill_list_id: bill_params[:bill_list_id],
-                       bill_date: bill_params[:bill_date],
-                       bill_no: bill_params[:bill_no],
-                       bill_total: bill_params[:bill_total],
-                       bill_remark: bill_params[:bill_remark])
-    
-      # รับค่า form จาก params
-      @form = params[:bill][:'form-select']
-    
-      respond_to do |format|
-        if @bill.save
-          format.json { render json: { success: true, message: 'บันทึกข้อมูลเรียบร้อย' } }
-        else
-          format.json { render json: { success: false, message: 'เกิดข้อผิดพลาดในการบันทึกข้อมูล' } }
-        end
-      end
-    end
-    
-
-  def bill_form_partial
-    form = params[:form]
- 
-    @bill = Bill.new
-  
-    # แก้ไขตามลักษณะของ partial ของฟอร์มที่ต้องการ
-    case form
-    when 'form1'
-      html = render_to_string(partial: 'form1')
-    when 'form2'
-      html = render_to_string(partial: 'form2')
-    when 'form3'
-      html = render_to_string(partial: 'form3')
-    when 'form4'
-      html = render_to_string(partial: 'form4')
-    else
-      html = ''
-    end
-  
-    render json: { html: html }
-  end
-  
   
   # POST /bills or /bills.json
   def create

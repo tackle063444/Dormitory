@@ -20,20 +20,12 @@
 		<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">เพิ่มบิล</h2>
 			<p id="notice"><%= notice %></p>
 				<%= form_with(model: @bill, id: 'bill-form', remote: true, local: { form: @form }) do |form| %> 
-					<div class="field">
-						<label for="form-select">เลือกแบบฟอร์มใบเสร็จ : </label>
-						<select id="bill_form" name="bill[form-select]">
-						<option value="form1">ใบแจ้งค่าบริการห้องพัก</option>
-						<option value="form2">ใบเสร็จรับเงินค่าบริการห้องพัก</option>
-						<option value="form3">ใบเสร็จรับเงินค่ามัดจำห้องพัก</option>
-						<option value="form4">ใบแจ้งคืนค่าประกันห้องพัก</option>
-						</select>
-						
-						<div id="bill-form-partial"></div>
+					
+					<%= render 'form' %>
 					
 				<% end %>
 			</div>
-			<%= link_to 'Back', bills_path , class: "btn btn-primary"%>
+			
 		</div>
 	</div>
 </div>

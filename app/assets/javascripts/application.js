@@ -20,6 +20,9 @@
 
   $(document).ready(function() {
     // ดักเหตุการณ์เมื่อผู้ใช้เลือกตัวเลือกในเลือกตัวเลือกฟอร์ม
+    $('#bill-form-heading').css('display', 'none');
+  
+    // ดักเหตุการณ์เมื่อผู้ใช้เลือกตัวเลือกในเลือกตัวเลือกฟอร์ม
     $('#bill_form').on('change', function() {
       var selectedOption = $(this).val();
       var message = "";
@@ -30,21 +33,18 @@
           break;
         case "form2":
           message = "ใบเสร็จรับเงินค่าเช่าห้องพัก";
-          $('#electricity-table').hide(); //ซ่อนตารางค่าไฟ
           break;
         case "form3":
           message = "ใบเสร็จรับเงินค่ามัดจำห้องพัก";
-          $('#electricity-table').hide(); //ซ่อนตารางค่าไฟ
           break;
         case "form4":
           message = "ใบแจ้งคืนค่าบริการห้องพัก";
-          $('#electricity-table').hide(); //ซ่อนตารางค่าไฟ
           break;
         default:
-          message = "กรุณาเลือกแบบฟอร์มใบเสร็จ";
+          message = "";
+          break;
       }
-      // เปลี่ยนข้อความในแท็ก h3
-      $('#bill-form-heading').html(message);
+      $('#bill-form-heading').html(message).css('display', 'block');
     });
 
     
@@ -61,5 +61,13 @@
       }
     });  
     
+    // ตรวจสอบค่า default เมื่อหน้าเว็บโหลดเสร็จแล้ว
+    var formSelect = document.getElementById("bill_form");
+    var selectedForm = formSelect.options[formSelect.selectedIndex].value;
+    if (selectedForm) {
+      document.getElementById("bill-form-heading").innerHTML = selectedForm;
+    }
+
+
   });
   

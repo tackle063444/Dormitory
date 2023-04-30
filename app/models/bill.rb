@@ -1,8 +1,7 @@
 class Bill < ApplicationRecord
-  belongs_to :bill_list
-  belongs_to :rent
-  belongs_to :hall
+  belongs_to :rent, optional: true
+  belongs_to :bill_list, optional: true
+  belongs_to :hall, optional: true
 
-  attr_accessor :bill_form
-
+  attr_accessor :form_select
 end

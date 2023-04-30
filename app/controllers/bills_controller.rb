@@ -18,11 +18,6 @@ class BillsController < ApplicationController
     end
   end
   
-  def self.bill_form
-    if params[:bill][:bill_form] == "form1"
-      # code here
-    end    
-  end
 
   # GET /bills/1 or /bills/1.json
   def show
@@ -39,36 +34,43 @@ class BillsController < ApplicationController
   # GET /bills/new
   def new
     @bill = Bill.new
-    @form = params[:form]
+    @bill.form_select = params[:form_select]
   end
 
     # GET /bills/1/edit
     def edit
 
     end
-  
+
+
   # POST /bills or /bills.json
   def create
-    @bill = Bill.new(bill_params)
-  
-    respond_to do |format|
-      if @bill.save
-        format.html { redirect_to bill_url(@bill), notice: "Bill was successfully created." }
-        format.json { render :show, status: :created, location: @bill }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @bill.errors, status: :unprocessable_entity }
+    if Bill.column_names.include?("rent_id") && Rent.exists?(id: params[:bill][:rent_id])
+      @bill = Bill.new(bill_params)
+      respond_to do |format|
+        if @bill.save
+          format.html { redirect_to bills_url(@bill), notice: "Bill was successfully created." }
+          format.json { render :index, status: :created, location: @bill }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @bill.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      flash[:error] = "The rent_id does not exist in the database"
+      redirect_to new_bill_path
     end
   end
+  
+  
   
 
   # PATCH/PUT /bills/1 or /bills/1.json
   def update
     respond_to do |format|
       if @bill.update(bill_params)
-        format.html { redirect_to bill_url(@bill), notice: "Bill was successfully updated." }
-        format.json { render :show, status: :ok, location: @bill }
+        format.html { redirect_to bills_url(@bill), notice: "Bill was successfully updated." }
+        format.json { render :index, status: :ok, location: @bill }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @bill.errors, status: :unprocessable_entity }
@@ -94,6 +96,7 @@ class BillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bill_params
-      params.require(:bill).permit(:rent_id, :bill_list_id, :bill_date, :bill_no, :bill_total, :bill_remark)
+      params.require(:bill).permit(:bill_list_id, :bill_date, :bill_no, :bill_total, :bill_remark, :rent_id)
     end
+     
 end

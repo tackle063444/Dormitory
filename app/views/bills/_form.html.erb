@@ -1,108 +1,62 @@
-<%= form_with(model: @bill, url: bills_path, id: 'bill-form', remote: true) do |form| %>
+<%= form_with(model: @bill, url: bills_path(create_bill: true), id: 'bill-form', remote: true) do |form| %>
     <% if @bill.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
         <ul>
-        <% bill.errors.full_messages.each do |message| %>
+        <% @bill.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
         </ul>
       </div>
     <% end %>
     <br>
-        <div class="field">
-		    <label for="form-select">เลือกแบบฟอร์มใบเสร็จ </label>
-		    <select id="bill_form" name="bill[form-select]">
-		    <option value="form1">ใบแจ้งค่าบริการห้องพัก</option>
-		    <option value="form2">ใบเสร็จรับเงินค่าบริการห้องพัก</option>
-		    <option value="form3">ใบเสร็จรับเงินค่ามัดจำห้องพัก</option>
-		    <option value="form4">ใบแจ้งคืนค่าประกันห้องพัก</option>
-		    </select>
-		<div id="bill-form-partial"></div>
-        <br>
-    <table class="table">
-    <thead>
-        <h3 id="bill-form-heading">
-        </h3>
-    </thead>
-            <tbody>
-                <tr>
-                  <td>
-                    <%= form.label :หมายเลขห้อง %>
-                    <%= form.collection_select :rent_id, Room.all, :id, "room_num", { prompt: "เลือกห้อง" }, { id: "bill_rent_id" } %>
-                  </td>
-                  <td>
-                  
-                  </td>
-                </tr>
-                </tr>
-                <tr>
-                  <td>
-                    <%= form.label :วันที่ %>
-                    <%= form.date_select :bill_date, id: :bill_date , class:"form-control" %>
-                  </td>
-                  <td>
-                    
-                  </td>
-                </tr>
-                 <tr>
-                  <td>
-                    <%= form.label :รายการ%> 
+    <div class="field">
+        <label for="form-select">เลือกแบบฟอร์มใบเสร็จ </label>
+      <select id="bill_form" name="bill[form-select]">
+        <option value="form1">ใบแจ้งค่าบริการห้องพัก</option>
+        <option value="form2">ใบเสร็จรับเงินค่าบริการห้องพัก</option>
+        <option value="form3">ใบเสร็จรับเงินค่ามัดจำห้องพัก</option>
+        <option value="form4">ใบแจ้งคืนค่าประกันห้องพัก</option>
+      </select>
 
-                    <div id="bill-lists">
-                        <div class="bill-list">
-                            <%= form.collection_select :bill_list_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" } %>
-                            <button type="button" class="remove-list">ลบ</button>
-                        </div>
-                    </div>
-                <button type="button" class="add-list">เพิ่มรายการ</button>
-
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-
-                <% if @bill.present? && @bill.bill_form == "form1" %>
-                <tr>
-                  <td>
-                    <%= form.label :ค่าไฟหน่วยเดิม  %>
-                    <%= form.text_field :old_unit, id: :old_unit %>
-                  </td>
-                  <td>
-                    <%= form.label :ค่าไฟหน่วยใหม่ %>
-                    <%= form.text_field :new_unit, id: :new_unit %>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <%= form.label :ค่าไฟต่อหน่วย %>
-                    <%= form.text_field :unit_price, id: :unit_price %>
-                  </td>
-                  <td>
-                    <%= form.label :ค่าน้ำต่อคน, 'ค่าน้ำต่อคน (บาท)' %>
-                    <%= form.text_field :unit_price_form2 %>
-                  </td>
-                </tr>
-              <% end %>
+      <br><br>
+      <table class="table">
+        <thead>
+          <h3 id="bill-form-heading"><%= @bill.form_select %></h3>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <%= form.label :หมายเลขห้อง %>
+              <%= form.collection_select :rent_id, Room.all, :id, "room_num", { prompt: "เลือกห้อง" }, { id: "bill_rent_id" } %>
+            </td>
+            <td>
+            
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= form.label :วันที่ %>
+              <%= form.date_select :bill_date, id: :bill_date , class:"form-control" %>
+            </td>
+            <td>
               
-
-                <tr>
-                  <td>
-                    <%= form.label :หมายเหตุ %>
-                    <%= form.text_field :bill_remark, id: :bill_bill_remark %>
-                  </td>
-                  <td>
-                    
-                  </td>
-                </tr>
-            </tbody>
-    </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= form.label :หมายเหตุ %>
+              <%= form.text_field :bill_remark, id: :bill_bill_remark %>
+            </td>
+            <td>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <div class="actions">
-        <%= form.submit "สร้างบิล", class: 'btn btn-primary'%>
+      <%= form.submit "ยืนยัน", class: 'btn btn-primary'%>
+      <%= link_to 'กลับ', bills_path , class: "btn btn-primary"%>
       </div>
-      <%= link_to 'Back', bills_path , class: "btn btn-primary"%>
-
-  <% end %>
-  
-  
+    <% end %>
   

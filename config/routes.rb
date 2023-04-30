@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   resources :halls
 
   get '/bill_form_partial', to: 'bills#bill_form_partial'
-
+  patch '/bills/:id', to: 'bills#update', as: 'update_bill'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

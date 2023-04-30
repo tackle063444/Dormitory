@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 
 
@@ -18,9 +16,9 @@
 					<li><%= link_to 'Room', rooms_path %></li>
 					<li><%= link_to 'User', users_path %></li>
 					<li><%= link_to 'Rent', rents_path %></li>
-                    <li class="fh5co-active"><%= link_to 'Bill', bills_path %></li>
-                    <li><%= link_to 'List', bill_lists_path %></li>
-                    <li><%= link_to 'List_Type', list_types_path %></li>
+          <li class="fh5co-active"><%= link_to 'Bill', bills_path %></li>
+          <li><%= link_to 'List', bill_lists_path %></li>
+
 				</ul>
 			</nav>
 
@@ -33,13 +31,45 @@
 
         <%= render 'form', bill: @bill %>
 
-        <%= link_to 'Show', @bill , class: 'btn btn-primary'%> |
-        <%= link_to 'Back', bills_path , class: 'btn btn-primary'%>
-
+        <% if @bill.present? && @bill.try(:bill_form) == "form1" %>
+                <tr>
+                  <td>
+                    <%= form.label :ค่าไฟหน่วยเดิม  %>
+                    <%= form.text_field :old_unit, id: :old_unit %>
+                  </td>
+                  <td>
+                    <%= form.label :ค่าไฟหน่วยใหม่ %>
+                    <%= form.text_field :new_unit, id: :new_unit %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <%= form.label :ค่าไฟต่อหน่วย %>
+                    <%= form.text_field :unit_price, id: :unit_price %>
+                  </td>
+                  <td>
+                    <%= form.label :ค่าน้ำต่อคน, 'ค่าน้ำต่อคน (บาท)' %>
+                    <%= form.text_field :unit_price_form2 %>
+                  </td>
+                </tr>
+                <% end %>
+				        <tr>
+                  <td>
+                  <%= form_with(model: @bill, local: true) do |form| %>
+                    <%= form.label :รายการ %>
+                    <div id="bill-lists">
+                      <div class="bill-list">
+                        <%= form.collection_select :bill_list_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" } %>
+                        <button type="button" class="remove-list">ลบ</button>
+                      </div>
+                    </div>
+                    <button type="button" class="add-list">เพิ่มรายการ</button>
+                  <% end %>                  
+                  </td>
+              </tr>
 			</div>
 		</div>
 	</div>
-
 
 	</body>
 </html>

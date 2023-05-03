@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+BillList.create(id: 1, is_pay: nil, created_at: "2023-04-28 03:40:07", updated_at: "2023-04-28 03:40:07", unit_price: 4.5, list_typeName: "ค่าไฟ")
+BillList.create(id: 2, is_pay: nil, created_at: "2023-04-28 03:40:15", updated_at: "2023-04-28 03:40:15", unit_price: 100.0, list_typeName: "ค่าน้ำ")

@@ -11,10 +11,16 @@
     </div>
   <% end %>
 
- <div class="field">
+  <div class="field">
+  <% if @bill_list.list_typeName != "ค่าไฟ" && @bill_list.list_typeName != "ค่าน้ำ" %>
     <%= form.label :ชื่อรายการ %>
     <%= form.text_field :list_typeName, id: :list_typeName , class:"form-control" %>
-  </div>
+  <% else %>
+    <%= form.label :ชื่อรายการ %>
+    <%= form.text_field :list_typeName, id: :list_typeName , class:"form-control", readonly: true %>
+  <% end %>
+</div>
+
 
    <div class="field">
     <%= form.label :ราคาต่อหหน่วย %>

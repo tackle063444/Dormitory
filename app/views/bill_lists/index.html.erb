@@ -36,11 +36,16 @@
 
             <tbody>
               <% @bill_lists.each do |bill_list| %>
+				
                 <tr>
                   <td><%= bill_list.list_typeName %></td>
                   <td><%= bill_list.unit_price %></td>
                   <td><%= link_to 'Edit', edit_bill_list_path(bill_list), class:"btn btn-outline-warning" %></td>
-                  <td><%= link_to 'Destroy', bill_list, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
+                  <td>
+				  	<% if bill_list.list_typeName != "ค่าไฟ" && bill_list.list_typeName != "ค่าน้ำ" %>
+				 		 <%= link_to 'Destroy', bill_list, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %>
+					<% end %> 
+				  </td>
                 </tr>
               <% end %>
             </tbody>

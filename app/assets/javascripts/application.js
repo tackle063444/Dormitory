@@ -17,34 +17,23 @@
 //= require jquery_ujs 
 
   $(document).ready(function() {
-    // ดักเหตุการณ์เมื่อผู้ใช้เลือกตัวเลือกในเลือกตัวเลือกฟอร์ม
-    $('#bill-form-heading').css('display', 'none');
-  
-    // ดักเหตุการณ์เมื่อผู้ใช้เลือกตัวเลือกในเลือกตัวเลือกฟอร์ม
-    $('#bill_form').on('change', function() {
-      var selectedOption = $(this).val();
-      var message = "";
-      switch(selectedOption) {
-        case "form1":
-          message = "ใบแจ้งค่าบริการห้องพัก";
-          $('#electricity-table').show(); //แสดงตารางค่าไฟที่ซ่อนอยู่
-          break;
-        case "form2":
-          message = "ใบเสร็จรับเงินค่าเช่าห้องพัก";
-          break;
-        case "form3":
-          message = "ใบเสร็จรับเงินค่ามัดจำห้องพัก";
-          break;
-        case "form4":
-          message = "ใบแจ้งคืนค่าบริการห้องพัก";
-          break;
-        default:
-          message = "";
-          break;
-      }
-      $('#bill-form-heading').html(message).css('display', 'block');
-    });
 
+    // ซ่อนฟอร์มไว้เมื่อหน้าเว็บโหลดเสร็จ
+    $('#e_form').hide();
+    $('#w_form').hide();
+    
+    // เมื่อมีการเลือกค่าใน select
+    $('#bill_list_id').on('change', function() {
+      var selectedValue = $(this).val();
+      if (selectedValue == '1') {
+        $('#e_form').show();
+      } else if (selectedValue == '2') {
+        $('#water').show();
+      } else {
+        $('#e_form').hide();
+        $('#w_form').hide();
+      }
+    });
 
     var formData = [];
     
@@ -63,7 +52,8 @@
         $(this).closest('.bill-list').remove();
       }
     });  
-    
+
+
     $('form').submit(function(event) {
       event.preventDefault();
       var formObj = $(this).serializeArray();
@@ -91,20 +81,4 @@
     }
 
 
-  });
-  
-  $(document).ready(function() {
-    $('#bill_bill_list_id').change(function() {
-      var selectedValue = $(this).find(':selected').text();
-      if (selectedValue == 'ค่าไฟ') {
-        $('#electricity-form').show();
-        $('#water-form').hide();
-      } else if (selectedValue == 'ค่าน้ำ') {
-        $('#electricity-form').hide();
-        $('#water-form').show();
-      } else {
-        $('#electricity-form').show();
-        $('#water-form').show();
-      }
-    });
   });

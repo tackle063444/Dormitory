@@ -66,7 +66,7 @@ class BillsController < ApplicationController
   # PATCH/PUT /bills/1 or /bills/1.json
   def update
     respond_to do |format|
-      puts "bill_params",bill_params
+      
       #byebug
       if @bill.update(bill_params)
         format.html { redirect_to bills_url(@bill), notice: "Bill was successfully updated." }

@@ -18,7 +18,6 @@
 					<li><%= link_to 'Rent', rents_path %></li>
           <li class="fh5co-active"><%= link_to 'Bill', bills_path %></li>
           <li><%= link_to 'List', bill_lists_path %></li>
-
 				</ul>
 			</nav>
 
@@ -29,25 +28,7 @@
 				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">แก้ไขข้อมูล</h2>
       <%= form_with(model: @bill, url: bill_path(@bill), local: true, method: :patch) do |form| %>
         <p id="notice"><%= notice %></p>
-
         <table>
-        <% if @bill.present? %>
-          <tr>
-              <td>
-                <% if @bill.bill_list.present? && @bill.bill_list.list_typeName == "ค่าไฟ" %>
-                  <%= form.label :ค่าไฟหน่วยเดิม  %>
-                  <%= form.text_field :old_unit, id: :old_unit %>
-                  <%= form.label :ค่าไฟหน่วยใหม่ %>
-                  <%= form.text_field :new_unit, id: :new_unit %>
-                  <%= form.label :ค่าไฟต่อหน่วย %>
-                  <%= form.text_field :unit_price, id: :unit_price %>
-                <% elsif @bill.bill_list.present? && @bill.bill_list.list_typeName == "ค่าน้ำ" %>
-                  <%= form.label :ค่าน้ำต่อคน, 'ค่าน้ำต่อคน (บาท)' %>
-                  <%= form.text_field :unit_price_form2 %>
-                <% end %>
-              </td>
-          </tr>
-        <% end %>
         <tr>
           <td>
             <%= form_with(model: @bill, local: true) do |form| %>
@@ -59,13 +40,25 @@
                   <button type="button" class="remove-list">ลบ</button>
                 </div>
               </div>                 
-              <%= render 'form', bill: @bill %>
             <% end %>
           </td>
+          <tr>
+          <td>
+            <div id="e_form">
+              <%= form.label :ค่าไฟหน่วยเดิม  %>
+              <%= form.text_field :old_unit, id: :old_unit %>
+              <%= form.label :ค่าไฟหน่วยใหม่ %>
+              <%= form.text_field :new_unit, id: :new_unit %>
+              <%= form.label :ค่าไฟต่อหน่วย %>
+              <%= form.text_field :unit_price, id: :unit_price %>
+            </div>
+          </td>
+          </tr>
         </tr>    
+
       </table>
+      <%= render 'form', bill: @bill %>
      <% end %> 
-     
 			</div>
 		</div>
 	</div>

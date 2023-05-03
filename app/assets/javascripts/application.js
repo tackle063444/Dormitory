@@ -45,19 +45,6 @@
       $('#bill-form-heading').html(message).css('display', 'block');
     });
 
-    $('#bill_bill_list_id').change(function() {
-      var selectedValue = $(this).find(':selected').text();
-      if (selectedValue == 'ค่าไฟ') {
-        $('#electricity-form').show();
-        $('#water-form').hide();
-      } else if (selectedValue == 'ค่าน้ำ') {
-        $('#electricity-form').hide();
-        $('#water-form').show();
-      } else {
-        $('#electricity-form').show();
-        $('#water-form').show();
-      }
-    });
 
     var formData = [];
     
@@ -106,4 +93,18 @@
 
   });
   
-  
+  $(document).ready(function() {
+    $('#bill_bill_list_id').change(function() {
+      var selectedValue = $(this).find(':selected').text();
+      if (selectedValue == 'ค่าไฟ') {
+        $('#electricity-form').show();
+        $('#water-form').hide();
+      } else if (selectedValue == 'ค่าน้ำ') {
+        $('#electricity-form').hide();
+        $('#water-form').show();
+      } else {
+        $('#electricity-form').show();
+        $('#water-form').show();
+      }
+    });
+  });

@@ -16,8 +16,6 @@
 //= require jquery 
 //= require jquery_ujs 
 
-
-
   $(document).ready(function() {
     // ดักเหตุการณ์เมื่อผู้ใช้เลือกตัวเลือกในเลือกตัวเลือกฟอร์ม
     $('#bill-form-heading').css('display', 'none');
@@ -47,12 +45,30 @@
       $('#bill-form-heading').html(message).css('display', 'block');
     });
 
+    $('#bill_bill_list_id').change(function() {
+      var selectedValue = $(this).find(':selected').text();
+      if (selectedValue == 'ค่าไฟ') {
+        $('#electricity-form').show();
+        $('#water-form').hide();
+      } else if (selectedValue == 'ค่าน้ำ') {
+        $('#electricity-form').hide();
+        $('#water-form').show();
+      } else {
+        $('#electricity-form').show();
+        $('#water-form').show();
+      }
+    });
+
+    var formData = [];
     
     $('.add-list').click(function() {
+      var formObj = $('#bill_form').serializeArray();
+      formData.push(formObj);
       var template = $('.bill-list').first().clone();
       template.find('select').val('');
       $('#bill-lists').append(template);
     });
+    
     
     $(document).on('click', '.remove-list', function() {
       var $billLists = $('.bill-list');
@@ -60,6 +76,25 @@
         $(this).closest('.bill-list').remove();
       }
     });  
+    
+    $('form').submit(function(event) {
+      event.preventDefault();
+      var formObj = $(this).serializeArray();
+      formData.push(formObj);
+      var data = JSON.stringify(formData);
+      $.ajax({
+        type: 'POST',
+        url: '/save-data',
+        data: { data: data },
+        success: function(response) {
+          alert('การบันทึกข้อมูลสำเร็จ');
+        },
+        error: function(response) {
+          // แสดงข้อความเตือนเมื่อมีข้อผิดพลาดในการส่งข้อมูล
+          alert('การบันทึกข้อมูลไม่สำเร็จ');
+        }
+      })
+    });
     
     // ตรวจสอบค่า default เมื่อหน้าเว็บโหลดเสร็จแล้ว
     var formSelect = document.getElementById("bill_form");
@@ -70,4 +105,5 @@
 
 
   });
+  
   

@@ -34,6 +34,7 @@ gem 'pdfkit'
 gem 'wicked_pdf'
 
 
+gem 'byebug'
 gem 'figaro'
 gem 'unf'
 gem 'dotenv'

@@ -2,6 +2,29 @@ class Bill < ApplicationRecord
   belongs_to :rent, optional: true
   belongs_to :bill_list, optional: true
   belongs_to :hall, optional: true
+  belongs_to :room, optional: true
+  before_save :get_bill_no
+  
+  def get_bill_no
+    if self.bill_no.nil? or self.bill_no.blank?
+      new_year = bill_date.strftime("%Y")
+      new_month = bill_date.strftime("%m")
+      new_bill_no = "BN-" + new_year.slice(2,2) + new_month + "-" + room.room_num
+      self.bill_no = new_bill_no
+    end
+  end
 
-  attr_accessor :form_select
+  def form_select_text
+    case form_select 
+    when 'form1' 
+      "ใบแจ้งค่าบริการห้องพัก"
+    when 'form2' 
+      "ใบเสร็จรับเงินค่าบริการห้องพัก"
+    when 'form3' 
+      "ใบเสร็จรับเงินค่ามัดจำห้องพัก"
+    when 'form4' 
+     "ใบแจ้งคืนค่าประกันห้องพัก"
+    end 
+  end
+
 end

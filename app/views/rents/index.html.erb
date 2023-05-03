@@ -46,6 +46,7 @@
             <% @rent.includes(:room, :user).order("rooms.room_num ASC").each do |rent| %>
               <tr>
                 <td><%= rent.room.room_num %></td>
+                <td><%= rent.id %></td>
                 <td><%= rent.user.user_fname %></td>
                 <td><%= rent.rent_start %></td>
                 <td><%= rent.rent_end %></td>

@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Dormitory</title>
-    <%= csrf_meta_tags %>
+    
 	<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
@@ -55,6 +55,7 @@
 
   <body>
     <%= yield %> 
+	<%= csrf_meta_tags %>
   </body>
   
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

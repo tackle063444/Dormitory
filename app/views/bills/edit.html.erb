@@ -27,46 +27,45 @@
 	<div id="fh5co-main">
 		<div class="fh5co-narrow-content">
 				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">แก้ไขข้อมูล</h2>
-		<p id="notice"><%= notice %></p>
+      <%= form_with(model: @bill, url: bill_path(@bill), local: true, method: :patch) do |form| %>
+        <p id="notice"><%= notice %></p>
 
-        <%= render 'form', bill: @bill %>
-
-        <% if @bill.present? && @bill.try(:bill_form) == "form1" %>
-                <tr>
-                  <td>
-                    <%= form.label :ค่าไฟหน่วยเดิม  %>
-                    <%= form.text_field :old_unit, id: :old_unit %>
-                  </td>
-                  <td>
-                    <%= form.label :ค่าไฟหน่วยใหม่ %>
-                    <%= form.text_field :new_unit, id: :new_unit %>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <%= form.label :ค่าไฟต่อหน่วย %>
-                    <%= form.text_field :unit_price, id: :unit_price %>
-                  </td>
-                  <td>
-                    <%= form.label :ค่าน้ำต่อคน, 'ค่าน้ำต่อคน (บาท)' %>
-                    <%= form.text_field :unit_price_form2 %>
-                  </td>
-                </tr>
+        <table>
+        <% if @bill.present? %>
+          <tr>
+              <td>
+                <% if @bill.bill_list.present? && @bill.bill_list.list_typeName == "ค่าไฟ" %>
+                  <%= form.label :ค่าไฟหน่วยเดิม  %>
+                  <%= form.text_field :old_unit, id: :old_unit %>
+                  <%= form.label :ค่าไฟหน่วยใหม่ %>
+                  <%= form.text_field :new_unit, id: :new_unit %>
+                  <%= form.label :ค่าไฟต่อหน่วย %>
+                  <%= form.text_field :unit_price, id: :unit_price %>
+                <% elsif @bill.bill_list.present? && @bill.bill_list.list_typeName == "ค่าน้ำ" %>
+                  <%= form.label :ค่าน้ำต่อคน, 'ค่าน้ำต่อคน (บาท)' %>
+                  <%= form.text_field :unit_price_form2 %>
                 <% end %>
-				        <tr>
-                  <td>
-                  <%= form_with(model: @bill, local: true) do |form| %>
-                    <%= form.label :รายการ %>
-                    <div id="bill-lists">
-                      <div class="bill-list">
-                        <%= form.collection_select :bill_list_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" } %>
-                        <button type="button" class="remove-list">ลบ</button>
-                      </div>
-                    </div>
-                    <button type="button" class="add-list">เพิ่มรายการ</button>
-                  <% end %>                  
-                  </td>
-              </tr>
+              </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>
+            <%= form_with(model: @bill, local: true) do |form| %>
+              <%= form.label :รายการ %>
+              <button type="button" class="add-list">เพิ่มรายการ</button>
+              <div id="bill-lists">
+                <div class="bill-list">
+                  <%= form.collection_select :bill_list_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" } %>
+                  <button type="button" class="remove-list">ลบ</button>
+                </div>
+              </div>                 
+              <%= render 'form', bill: @bill %>
+            <% end %>
+          </td>
+        </tr>    
+      </table>
+     <% end %> 
+     
 			</div>
 		</div>
 	</div>

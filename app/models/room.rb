@@ -3,5 +3,13 @@ class Room < ApplicationRecord
   has_many :rents, foreign_key: :room_id
   has_many :bills
 
-  enum room_status: ['ว่าง', 'ไม่ว่าง', 'จอง', 'ยกเลิก']
+
+  def self.check_room_user_relation
+
+    room_ids = Rent.joins(:room).group(:room_id).count.select {|k,v| v == 3}.keys
+    Room.where.not(id: room_ids)
+    
+  end
+
+  
 end

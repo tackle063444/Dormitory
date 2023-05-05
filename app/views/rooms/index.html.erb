@@ -39,7 +39,6 @@
 				</div>
          	<% end %> 
 			<div class="card"> 
-				<%= link_to 'แสดงผู้เช่า', users_path(room_id: room.id), class: 'btn btn-outline-info' %>
 				<%= link_to 'แก้ไข', edit_room_path(room), class: 'btn btn-outline-warning' %>
 				<%= link_to 'ลบ', room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
 			</div>

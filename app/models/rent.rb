@@ -8,12 +8,7 @@ class Rent < ApplicationRecord
     User.where.not(id: excluded_ids).pluck(:user_fname, :id) # ดึงข้อมูล user_fname และ id ของ user ที่ไม่อยู่ใน excluded_ids
   end
 
-  def check_room_user_relation
-    user_ids = Rent.where(room_id: self.room_id).pluck(:user_id).uniq
-    if user_ids.count >= 3
-      self.errors.add(:base, "This room has too many renters.")
-    end
-  end  
+  
   
 
 end

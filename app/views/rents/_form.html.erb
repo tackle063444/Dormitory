@@ -9,19 +9,14 @@
       </ul>
     </div>
   <% end %>
-  <table class: 'table table-dark table-hover'>
+  <table class: 'table'>
 <tr>
   <td>
   <%= form.label :Room_id %>
-  <%= form.collection_select :room_id, Room.all, :id, "room_num", { prompt: "เลือกห้อง" }, { id: "room-select" } %>
+  <%= form.collection_select :room_id, Room.check_room_user_relation, :id, :room_num, class: 'form-control', id: 'room-select' %>
   </td>
 </tr>
-<tr>
-  <td>
-  <%= form.label :จำนวนผู้พักในห้อง %>
-  <div id="rent-user-info"></div>
-  </td>
-</tr>
+
 <tr>
   <td>
   <%= form.label :User_id %>

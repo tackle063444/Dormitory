@@ -52,7 +52,7 @@
 				</tr>
             	<tr>
 					<td><%= form.label :room_num, class:"form-label" %></td>
-					<td><%= form.text_field :room_num, id: :room_num %></td>
+					<td><%= form.text_field :room_num, id: :room_num , class: 'form-control' %></td>
 				</tr>
             	<tr>
 					<td><%= form.label :user_id, class:"form-label" %></td>
@@ -75,7 +75,7 @@
               <%= form.submit  "Confirm", class: "btn btn-primary" %>
             </div>
 
-        <%= link_to 'Back', rooms_path , class: "btn btn-primary" %>
+        	<%= link_to 'Back', rooms_path , class: "btn btn-primary" %>
 
 			</div>
 		</div>

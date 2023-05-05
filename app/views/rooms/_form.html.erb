@@ -23,20 +23,6 @@
 								<td><%= form.label :room_num, class:"form-label" %></td>
 								<td><%= form.text_field :room_num, id: :room_num %></td>
 							</tr>
-              <tr>
-								<td><%= form.label :User_id, class:"form-label" %></td>
-								<td><%= form.collection_select :user_id, User.all, :id, :user_fname, class:"form-control" %></td>
-							</tr>
-              <tr>
-								<td><%= form.label :สถานะห้อง, class:"form-label" %></td>
-                <td>
-                <%= form.radio_button :room_status, true, id: :room_status_empty %>
-                <%= form.label :room_status_empty, 'ห้องว่าง' %>
-                <br>
-                <%= form.radio_button :room_status, false, id: :room_status_occupied %>
-                <%= form.label :room_status_occupied, 'ห้องไม่ว่าง' %>
-                </td>
-							</tr>
 						</tbody>
   				</table>
             <div class="actions">

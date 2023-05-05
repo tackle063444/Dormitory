@@ -20,7 +20,7 @@ class BillsController < ApplicationController
     end
   end
   
-
+  
   # GET /bills/1 or /bills/1.json
   def show
     @bill = Bill.find(params[:id])
@@ -37,20 +37,22 @@ class BillsController < ApplicationController
   def new
     @bill = Bill.new
     @bill = Bill.new(form_select: params[:form_select])
+    
   end
 
     # GET /bills/1/edit
   def edit
-
+    total_users = Room.where(room_num: request.params[:room_num]).joins(:rents).distinct.count('rents.user_id')
   end
 
   
   # POST /bills or /bills.json
   def create
-    selected_form = params[:bill]["form-select"]
+    selected_form = params[:bill]["form_select"]
     bill_params_with_room_id = bill_params.merge(room_id: params[:bill][:room_id]).merge(form_select: selected_form)
     @bill = Bill.new(bill_params_with_room_id)
-    @bill.get_bill_no # เรียกใช้ method get_bill_no เพื่อกำหนดค่า bill_no
+    @bill.get_bill_no 
+
     respond_to do |format|
       if @bill.save
         redirect_to bills_url(@bill), notice: "Bill was successfully created." and return
@@ -66,7 +68,6 @@ class BillsController < ApplicationController
   # PATCH/PUT /bills/1 or /bills/1.json
   def update
     respond_to do |format|
-      
       #byebug
       if @bill.update(bill_params)
         format.html { redirect_to bills_url(@bill), notice: "Bill was successfully updated." }
@@ -96,7 +97,7 @@ class BillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bill_params
-      params.require(:bill).permit(:bill_list_id, :bill_date, :bill_no, :bill_total, :bill_remark, :rent_id,:form_select, :room_id).tap do |whitelisted|
+      params.require(:bill).permit(:bill_list_id, :bill_date, :bill_no, :bill_total, :bill_remark, :rent_id,:form_select, :room_id, :new_unit, :oldunit, :unit_price).tap do |whitelisted|
         #unless Rent.exists?(id: whitelisted[:rent_id])
         #  flash[:error] = "ไม่พบการเช่าห้องนี้"
 

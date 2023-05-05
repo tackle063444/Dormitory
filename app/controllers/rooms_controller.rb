@@ -23,12 +23,9 @@ class RoomsController < ApplicationController
   def edit
   end
 
-
   # POST /rooms or /rooms.json
   def create
     @room = Room.new(room_params)
-
-    if params[:room][:room_status].present?
     respond_to do |format|
       if @room.save
         format.html { redirect_to room_url(@room), notice: "Room was successfully created." }
@@ -37,22 +34,13 @@ class RoomsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
-    else
-      flash[:error] = "Please select a room type."
-      
-      end
     end
   end
+  
 
   # PATCH/PUT /rooms/1 or /rooms/1.json
   def update
 
-    if params[:room_status] == 'true'
-      # room is empty
-    else
-      # room is occupied
-    end
-    
     respond_to do |format|
       if @room.update(room_params)
         format.html { redirect_to room_url(@room), notice: "Room was successfully updated." }
@@ -82,6 +70,6 @@ class RoomsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def room_params
-      params.require(:room).permit(:hall_id, :user_id, :room_num, :room_status)
+      params.require(:room).permit(:hall_id, :room_num)
     end
 end

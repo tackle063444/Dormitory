@@ -37,17 +37,16 @@
           </thead>
 
           <tbody>
-            <% @bills.each do |bill| %>
-              <tr> 
-                <td><%= bill.bill_no %></td>
-                <td><%= bill.room&.room_num %></td>
-				<td><%= bill.form_select_text %></td>
-
-
-                <td><%= link_to 'Edit', edit_bill_path(bill), class:"btn btn-outline-warning" %></td>
-                <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
-              </tr>
-            <% end %>
+		  <% @bills.sort_by { |bill| bill.room&.room_num.to_i }.each do |bill| %>
+			<tr> 
+			  <td><%= bill.bill_no %></td>
+			  <td><%= bill.room&.room_num %></td>
+			  <td><%= bill.form_select_text %></td>
+			  <td><%= link_to 'Edit', edit_bill_path(bill), class:"btn btn-outline-warning" %></td>
+			  <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
+			</tr>
+		  <% end %>
+		  
           </tbody>
         </table>
          <br>

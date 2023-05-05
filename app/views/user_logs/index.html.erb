@@ -1,0 +1,26 @@
+<h1>User History</h1>
+
+<table class="table table-dark table-hover">
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>User Address</th>
+      <th>User Tel</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%  @user_logs.reverse.each do |user_log| %>
+      <tr>
+        <td><%= user_log.action %></td>
+        <td><%= user_log.user_fname %></td>
+        <td><%= user_log.user_lname %></td>
+        <td><%= user_log.user_address %></td>
+        <td><%= user_log.user_tel %></td>
+        <td><%= user_log.created_at.in_time_zone('Asia/Bangkok').strftime('%Y-%m-%d %H:%M:%S') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

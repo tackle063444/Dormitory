@@ -20,11 +20,21 @@
         <tbody>
           <tr>
             <td>
-            <%= form.label :หมายเลขห้อง %>
-            <%= form.collection_select :room_id, Room.all, :id, "room_num", { prompt: "เลือกห้อง" }, { id: "bill_rent_id" } %>
+              <%= form.label :หมายเลขห้อง %>
+              <%= form.collection_select :room_id, Room.all, :id, "room_num", { prompt: "เลือกห้อง" }, { id: "room-select" } %>
             </td>        
-            <td>
-            </td>
+           <tr>
+           <td>
+           <%= form.label :รายชื่อผู้พักในห้อง %>
+           <div id="rent-user-info"></div>
+           </td>
+           </tr>
+          </tr>
+          <tr>
+          <td>
+          <%= form.label :จำนวนผู้พักในห้อง %>
+          <%= form.text_field :bill_remark, id: :bill_bill_remark %>
+          </td>
           </tr>
           <tr>
             <td>
@@ -47,7 +57,7 @@
         </tbody>
       </table>
       <div class="actions">
-      <%= form.submit "ยืนยัน", class: 'btn btn-primary'%>
+      <%= form.submit "ยืนยัน", class: 'btn btn-primary', id: 'ss_form'%>
       <%= link_to 'กลับ', bills_path , class: "btn btn-primary"%>
       </div>
     <% end %>

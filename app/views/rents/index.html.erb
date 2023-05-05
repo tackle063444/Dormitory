@@ -37,7 +37,6 @@
               <th>User</th>
               <th>Rent start</th>
               <th>Rent end</th>
-              <th>Rent history</th>
               <th colspan="3"></th>
             </tr>
           </thead>
@@ -46,7 +45,6 @@
             <% @rent.includes(:room, :user).order("rooms.room_num ASC").each do |rent| %>
               <tr>
                 <td><%= rent.room.room_num %></td>
-                <td><%= rent.id %></td>
                 <td><%= rent.user.user_fname %></td>
                 <td><%= rent.rent_start %></td>
                 <td><%= rent.rent_end %></td>
@@ -58,7 +56,6 @@
           </tbody>
         </table>
          <br>
-        <%= link_to 'กลับ', rooms_path, class: 'btn btn-primary' %>
 			</div>
 		</div>
 	</div>

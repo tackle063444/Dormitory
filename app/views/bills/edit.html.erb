@@ -1,8 +1,6 @@
 
 <!DOCTYPE html>
 
-
-
 	</head>
 	<body>
 	<div id="fh5co-page">
@@ -20,7 +18,6 @@
           <li><%= link_to 'List', bill_lists_path %></li>
 				</ul>
 			</nav>
-
 		</aside>
 
 	<div id="fh5co-main">
@@ -36,25 +33,35 @@
               <button type="button" class="add-list">เพิ่มรายการ</button>
               <div id="bill-lists">
                 <div class="bill-list">
-                  <%= form.collection_select :bill_list_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" } %>
+                  <%= form.collection_select :bill_list_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" }, class: 'bill_list' %>
                   <button type="button" class="remove-list">ลบ</button>
                 </div>
               </div>                 
             <% end %>
           </td>
+          </tr>    
           <tr>
           <td>
             <div id="e_form">
               <%= form.label :ค่าไฟหน่วยเดิม  %>
-              <%= form.text_field :old_unit, id: :old_unit %>
+              <%= form.text_field :old_unit, id: :old_unit , class: 'form-control'%>
               <%= form.label :ค่าไฟหน่วยใหม่ %>
-              <%= form.text_field :new_unit, id: :new_unit %>
-              <%= form.label :ค่าไฟต่อหน่วย %>
-              <%= form.text_field :unit_price, id: :unit_price %>
+              <%= form.text_field :new_unit, id: :new_unit, class: 'form-control' %>
+              <%= form.label :หน่วยที่ใช้ไป %>
+              <%= form.text_field :e_price, id: :e_price, readonly: true , class: 'form-control'%>
             </div>
           </td>
           </tr>
-        </tr>    
+          <tr>
+          <td>
+            <div id="w_form">
+              <%= form.label :ค่าน้ำxจำนวนคน %>
+              <%= form.text_field :w_price, id: :w_price, readonly: true , class: 'form-control'%>
+            </div>
+          </td>
+          </tr>
+          
+
 
       </table>
       <%= render 'form', bill: @bill %>

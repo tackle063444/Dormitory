@@ -16,24 +16,58 @@
 //= require jquery 
 //= require jquery_ujs 
 
-  $(document).ready(function() {
+$(document).ready(function() {
 
-    // ซ่อนฟอร์มไว้เมื่อหน้าเว็บโหลดเสร็จ
+ // เมื่อมีการเปลี่ยนค่าของหมายเลขห้อง
+ $('#room-select').on('change', function() {
+  var room_id = $(this).val(); // ดึงค่าของหมายเลขห้องที่ถูกเลือก
+  // ส่ง request เพื่อดึงข้อมูลผู้ใช้งาน
+  $.ajax({
+    url: '/get_rent_user_info',
+    data: { room_id: room_id },
+    success: function(response) {
+      // สร้าง HTML สำหรับแสดงผลข้อมูลผู้ใช้งาน
+      var html = '<ul>';
+      $.each(response, function(index, user) {
+        html += '<li>' + ' -> ' + user.user_fname + ' ' + user.user_lname + '</li>';
+      });
+      html += '</ul>';
+      // แสดงผลข้อมูลผู้ใช้งานใน tag HTML ที่มี id เท่ากับ "rent-user-info"
+      $('#rent-user-info').html(html);
+    }
+  });
+  });
+
     $('#e_form').hide();
     $('#w_form').hide();
     
-    // เมื่อมีการเลือกค่าใน select
-    $('#bill_list_id').on('change', function() {
+    $('.bill_list').on('change', function() {
       var selectedValue = $(this).val();
-      if (selectedValue == '1') {
+      console.log(selectedValue);
+      var list_typeName = $(this).find('option:selected').text();
+      if ((selectedValue.indexOf('1') > -1 && list_typeName == 'ค่าไฟ') ||
+          (selectedValue.indexOf('2') > -1 && list_typeName == 'ค่าน้ำ')) {
         $('#e_form').show();
-      } else if (selectedValue == '2') {
-        $('#water').show();
+        $('#w_form').show();
+      } else if (selectedValue == '1' && list_typeName == 'ค่าไฟ') {
+        $('#e_form').show();
+        $('#w_form').hide();
+      } else if (selectedValue == '2' && list_typeName == 'ค่าน้ำ') {
+        $('#w_form').show();
+        $('#e_form').hide();
       } else {
         $('#e_form').hide();
         $('#w_form').hide();
       }
     });
+
+    $(document).on('input', '#new_unit, #old_unit', function() {
+      const oldUnit = parseFloat($('#old_unit').val()) || 0;
+      const newUnit = parseFloat($('#new_unit').val()) || 0;
+      const unitPrice = (newUnit - oldUnit).toFixed(2);
+      $('#e_price').val(unitPrice);
+    });
+  
 
     var formData = [];
     
@@ -53,8 +87,9 @@
       }
     });  
 
+    
+    $('#ss_form').submit(function(event) {
 
-    $('form').submit(function(event) {
       event.preventDefault();
       var formObj = $(this).serializeArray();
       formData.push(formObj);
@@ -67,18 +102,43 @@
           alert('การบันทึกข้อมูลสำเร็จ');
         },
         error: function(response) {
-          // แสดงข้อความเตือนเมื่อมีข้อผิดพลาดในการส่งข้อมูล
+       
           alert('การบันทึกข้อมูลไม่สำเร็จ');
+          location.reload();
         }
       })
     });
     
-    // ตรวจสอบค่า default เมื่อหน้าเว็บโหลดเสร็จแล้ว
+ 
     var formSelect = document.getElementById("bill_form");
     var selectedForm = formSelect.options[formSelect.selectedIndex].value;
     if (selectedForm) {
       document.getElementById("bill-form-heading").innerHTML = selectedForm;
     }
+
+    //
+    $('#c_user').on('change', function() {
+      var selected_user_id = $(this).val();
+      var selected_room_id = $('#rent_room_id').val();
+    
+      $.ajax({
+        url: '/checkRent',
+        data: {
+          user_id: selected_user_id,
+          room_id: selected_room_id
+        },
+        success: function(response) {
+          if (response == 'rented' || selected_user_id == '<%= @rent.user_id %>') {
+            $(`#c_user option[value="${selected_user_id}"]`).hide();
+          } else {
+            // ถ้ายังไม่เช่าให้แสดงผลต่อไป
+          }
+        },
+        error: function() {
+          console.log('An error occurred while checking for rent history.');
+        }
+      });
+    });
 
 
   });

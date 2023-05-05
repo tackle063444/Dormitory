@@ -14,6 +14,20 @@ class RentsController < ApplicationController
   def show
   end
 
+  def renters
+    room_id = params[:room_id]
+    rents = Rent.where(room_id: room_id).pluck(:user_id).uniq
+    users = User.where(id: rents)
+    render json: users
+  end
+
+  def get_rent_user_info
+    room_id = params[:room_id]
+    # ดึงข้อมูลผู้ใช้งานที่เช่าห้องดังกล่าว
+    @users = User.joins(rents: :room).where(rooms: { id: room_id }).select('users.id, users.user_fname, users.user_lname, rents.id AS rent_id')
+    # ส่งกลับเป็น JSON response
+    render json: @users
+  end
   # GET /rents/new
   def new
     @rent = Rent.new
@@ -69,6 +83,6 @@ class RentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rent_params
-      params.require(:rent).permit(:room_id, :user_id, :rent_start, :rent_end, :rent_history)
+      params.require(:rent).permit(:room_id, :user_id, :rent_start, :rent_end)
     end
 end

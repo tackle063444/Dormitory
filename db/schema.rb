@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_02_065820) do
+ActiveRecord::Schema.define(version: 2023_05_05_032805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_065820) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "form_select"
+    t.float "w_price"
+    t.float "e_price"
     t.index ["bill_list_id"], name: "index_bills_on_bill_list_id"
     t.index ["rent_id"], name: "index_bills_on_rent_id"
     t.index ["room_id"], name: "index_bills_on_room_id"
@@ -78,6 +80,17 @@ ActiveRecord::Schema.define(version: 2023_05_02_065820) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bill_id"], name: "index_statements_on_bill_id"
+  end
+
+  create_table "user_logs", force: :cascade do |t|
+    t.string "action"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_fname"
+    t.string "user_lname"
+    t.string "user_address"
+    t.string "user_tel"
   end
 
   create_table "users", force: :cascade do |t|

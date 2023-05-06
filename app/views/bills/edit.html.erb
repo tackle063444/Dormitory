@@ -29,15 +29,15 @@
         <tr>
           <td>
             <%= form_with(model: @bill, local: true) do |form| %>
-              <%= form.label :รายการ %>
-              <button type="button" class="add-list">เพิ่มรายการ</button>
-              <div id="bill-lists">
-                <div class="bill-list">
-                  <%= form.collection_select :bill_list_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" }, class: 'bill_list' %>
-                  <button type="button" class="remove-list">ลบ</button>
-                </div>
-              </div>                 
-            <% end %>
+          <%= form.label :รายการ %>
+          <button type="button" class="add-list">เพิ่มรายการ</button>
+          <div id="bill-lists">
+            <div class="bill-list">
+              <%= form.collection_select :bill_list_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" }, class: 'bill_list' %>
+              <button type="button" class="remove-list">ลบ</button>
+            </div>
+          </div>
+        <% end %>
           </td>
           </tr>    
           <tr>

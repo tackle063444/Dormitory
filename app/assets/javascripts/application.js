@@ -61,6 +61,7 @@ $(document).ready(function() {
       }
     });
 
+    //calculate function
     $(document).on('input', '#new_unit, #old_unit', function() {
       const oldUnit = parseFloat($('#old_unit').val()) || 0;
       const newUnit = parseFloat($('#new_unit').val()) || 0;
@@ -69,49 +70,51 @@ $(document).ready(function() {
     });
   
     //clone list form
-    var formData = [];
-    
-    $('.add-list').click(function() {
-      var $template = $('.bill-list').first().clone();
-      var index = $('.bill-list').length;
-      $template.find('select').each(function() {
-        var name = $(this).attr('name').replace(/([0-9]+)/, index);
-        var id = $(this).attr('id').replace(/([0-9]+)/, index);
-        $(this).attr('name', name);
-        $(this).attr('id', id);
-        $(this).val('');
+    document.addEventListener("DOMContentLoaded", function() {
+      const addListBtn = document.querySelector(".add-list");
+      const billLists = document.querySelector("#bill-lists");
+      const submitBtn = document.querySelector("#ss_form");
+  
+      let billListCounter = 1;
+      const billListArray = [];
+  
+      addListBtn.addEventListener("click", function() {
+        const newBillList = document.createElement("div");
+        newBillList.classList.add("bill-list");
+        newBillList.innerHTML = `
+          <select name="bill[bill_list_ids][]" class="bill_list">
+            <option value="">เลือกรายการ</option>
+            <% BillList.all.each do |list| %>
+              <option value="<%= list.id %>"><%= list.list_typeName %></option>
+            <% end %>
+          </select>
+          <button type="button" class="remove-list">ลบ</button>
+        `;
+        billLists.appendChild(newBillList);
+  
+        billListArray.push(newBillList.querySelector(".bill_list").value);
+        billListCounter++;
       });
-      $('#bill-lists').append($template);
-    });
-    
-    
-    $(document).on('click', '.remove-list', function() {
-      var $billLists = $('.bill-list');
-      if ($billLists.length > 1) {
-        $(this).closest('.bill-list').remove();
-      }
-    });  
-
-    
-    $('#ss_form').submit(function(event) {
-
-      event.preventDefault();
-      var formObj = $(this).serializeArray();
-      formData.push(formObj);
-      var data = JSON.stringify(formData);
-      $.ajax({
-        type: 'POST',
-        url: '/save-data',
-        data: { data: data },
-        success: function(response) {
-          alert('การบันทึกข้อมูลสำเร็จ');
-        },
-        error: function(response) {
-       
-          alert('การบันทึกข้อมูลไม่สำเร็จ');
-          location.reload();
+  
+      billLists.addEventListener("click", function(e) {
+        if (e.target.classList.contains("remove-list")) {
+          e.target.closest(".bill-list").remove();
+  
+          const index = billListArray.indexOf(e.target.closest(".bill-list").querySelector(".bill_list").value);
+          if (index > -1) {
+            billListArray.splice(index, 1);
+          }
+          billListCounter--;
         }
-      })
+      });
+  
+      submitBtn.addEventListener("click", function() {
+        const hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.name = "bill[bill_list_ids]";
+        hiddenInput.value = billListArray.join(",");
+        this.form.appendChild(hiddenInput);
+      });
     });
     
  
@@ -145,6 +148,6 @@ $(document).ready(function() {
       });
     });
 
-  
+    
 
   });

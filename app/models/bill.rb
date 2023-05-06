@@ -6,13 +6,17 @@ class Bill < ApplicationRecord
   before_save :get_bill_no
   
   def get_bill_no
-    if self.bill_no.nil? or self.bill_no.blank?
+    if self.bill_no.nil? || self.bill_no.blank?
+      room = Room.find(room_id)
+      hall = Hall.find(room.hall_id)
+      codename_hall = hall.codename_hall
       new_year = bill_date.strftime("%Y")
       new_month = bill_date.strftime("%m")
-      new_bill_no = "BN-" + new_year.slice(2,2) + new_month + "-" + room.room_num
+      new_bill_no = "#{codename_hall}-#{new_year.slice(2,2)}#{new_month}-#{room.room_num}"
       self.bill_no = new_bill_no
     end
   end
+  
 
   def form_select_text
     case form_select 

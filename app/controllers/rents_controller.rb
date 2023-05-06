@@ -46,7 +46,7 @@ class RentsController < ApplicationController
         format.html { redirect_to rents_url(@rent), notice: "Rent was successfully created." }
         format.json { render :show, status: :created, location: @rent }
       else
-        format.html { render :index, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @rent.errors, status: :unprocessable_entity }
       end
     end

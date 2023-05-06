@@ -66,6 +66,6 @@ class HallsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hall_params
-      params.require(:hall).permit(:hall_name, :hall_address, :hall_tel, :hall_logo)
+      params.require(:hall).permit(:hall_name, :hall_address, :hall_tel, :hall_logo, :codename_hall)
     end
 end

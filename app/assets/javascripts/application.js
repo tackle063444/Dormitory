@@ -68,15 +68,20 @@ $(document).ready(function() {
       $('#e_price').val(unitPrice);
     });
   
-
+    //clone list form
     var formData = [];
     
     $('.add-list').click(function() {
-      var formObj = $('#bill_form').serializeArray();
-      formData.push(formObj);
-      var template = $('.bill-list').first().clone();
-      template.find('select').val('');
-      $('#bill-lists').append(template);
+      var $template = $('.bill-list').first().clone();
+      var index = $('.bill-list').length;
+      $template.find('select').each(function() {
+        var name = $(this).attr('name').replace(/([0-9]+)/, index);
+        var id = $(this).attr('id').replace(/([0-9]+)/, index);
+        $(this).attr('name', name);
+        $(this).attr('id', id);
+        $(this).val('');
+      });
+      $('#bill-lists').append($template);
     });
     
     
@@ -140,5 +145,6 @@ $(document).ready(function() {
       });
     });
 
+  
 
   });

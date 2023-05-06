@@ -13,10 +13,9 @@
 <tr>
   <td>
   <%= form.label :Room_id %>
-  <%= form.collection_select :room_id, Room.check_room_user_relation, :id, :room_num, class: 'form-control', id: 'room-select' %>
+  <%= form.collection_select :room_id, Room.check_room_user_relation, :id, :room_name, class: 'form-control', id: 'room-select' %>
   </td>
 </tr>
-
 <tr>
   <td>
   <%= form.label :User_id %>

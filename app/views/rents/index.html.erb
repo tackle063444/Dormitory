@@ -33,6 +33,7 @@
         <table class="table table-dark table-hover">
           <thead>
             <tr>
+              <th>Hall</th>
               <th>Room</th>
               <th>User</th>
               <th>Rent start</th>
@@ -44,6 +45,7 @@
           <tbody>
             <% @rent.includes(:room, :user).order("rooms.room_num ASC").each do |rent| %>
               <tr>
+                <td><%= rent.room.hall.hall_name %></td>
                 <td><%= rent.room.room_num %></td>
                 <td><%= rent.user.user_fname %></td>
                 <td><%= rent.rent_start %></td>

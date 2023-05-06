@@ -12,7 +12,7 @@
     <br>
     <div class="field">
         <label for="form-select">เลือกแบบฟอร์มใบเสร็จ </label>
-        <%= form.select :form_select, options_for_select([["ใบแจ้งค่าบริการห้องพัก", "form1"], ["ใบเสร็จรับเงินค่าเช่าห้องพัก", "form2"], ["ใบเสร็จรับเงินค่ามัดจำห้องพัก", "form3"], ["ใบแจ้งคืนค่าบริการห้องพัก", "form4"]], selected: @bill.form_select), {}, required: true %>
+        <%= form.select :form_select, options_for_select([["ใบแจ้งค่าบริการห้องพัก", "form1"], ["ใบเสร็จรับเงินค่าเช่าห้องพัก", "form2"], ["ใบเสร็จรับเงินค่ามัดจำห้องพัก", "form3"], ["ใบแจ้งคืนค่าบริการห้องพัก", "form4"]], selected: @bill.form_select), required: true %>
       <br><br>
       <table class="table">
         <thead>
@@ -21,28 +21,15 @@
           <tr>
             <td>
               <%= form.label :หมายเลขห้อง %>
-              <%= form.collection_select :room_id, Room.all, :id, "room_num", { prompt: "เลือกห้อง" }, { id: "room-select" } %>
+              <%= form.collection_select :room_id, Room.all, :id, "room_name", { prompt: "เลือกห้อง" }, { id: "room-select" } %>
             </td>        
-           <tr>
-           <td>
-           <%= form.label :รายชื่อผู้พักในห้อง %>
-           <div id="rent-user-info"></div>
-           </td>
            </tr>
-          </tr>
-          <tr>
-          <td>
-          <%= form.label :จำนวนผู้พักในห้อง %>
-          <%= form.text_field :bill_remark, id: :bill_bill_remark %>
-          </td>
-          </tr>
           <tr>
             <td>
-              <%= form.label :วันที่ %>
+              <%= form.label :เลขที่บิล %>
               <%= form.date_select :bill_date, id: :bill_date , class:"form-control" %>
             </td>
             <td>
-              
             </td>
           </tr>
           <tr>
@@ -51,7 +38,6 @@
               <%= form.text_field :bill_remark, id: :bill_bill_remark %>
             </td>
             <td>
-              
             </td>
           </tr>
         </tbody>

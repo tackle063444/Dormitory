@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_05_095043) do
+ActiveRecord::Schema.define(version: 2023_05_06_032257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,7 +38,9 @@ ActiveRecord::Schema.define(version: 2023_05_05_095043) do
     t.string "form_select"
     t.float "w_price"
     t.float "e_price"
+    t.bigint "hall_id"
     t.index ["bill_list_id"], name: "index_bills_on_bill_list_id"
+    t.index ["hall_id"], name: "index_bills_on_hall_id"
     t.index ["rent_id"], name: "index_bills_on_rent_id"
     t.index ["room_id"], name: "index_bills_on_room_id"
   end
@@ -50,6 +52,7 @@ ActiveRecord::Schema.define(version: 2023_05_05_095043) do
     t.string "hall_logo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "codename_hall"
   end
 
   create_table "rents", force: :cascade do |t|
@@ -60,6 +63,8 @@ ActiveRecord::Schema.define(version: 2023_05_05_095043) do
     t.string "rent_history"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "hall_id"
+    t.index ["hall_id"], name: "index_rents_on_hall_id"
     t.index ["room_id"], name: "index_rents_on_room_id"
     t.index ["user_id"], name: "index_rents_on_user_id"
   end
@@ -103,8 +108,10 @@ ActiveRecord::Schema.define(version: 2023_05_05_095043) do
   end
 
   add_foreign_key "bills", "bill_lists"
+  add_foreign_key "bills", "halls"
   add_foreign_key "bills", "rents"
   add_foreign_key "bills", "rooms"
+  add_foreign_key "rents", "halls"
   add_foreign_key "rents", "rooms"
   add_foreign_key "rents", "users"
   add_foreign_key "rooms", "halls"

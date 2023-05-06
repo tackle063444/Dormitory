@@ -30,20 +30,28 @@
 				<%= link_to 'เพิ่มห้องพักใหม่', new_room_path,  id: 'open-form' ,class: 'btn btn-outline-success' %>
 			<div class="row row-bottom-padded-md">
 					
-        <% @room.order(room_num: :asc).each do |room| %>
-            <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-			<%= link_to users_path(room_id: room.id), class: "work image-popup", style: "background-image: url('/assets/images1/img_bg_3.jpg')" do %>
-				<div class="card">
-				<h2>เลขห้อง</h2>
-				<h3> <%= room.room_num %> </h3>
+			<% @room.order(room_num: :asc).each do |room| %>
+				<% room_status = room.room_show_status %>
+				<% occupied_count = room.occupied_count %>
+				
+				<div class="col-md-3 col-sm-6 col-padding text-center animate-box">
+				  <%= link_to users_path(room_id: room.id), class: "work image-popup", style: "background-image: url('/assets/images1/img_bg_3.jpg')" do %>
+					<div class="card">
+					  <h2>เลขห้อง</h2>
+					  <h3><%= room.room_num %></h3>
+					</div>
+				  <% end %>
+				  <div class="card">
+					<h3><%= room_status %></h3>	  
+					<p><%= "จำนวนคนที่เช่า: #{occupied_count}" %></p>
+					<%= link_to 'แก้ไข', edit_room_path(room), class: 'btn btn-outline-warning' %>
+					<%= link_to 'ลบ', room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+				  </div>
 				</div>
-         	<% end %> 
-			<div class="card"> 
-				<%= link_to 'แก้ไข', edit_room_path(room), class: 'btn btn-outline-warning' %>
-				<%= link_to 'ลบ', room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
-			</div>
-				</div>
-        <% end %>
+			  <% end %>
+			  
+			  
+			  
 			</div>
 		</div>
 	</div>

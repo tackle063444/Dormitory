@@ -34,12 +34,12 @@
 			  <%= link_to rooms_path(hall_id: hall.id), class: "work image-popup", style: "background-image: url('/assets/images1/img_bg_3.jpg')" do %>
 					
 				<div class="card">
-				<h2>ชื่อหอ</h2>
+				<h2> <%= hall.codename_hall %> </h2>
 				<h3> <%= hall.hall_name %> </h3>
 				</div>
          	<% end %>
 			<div class="card"> 
-				<%= link_to 'แสดงห้อง', rooms_path(hall_id: hall.id), class: 'btn btn-outline-info' %>
+	
 				<%= link_to 'แก้ไข', edit_hall_path(hall), class: 'btn btn-outline-warning' %>
 				<%= link_to 'ลบ', hall, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
 			</div>

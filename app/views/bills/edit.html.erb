@@ -1,12 +1,9 @@
-
 <!DOCTYPE html>
-
 	</head>
 	<body>
 	<div id="fh5co-page">
 		<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
 		<aside id="fh5co-aside" role="complementary" class="border js-fullheight">
-
 			<h1 id="fh5co-logo"><a href="index.html">Bill</a></h1>
 			<nav id="fh5co-main-menu" role="navigation">
 				<ul>
@@ -28,18 +25,20 @@
         <table>
         <tr>
           <td>
-            <%= form_with(model: @bill, local: true) do |form| %>
-          <%= form.label :รายการ %>
-          <button type="button" class="add-list">เพิ่มรายการ</button>
-          <div id="bill-lists">
-            <div class="bill-list">
-              <%= form.collection_select :bill_list_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" }, class: 'bill_list' %>
-              <button type="button" class="remove-list">ลบ</button>
+          <%= form_for @bill do |form| %>
+            <%= form.label :รายการ %>
+            <div id="bill-lists">
+              <%= form.nested_fields_for :bill_lists do |bill_list_form| %>
+                <%= bill_list_form.collection_select :bill_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" }, class: 'bill_list' %>
+
+              <% end %>
+              <%= link_to_add_association 'เพิ่มรายการ', form, :bill_lists, class: 'add_list' %>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+          
+          
           </td>
-          </tr>    
+          </tr>  
           <tr>
           <td>
             <div id="e_form">
@@ -55,12 +54,11 @@
           <tr>
           <td>
             <div id="w_form">
-              <%= form.label :ค่าน้ำxจำนวนคน %>
+              <%= form.label :จำนวนคน %>
               <%= form.text_field :w_price, id: :w_price, class: 'form-control'%>
             </div>
           </td>
           </tr>
-          
       </table>
       <%= render 'form', bill: @bill %>
      <% end %> 

@@ -6,19 +6,7 @@ class BillsController < ApplicationController
     @bills = Bill.includes(:room).all
     @bill = Bill.new(form_select: params[:form_select])
   end
-  
 
-  def generate_bill
-    @bill = Bill.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = Prawn::Document.new
-        pdf.text "Hello, World!"
-        send_data pdf.render, filename: "example.pdf", type: "application/pdf", disposition: "inline"
-      end
-    end
-  end
   
   
   # GET /bills/1 or /bills/1.json
@@ -35,9 +23,8 @@ class BillsController < ApplicationController
 
   # GET /bills/new
   def new
-    @bill = Bill.new
     @bill = Bill.new(form_select: params[:form_select])
-    
+    @bill.bill_lists.build
   end
 
     # GET /bills/1/edit
@@ -97,12 +84,7 @@ class BillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bill_params
-      params.require(:bill).permit(:bill_list_id, :bill_date, :bill_no, :bill_total, :bill_remark, :rent_id,:form_select, :room_id, :new_unit, :oldunit, :unit_price).tap do |whitelisted|
-        #unless Rent.exists?(id: whitelisted[:rent_id])
-        #  flash[:error] = "ไม่พบการเช่าห้องนี้"
-
-        #end
-      end
+      params.require(:bill).permit(:bill_list_id, :bill_date, :bill_no, :bill_total, :bill_remark, :rent_id, :form_select, :room_id, :new_unit, :oldunit, :unit_price, bill_lists_attributes: [:id, :list_typeName, :_destroy])
     end
     
      

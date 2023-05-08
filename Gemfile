@@ -32,7 +32,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'prawn', '~> 2.1'
 gem 'pdfkit' 
 gem 'wicked_pdf'
-
+gem 'vanilla_nested'
+gem 'carrierwave'
+gem 'aws-sdk-s3', require: false
+gem 'rack-timeout'
 
 gem 'byebug'
 gem 'figaro'
@@ -40,6 +43,8 @@ gem 'unf'
 gem 'dotenv'
 
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'nested_form_fields'
+gem 'cocoon'
 
 
 gem 'jquery-rails'

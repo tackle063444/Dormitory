@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_06_032257) do
+ActiveRecord::Schema.define(version: 2023_05_08_075723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2023_05_06_032257) do
     t.datetime "updated_at", null: false
     t.float "unit_price"
     t.string "list_typeName"
+    t.bigint "bill_id"
+    t.index ["bill_id"], name: "index_bill_lists_on_bill_id"
   end
 
   create_table "bills", force: :cascade do |t|
@@ -107,6 +109,7 @@ ActiveRecord::Schema.define(version: 2023_05_06_032257) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bill_lists", "bills"
   add_foreign_key "bills", "bill_lists"
   add_foreign_key "bills", "halls"
   add_foreign_key "bills", "rents"

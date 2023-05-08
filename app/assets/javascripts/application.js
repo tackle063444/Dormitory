@@ -10,13 +10,26 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// require rails-ujs ถูกโหลดแล้ว ไม่ต้องโหลดซ้ำ
 //= require turbolinks
 //= require_tree .
 //= require jquery 
 //= require jquery_ujs 
+//= require nested_form_fields
+//= require jquery3
+//= require jquery_ujs
 
 $(document).ready(function() {
+  
+  $(document).on("click", ".add_list", function() {
+    var $bill_lists = $("#bill-lists");
+    var $new_list = $bill_lists.find(".bill-list").first().clone();
+    $new_list.find(".bill_list").val("");
+    $bill_lists.append($new_list);
+  });
+
+  $(document).on("click", ".remove-list", function() {
+    $(this).closest(".bill-list").remove();
+  });
 
  // เมื่อมีการเปลี่ยนค่าของหมายเลขห้อง
  $('#room-select').on('change', function() {
@@ -42,24 +55,19 @@ $(document).ready(function() {
     $('#w_form').hide();
     
     $('.bill_list').on('change', function() {
-      var selectedValue = $(this).val();
-      console.log(selectedValue);
-      var list_typeName = $(this).find('option:selected').text();
-      if ((selectedValue.indexOf('1') > -1 && list_typeName == 'ค่าไฟ') ||
-          (selectedValue.indexOf('2') > -1 && list_typeName == 'ค่าน้ำ')) {
-        $('#e_form').show();
-        $('#w_form').show();
-      } else if (selectedValue == '1' && list_typeName == 'ค่าไฟ') {
-        $('#e_form').show();
-        $('#w_form').hide();
-      } else if (selectedValue == '2' && list_typeName == 'ค่าน้ำ') {
-        $('#w_form').show();
-        $('#e_form').hide();
+      var bill_list_id = $(this).val(); // รับค่า bill_list_id จาก select element
+      
+      if (bill_list_id == 1) {
+        $('#e_form').show(); // แสดง e_form ถ้า bill_list_id เท่ากับ 1
+        $('#w_form').hide(); // ซ่อน w_form ถ้า bill_list_id เท่ากับ 1
+      } else if (bill_list_id == 2) {
+        $('#w_form').show(); // แสดง w_form ถ้า bill_list_id เท่ากับ 2
+        $('#e_form').hide(); // ซ่อน e_form ถ้า bill_list_id เท่ากับ 2
       } else {
-        $('#e_form').hide();
-        $('#w_form').hide();
+        $('#e_form, #w_form').hide(); // ซ่อนทั้ง 2 ฟอร์มถ้าไม
       }
     });
+    
 
     //calculate function
     $(document).on('input', '#new_unit, #old_unit', function() {
@@ -69,54 +77,6 @@ $(document).ready(function() {
       $('#e_price').val(unitPrice);
     });
   
-    //clone list form
-    document.addEventListener("DOMContentLoaded", function() {
-      const addListBtn = document.querySelector(".add-list");
-      const billLists = document.querySelector("#bill-lists");
-      const submitBtn = document.querySelector("#ss_form");
-  
-      let billListCounter = 1;
-      const billListArray = [];
-  
-      addListBtn.addEventListener("click", function() {
-        const newBillList = document.createElement("div");
-        newBillList.classList.add("bill-list");
-        newBillList.innerHTML = `
-          <select name="bill[bill_list_ids][]" class="bill_list">
-            <option value="">เลือกรายการ</option>
-            <% BillList.all.each do |list| %>
-              <option value="<%= list.id %>"><%= list.list_typeName %></option>
-            <% end %>
-          </select>
-          <button type="button" class="remove-list">ลบ</button>
-        `;
-        billLists.appendChild(newBillList);
-  
-        billListArray.push(newBillList.querySelector(".bill_list").value);
-        billListCounter++;
-      });
-  
-      billLists.addEventListener("click", function(e) {
-        if (e.target.classList.contains("remove-list")) {
-          e.target.closest(".bill-list").remove();
-  
-          const index = billListArray.indexOf(e.target.closest(".bill-list").querySelector(".bill_list").value);
-          if (index > -1) {
-            billListArray.splice(index, 1);
-          }
-          billListCounter--;
-        }
-      });
-  
-      submitBtn.addEventListener("click", function() {
-        const hiddenInput = document.createElement("input");
-        hiddenInput.type = "hidden";
-        hiddenInput.name = "bill[bill_list_ids]";
-        hiddenInput.value = billListArray.join(",");
-        this.form.appendChild(hiddenInput);
-      });
-    });
-    
  
     var formSelect = document.getElementById("bill_form");
     var selectedForm = formSelect.options[formSelect.selectedIndex].value;
@@ -148,6 +108,7 @@ $(document).ready(function() {
       });
     });
 
+    
     
 
   });

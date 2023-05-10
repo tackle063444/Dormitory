@@ -1,4 +1,6 @@
-<div class="bill-list nested-fields">
-  <%= form.collection_select :bill_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" }, class: 'bill_list' %>
-  <%= link_to_remove_association "ลบ", form %>
+<!-- _bill_list_fields.html.erb -->
+<div class="nested-fields">
+<%= f.object.id %>
+  <%= f.collection_select :id, BillList.all, :id, :list_typeName, class: 'bill_list' %>
+  <%= link_to_remove_association "ลบรายการ", f, class: 'btn btn-danger' %>
 </div>

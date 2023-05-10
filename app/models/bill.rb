@@ -1,6 +1,6 @@
 class Bill < ApplicationRecord
   belongs_to :rent, optional: true
-  has_many :bill_lists
+  has_many :bill_lists, dependent: :destroy
   accepts_nested_attributes_for :bill_lists, allow_destroy: true
   belongs_to :hall, optional: true
   belongs_to :room, optional: true

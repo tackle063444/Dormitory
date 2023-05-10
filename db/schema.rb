@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_08_075723) do
+ActiveRecord::Schema.define(version: 2023_05_09_104408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,13 +33,9 @@ ActiveRecord::Schema.define(version: 2023_05_08_075723) do
     t.string "bill_no"
     t.float "bill_total"
     t.string "bill_remark"
-    t.integer "old_unit"
-    t.integer "new_unit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "form_select"
-    t.float "w_price"
-    t.float "e_price"
     t.bigint "hall_id"
     t.index ["bill_list_id"], name: "index_bills_on_bill_list_id"
     t.index ["hall_id"], name: "index_bills_on_hall_id"
@@ -55,6 +51,16 @@ ActiveRecord::Schema.define(version: 2023_05_08_075723) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "codename_hall"
+  end
+
+  create_table "head_lists", force: :cascade do |t|
+    t.bigint "bill_lists_id"
+    t.float "old_unit"
+    t.float "new_unit"
+    t.float "e_price"
+    t.float "w_price"
+    t.float "amount"
+    t.index ["bill_lists_id"], name: "index_head_lists_on_bill_lists_id"
   end
 
   create_table "rents", force: :cascade do |t|
@@ -114,6 +120,7 @@ ActiveRecord::Schema.define(version: 2023_05_08_075723) do
   add_foreign_key "bills", "halls"
   add_foreign_key "bills", "rents"
   add_foreign_key "bills", "rooms"
+  add_foreign_key "head_lists", "bill_lists", column: "bill_lists_id"
   add_foreign_key "rents", "halls"
   add_foreign_key "rents", "rooms"
   add_foreign_key "rents", "users"

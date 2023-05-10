@@ -25,40 +25,14 @@
         <table>
         <tr>
           <td>
-          <%= form_for @bill do |form| %>
-            <%= form.label :รายการ %>
-            <div id="bill-lists">
-              <%= form.nested_fields_for :bill_lists do |bill_list_form| %>
-                <%= bill_list_form.collection_select :bill_id, BillList.all, :id, :list_typeName, { prompt: "เลือกรายการ" }, class: 'bill_list' %>
+          <%= form.fields_for :bill_lists do |bill_list| %>
+			<%= render 'bill_list_fields', f: bill_list %>
+		  <% end %>
+		  <div class="links">
+			<%= link_to_add_association 'เพิ่มรายการ', form, :bill_lists, class: 'btn btn-primary' %>
+		  </div>
 
-              <% end %>
-              <%= link_to_add_association 'เพิ่มรายการ', form, :bill_lists, class: 'add_list' %>
-            </div>
-          <% end %>
-          
-          
-          </td>
-          </tr>  
-          <tr>
-          <td>
-            <div id="e_form">
-              <%= form.label :ค่าไฟหน่วยเดิม  %>
-              <%= form.text_field :old_unit, id: :old_unit , class: 'form-control'%>
-              <%= form.label :ค่าไฟหน่วยใหม่ %>
-              <%= form.text_field :new_unit, id: :new_unit, class: 'form-control' %>
-              <%= form.label :หน่วยที่ใช้ไป %>
-              <%= form.text_field :e_price, id: :e_price, readonly: true , class: 'form-control'%>
-            </div>
-          </td>
-          </tr>
-          <tr>
-          <td>
-            <div id="w_form">
-              <%= form.label :จำนวนคน %>
-              <%= form.text_field :w_price, id: :w_price, class: 'form-control'%>
-            </div>
-          </td>
-          </tr>
+         
       </table>
       <%= render 'form', bill: @bill %>
      <% end %> 

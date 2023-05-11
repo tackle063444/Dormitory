@@ -6,6 +6,10 @@ class BillListsController < ApplicationController
     @bill_lists = BillList.all
   end
 
+  def get_unit_price
+    bill_list = BillList.find(params[:id])
+    render json: { unit_price: bill_list.unit_price }
+  end
 
   # GET /bill_lists/new
   def new

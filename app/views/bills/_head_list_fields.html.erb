@@ -1,0 +1,29 @@
+<div class="nested-fields">
+  <table>
+    <tr>
+      <td>
+        <%= link_to_remove_association "ลบรายการ", f, class: 'btn btn-danger' %>
+      </td>
+      <td>
+      <%= f.select :bill_lists_id, options_for_select(BillList.all.map {|p| [p.bill_list_price, p.id, {'data-unit-price' => p.unit_price }]},f.object.bill_lists_id),{},  prompt: "กรุณาเลือกรายการ", data: { id: f.object.id } , class: 'bill_list'  %>
+      </td>
+   
+      <td class="old_unit">
+        <%= f.label :หน่วยเดิม %>
+        <%= f.number_field :old_unit, class: 'old_unit', step: 'any' %>
+      </td>
+      <td class="new_unit">
+        <%= f.label :หน่วยใหม่ %>
+        <%= f.number_field :new_unit, class: 'new_unit', step: 'any' %>
+      </td>
+      <td>
+        <%= f.label :จำนวน %>
+        <%= f.number_field :amount, class: 'amount', step: 'any' %>
+      </td>
+      <td>
+        <%= f.label :รวม %>
+        <%= f.number_field :head_total, class: 'head_total', step: 'any' %>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%= javascript_include_tag 'bill_list', 'data-turbolinks-track': 'reload' %>
 	</head>
 	<body>
 	<div id="fh5co-page">
@@ -19,17 +20,19 @@
 
 	<div id="fh5co-main">
 		<div class="fh5co-narrow-content">
-				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">แก้ไขข้อมูล</h2>
+		<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">แก้ไขข้อมูล</h2>
       <%= form_with(model: @bill, url: bill_path(@bill), local: true, method: :patch) do |form| %>
         <p id="notice"><%= notice %></p>
         <table>
         <tr>
           <td>
-          <%= form.fields_for :bill_lists do |bill_list| %>
-			<%= render 'bill_list_fields', f: bill_list %>
+          <%= form.fields_for :head_lists do |head_list| %>
+			<%= render 'head_list_fields', f: head_list %>
+
+
 		  <% end %>
 		  <div class="links">
-			<%= link_to_add_association 'เพิ่มรายการ', form, :bill_lists, class: 'btn btn-primary' %>
+			<%= link_to_add_association 'เพิ่มรายการ', form, :head_lists, class: 'btn btn-primary' %>
 		  </div>
 
          

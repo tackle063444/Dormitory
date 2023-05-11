@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :head_lists
   get 'user_logs/index'
   resources :bills
   resources :statements

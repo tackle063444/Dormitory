@@ -24,7 +24,7 @@ class BillsController < ApplicationController
   # GET /bills/new
   def new
     @bill = Bill.new(form_select: params[:form_select])
-    @bill.bill_lists.build
+ 
   end
 
     # GET /bills/1/edit
@@ -84,9 +84,12 @@ class BillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bill_params
-      params.require(:bill).permit(:bill_list_id, :bill_date, :bill_no, :bill_total, :bill_remark, :rent_id, :form_select, :room_id, :new_unit, :oldunit, :unit_price,
-      bill_lists_attributes: [:id, :list_typeName, :_destroy])
+      params.require(:bill).permit(
+        :bill_date, :bill_no, :bill_total, :bill_remark, :rent_id, :form_select, :room_id,
+        head_lists_attributes: [:id, :bill_lists_id, :list_typeNmae, :unit_price, :old_unit, :new_unit, :amount, :head_total, :_destroy]
+      )
     end
+    
     
      
 end

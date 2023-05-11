@@ -1,6 +1,0 @@
-<!-- _bill_list_fields.html.erb -->
-<div class="nested-fields">
-<%= f.object.id %>
-  <%= f.collection_select :id, BillList.all, :id, :list_typeName, class: 'bill_list' %>
-  <%= link_to_remove_association "ลบรายการ", f, class: 'btn btn-danger' %>
-</div>

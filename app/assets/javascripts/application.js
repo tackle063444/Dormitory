@@ -21,18 +21,8 @@
 
 $(document).ready(function() {
   
-  $(document).on("click", ".add_list", function() {
-    var $bill_lists = $("#bill-lists");
-    var $new_list = $bill_lists.find(".bill-list").first().clone();
-    $new_list.find(".bill_list").val("");
-    $bill_lists.append($new_list);
-  });
 
-  $(document).on("click", ".remove-list", function() {
-    $(this).closest(".bill-list").remove();
-  });
-
- // เมื่อมีการเปลี่ยนค่าของหมายเลขห้อง
+ // show user rent in room
  $('#room-select').on('change', function() {
   var room_id = $(this).val(); // ดึงค่าของหมายเลขห้องที่ถูกเลือก
   // ส่ง request เพื่อดึงข้อมูลผู้ใช้งาน
@@ -52,40 +42,13 @@ $(document).ready(function() {
   });
   });
 
-    $('#e_form').hide();
-    $('#w_form').hide();
-    
-    $('.bill_list').on('change', function() {
-      var bill_list_id = $(this).val(); // รับค่า bill_list_id จาก select element
-      
-      if (bill_list_id == 1) {
-        $('#e_form').show(); // แสดง e_form ถ้า bill_list_id เท่ากับ 1
-        $('#w_form').hide(); // ซ่อน w_form ถ้า bill_list_id เท่ากับ 1
-      } else if (bill_list_id == 2) {
-        $('#w_form').show(); // แสดง w_form ถ้า bill_list_id เท่ากับ 2
-        $('#e_form').hide(); // ซ่อน e_form ถ้า bill_list_id เท่ากับ 2
-      } else {
-        $('#e_form, #w_form').hide(); // ซ่อนทั้ง 2 ฟอร์มถ้าไม
-      }
-    });
-    
-
-    //calculate function
-    $(document).on('input', '#new_unit, #old_unit', function() {
-      const oldUnit = parseFloat($('#old_unit').val()) || 0;
-      const newUnit = parseFloat($('#new_unit').val()) || 0;
-      const unitPrice = (newUnit - oldUnit).toFixed(2);
-      $('#e_price').val(unitPrice);
-    });
-  
- 
     var formSelect = document.getElementById("bill_form");
     var selectedForm = formSelect.options[formSelect.selectedIndex].value;
     if (selectedForm) {
       document.getElementById("bill-form-heading").innerHTML = selectedForm;
     }
 
-    //
+    //check user rent?
     $('#c_user').on('change', function() {
       var selected_user_id = $(this).val();
       var selected_room_id = $('#rent_room_id').val();

@@ -25,14 +25,6 @@ class HallsController < ApplicationController
   
     respond_to do |format|
       if @hall.save
-        if params[:hall][:hall_logo].present?
-          uploaded_file = ActionDispatch::Http::UploadedFile.new(tempfile: params[:hall][:hall_logo].tempfile, filename: params[:hall][:hall_logo].original_filename)
-
-          # แนบไฟล์ที่อัปโหลดเข้ามาให้กับ attribute `hall_logo`
-          @hall.hall_logo.attach(io: uploaded_file, filename: uploaded_file.original_filename)
-        end
-        
-        logger.debug("Hall #{@hall} was successfully created")
         format.html { redirect_to @hall, notice: "Hall was successfully created." }
         format.json { render :show, status: :created, location: @hall }
       else
@@ -45,13 +37,7 @@ class HallsController < ApplicationController
   def update
     respond_to do |format|
       if @hall.update(hall_params)
-        if params[:hall][:hall_logo].present?
-          hall_logo = params[:hall][:hall_logo]
-          @hall.hall_logo.attach(io: hall_logo.read, filename: hall_logo.original_filename)
-        end
-        
-        logger.debug("Hall #{@hall} was successfully updated")
-        format.html { redirect_to @hall, notice: "Hall was successfully updated." }
+        format.html { redirect_to halls_url(@hall), notice: "Hall was successfully updated." }
         format.json { render :show, status: :ok, location: @hall }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -79,6 +65,7 @@ class HallsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hall_params
-      params.require(:hall).permit(:hall_name, :hall_address, :hall_tel, :codename_hall, :hall_logo)
+      params.require(:hall).permit(:hall_name, :hall_address, :hall_tel, :codename_hall)
     end
+ 
 end

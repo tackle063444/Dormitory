@@ -5,6 +5,7 @@ class Bill < ApplicationRecord
   belongs_to :hall, optional: true
   belongs_to :room, optional: true
   before_save :get_bill_no
+
   
   def get_bill_no
     if self.bill_no.nil? || self.bill_no.blank?

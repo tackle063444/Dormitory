@@ -1,4 +1,4 @@
 class HeadList < ApplicationRecord
     belongs_to :bill
-    has_many :bill_lists
+    belongs_to :bill_list
 end

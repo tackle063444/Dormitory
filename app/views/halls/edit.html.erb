@@ -26,11 +26,9 @@
 	<div id="fh5co-main">
 		<div class="fh5co-narrow-content">
 				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">แก้ไขข้อมูล</h2>
-				<%= link_to 'เพิ่มการเช่า', new_user_path, class:"btn btn-outline-success" %>
         <p id="notice"><%= notice %></p>
         
-        <%= render 'form', hall: @hall %>   <br>
-        <%= link_to 'แสดงข้อมูล', @hall, class: "btn btn-primary" %> |
+        <%= render 'form', hall: @hall %>
         <%= link_to 'กลับ', halls_path, class: "btn btn-primary" %>
 
 			</div>

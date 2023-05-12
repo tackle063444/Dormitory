@@ -28,14 +28,19 @@
           <td>
           <%= form.fields_for :head_lists do |head_list| %>
 			<%= render 'head_list_fields', f: head_list %>
-
-
 		  <% end %>
+
 		  <div class="links">
 			<%= link_to_add_association 'เพิ่มรายการ', form, :head_lists, class: 'btn btn-primary' %>
 		  </div>
-
-         
+          </td>
+         </tr>
+		 <tr>
+		 <td class="bill_total">
+			<%= form.label :ยอดรวมทั้งหมด %>
+			<%= form.number_field :bill_total, class: 'bill_total', step: 'any' %>
+     	</td>
+	 	</tr>
       </table>
       <%= render 'form', bill: @bill %>
      <% end %> 

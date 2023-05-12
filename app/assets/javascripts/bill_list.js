@@ -1,5 +1,6 @@
 $(document).ready(function() {
   // ซ่อนหรือแสดง old_unit และ new_unit ตามเงื่อนไข
+
   function toggleFields() {
     $('.bill_list').each(function() {
       var tr = $(this).closest('tr');
@@ -7,37 +8,45 @@ $(document).ready(function() {
       var selectedListType = selectedOption.text().trim();
       
       if (selectedOption.val() !== '1' && selectedListType !== 'ค่าไฟ') {
-        tr.find('.old_unit, .new_unit').hide();
+        tr.find('.old_unit, .new_unit, .e_price').hide();
       } else {
-        tr.find('.old_unit, .new_unit').show();
+        tr.find('.old_unit, .new_unit, .e_price').show();
+        tr.find('.amount').hide();
       }
     });
   }
 
   function calculate_form(selector) {
-
-    const selectElement = $('.bill_list');
+    const tr = selector.closest('tr');
+    const selectElement = tr.find('.bill_list');
     const selectedOption = selectElement.find(':selected');
     const unitPrice = parseFloat(selectedOption.data('unit-price'));
-    var tr = selector.closest('tr');
-    var selectedListType = selectedOption.text().trim();
-    var oldUnit = parseFloat(tr.find('input.old_unit').val()) || 0;
-    var newUnit = parseFloat(tr.find('input.new_unit').val()) || 0;
-    var amount = parseFloat(tr.find('input.amount').val()) || 0;
+    const selectedListType = selectedOption.text().trim();
   
     if (selectedOption.val() !== '1' && selectedListType !== 'ค่าไฟ') {
-      var headTotal = amount * unitPrice;
+      const amount = parseFloat(tr.find('input.amount').val()) || 0;
+      const headTotal = amount * unitPrice;
       tr.find('.head_total').val(headTotal);
     } else {
-      if (selectedOption.val() === '1') {
-        var amount = newUnit - oldUnit;
-      }
-      var headTotal = amount * unitPrice;
-      tr.find('.amount').val(amount);
+
+      const oldUnit = parseFloat(tr.find('input.old_unit').val()) || 0;
+      const newUnit = parseFloat(tr.find('input.new_unit').val()) || 0;
+      const ePrice = newUnit - oldUnit;
+      const headTotal = ePrice * unitPrice;
+      tr.find('.e_price').val(ePrice);
       tr.find('.head_total').val(headTotal);
     }
-  }  
-  
+  }
+
+  function calculateBillTotal() {
+    let bill_total = 0;
+    $('.head_total').each(function() {
+      const val = parseFloat($(this).val()) || 0;
+      bill_total += val;
+    });
+    $('.bill_total').val(bill_total);
+  }
+
   
   toggleFields();
 
@@ -48,7 +57,29 @@ $(document).ready(function() {
     
   $(document).on("change keyup", ".old_unit, .new_unit, .amount, .head_total", function() {
     calculate_form($(this));
+    calculateBillTotal($(this));
   });
   
+
+$('body').on('change', '.bill_list', function() {
+  var selectedOptionValue = $(this).val();
+
+  if ($('.bill_list').filter(function() { return $(this).val() == selectedOptionValue; }).length > 1) {
+    alert('ไม่สามารถเลือก bill_list_id ที่ซ้ำกันได้');
+    $(this).val(''); 
+  }
+});
+
+// เมื่อกดปุ่มเพิ่มฟอร์ม
+$('body').on('click', '.add_nested_fields', function() {
+  
+  var selectedOptionValue = $(this).closest('.nested-fields').find('.bill_list').val(); // ค่าของ option ที่ถูกเลือกในฟอร์มก่อนหน้านี้
+
+  // ถ้ามีฟอร์มที่มี bill_list_id เดียวกับ option ที่ถูกเลือกในฟอร์มก่อนหน้านี้
+  if ($('.bill_list').filter(function() { return $(this).val() == selectedOptionValue; }).length > 0) {
+    alert('ไม่สามารถเพิ่มฟอร์มที่มี bill_list_id เดียวกับฟอร์มก่อนหน้าได้');
+    return false; // ไม่ให้เพิ่มฟอร์ม
+  }
+});
 
 });

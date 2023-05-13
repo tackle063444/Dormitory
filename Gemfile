@@ -30,6 +30,9 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'prawn', '~> 2.1'
+gem 'prawn-table', '~> 0.2.2'
+gem 'baht'
+
 gem 'pdfkit' 
 gem 'wicked_pdf'
 gem 'vanilla_nested'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_12_100344) do
+ActiveRecord::Schema.define(version: 2023_05_15_044404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2023_05_12_100344) do
     t.float "amount"
     t.bigint "bill_id"
     t.float "head_total"
+    t.string "two_r"
     t.index ["bill_id"], name: "index_head_lists_on_bill_id"
     t.index ["bill_list_id"], name: "index_head_lists_on_bill_list_id"
   end

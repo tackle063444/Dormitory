@@ -11,13 +11,14 @@
 *	Edit this section
 *
 * ======================================================= */
+
 body {
   font-family: "Roboto", Arial, sans-serif;
   font-weight: 300;
   font-size: 14px;
   line-height: 1.6;
   color: rgb(0, 0, 0);
-  background: rgba(22, 43, 40, 0.26);
+  background: rgba(57, 99, 122, 0.26);
 }
 @media screen and (max-width: 992px) {
   body {
@@ -26,7 +27,7 @@ body {
 }
 
 a {
-  color: #228896;
+  color: #629399;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
@@ -131,11 +132,11 @@ figure figcaption {
   }
 }
 #fh5co-aside #fh5co-logo a {
-  color: #000;
+  color: #000000;
 }
 #fh5co-aside #fh5co-logo a span {
   font-weight: 300;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 #fh5co-aside #fh5co-main-menu ul {
   text-align: center;
@@ -157,7 +158,7 @@ figure figcaption {
   text-decoration: none;
   letter-spacing: .1em;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: 17px;
   font-weight: 600;
   position: relative;
   padding: 10px 10px;
@@ -189,7 +190,7 @@ figure figcaption {
 }
 #fh5co-aside #fh5co-main-menu ul li a:hover {
   text-decoration: none;
-  color: black;
+  color: rgb(255, 255, 255);
 }
 #fh5co-aside #fh5co-main-menu ul li a:hover:after {
   visibility: visible;
@@ -200,7 +201,7 @@ figure figcaption {
   transform: scaleX(1);
 }
 #fh5co-aside #fh5co-main-menu ul li.fh5co-active a {
-  color: black;
+  color: rgb(255, 255, 255);
 }
 #fh5co-aside #fh5co-main-menu ul li.fh5co-active a:after {
   visibility: visible;
@@ -217,7 +218,7 @@ figure figcaption {
   text-align: center;
   width: 100%;
   font-weight: 400;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.6);
   padding: 0 20px;
 }
 @media screen and (max-width: 768px) {
@@ -241,7 +242,7 @@ figure figcaption {
   list-style: none;
 }
 #fh5co-aside .fh5co-footer ul li a {
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 0.7);
   padding: 4px;
 }
 #fh5co-aside .fh5co-footer ul li a:hover, #fh5co-aside .fh5co-footer ul li a:active, #fh5co-aside .fh5co-footer ul li a:focus {
@@ -283,7 +284,7 @@ figure figcaption {
 
 #fh5co-hero {
   min-height: 500px;
-  background: #fff url(../images/loader.gif) no-repeat center center;
+
   width: 100%;
   float: left;
   clear: both;
@@ -310,7 +311,7 @@ figure figcaption {
   left: 0;
   right: 0;
   content: '';
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.3);
 }
 #fh5co-hero .flexslider .slides li {
   background-repeat: no-repeat;
@@ -517,7 +518,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: rgba(0, 0, 0, 0.4) !important;
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 .blog-entry .desc span small i {
   color: #e6e6e6;
@@ -526,7 +527,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #000;
+  color: #ffffff;
 }
 .blog-entry:hover .blog-img img {
   -webkit-transform: scale(1);
@@ -575,7 +576,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
 }
 .work .desc span {
   display: block;
-  color: #999999;
+  color: #ffffff;
   font-size: 12px;
   -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
   transition: transform 0.3s, opacity 0.3s;
@@ -728,7 +729,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
 }
 .fh5co-social li a {
   font-size: 22px;
-  color: #000;
+  color: #ffffff;
   padding: 10px;
   display: -moz-inline-stack;
   display: inline-block;
@@ -782,7 +783,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   height: 100px;
   display: table;
   text-align: center;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.05);
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -811,7 +812,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
 .fh5co-feature .fh5co-text h3 {
   font-weight: 500;
   margin-bottom: 20px;
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 14px;
   letter-spacing: .2em;
   text-transform: uppercase;
@@ -992,7 +993,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   appearance: none;
   box-shadow: none;
   background: transparent;
-  border: 2px solid rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   height: 54px;
   font-size: 18px;
   font-weight: 300;
@@ -1016,10 +1017,10 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   text-decoration: none;
 }
 .fh5co-nav-toggle.active i::before, .fh5co-nav-toggle.active i::after {
-  background: #000;
+  background: #ffffff;
 }
 .fh5co-nav-toggle.dark.active i::before, .fh5co-nav-toggle.dark.active i::after {
-  background: #000;
+  background: #ffffff;
 }
 .fh5co-nav-toggle:hover, .fh5co-nav-toggle:focus, .fh5co-nav-toggle:active {
   outline: none;
@@ -1033,18 +1034,18 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   *display: inline;
   width: 30px;
   height: 2px;
-  color: #000;
+  color: #ffffff;
   font: bold 14px/.4 Helvetica;
   text-transform: uppercase;
   text-indent: -55px;
-  background: #000;
+  background: #ffffff;
   transition: all .2s ease-out;
 }
 .fh5co-nav-toggle i::before, .fh5co-nav-toggle i::after {
   content: '';
   width: 30px;
   height: 2px;
-  background: #000;
+  background: #ffffff;
   position: absolute;
   left: 0;
   -webkit-transition: 0.2s;
@@ -1053,12 +1054,12 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
 }
 .fh5co-nav-toggle.dark i {
   position: relative;
-  color: #000;
-  background: #000;
+  color: #ffffff;
+  background: #ffffff;
   transition: all .2s ease-out;
 }
 .fh5co-nav-toggle.dark i::before, .fh5co-nav-toggle.dark i::after {
-  background: #000;
+  background: #ffffff;
   -webkit-transition: 0.2s;
   -o-transition: 0.2s;
   transition: 0.2s;
@@ -1174,7 +1175,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 10px rgb(255, 255, 255);
   display: none;
 }
 .popup.is-visible {
@@ -1187,7 +1188,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgb(255, 255, 255);
   z-index: 998;
   display: none;
 }

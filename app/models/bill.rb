@@ -6,7 +6,6 @@ class Bill < ApplicationRecord
   belongs_to :room, optional: true
   before_save :get_bill_no
 
-  
   def get_bill_no
     if self.bill_no.nil? || self.bill_no.blank?
       room = Room.find(room_id)
@@ -19,7 +18,6 @@ class Bill < ApplicationRecord
     end
   end
   
-
   def form_select_text
     case form_select 
     when 'form1' 
@@ -29,7 +27,7 @@ class Bill < ApplicationRecord
     when 'form3' 
       "ใบเสร็จรับเงินค่ามัดจำห้องพัก"
     when 'form4' 
-     "ใบแจ้งคืนค่าประกันห้องพัก"
+     "ใบแจ้งคืนค่าบริการห้องพัก"
     end 
   end
 

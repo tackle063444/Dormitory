@@ -8,7 +8,7 @@
 		<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
 		<aside id="fh5co-aside" role="complementary" class="border js-fullheight">
 
-			<h1 id="fh5co-logo"><a href="index.html">Dormitory</a></h1>
+			<h1 id="fh5co-logo">Dormitory</h1>
 			<nav id="fh5co-main-menu" role="navigation">
 				<ul>
 					<li class="fh5co-active"><%= link_to 'Dormitory', halls_path %></li>
@@ -31,7 +31,7 @@
 					
         <% @halls.each do |hall| %>
         <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-			  <%= link_to rooms_path(hall_id: hall.id), class: "work image-popup", style: "background-image: url('/assets/images1/img_bg_3.jpg')" do %>
+			  <%= link_to rooms_path(hall_id: hall.id), class: "work image-popup", style: "background-image: url('/assets/images/002.jpg')" do %>
 					
 				<div class="card">
 				<h2> <%= hall.codename_hall %> </h2>

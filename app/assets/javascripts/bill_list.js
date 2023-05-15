@@ -82,4 +82,23 @@ $('body').on('click', '.add_nested_fields', function() {
   }
 });
 
+$('.two_r').hide();
+
+function checkSelectedForm() {
+  const selectedOption = $('#form_select option:selected');
+  const selectedForm = selectedOption.val();
+  const selectedListType = selectedOption.text().trim();
+  
+  if (selectedForm === 'form4' && selectedListType === 'ใบแจ้งคืนค่าบริการห้องพัก') {
+    $('.two_r').show();
+  } else {
+    $('.two_r').hide();
+  }
+}
+
+$(document).on("change", "#form_select", function() {
+  checkSelectedForm();
+});
+
+
 });

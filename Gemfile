@@ -37,6 +37,9 @@ gem 'pdfkit'
 gem 'wicked_pdf'
 gem 'vanilla_nested'
 gem 'carrierwave'
+gem 'mini_magick'
+
+
 gem 'aws-sdk-s3', require: false
 gem 'rack-timeout'
 

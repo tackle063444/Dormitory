@@ -1,6 +1,39 @@
 $(document).ready(function() {
   // ซ่อนหรือแสดง old_unit และ new_unit ตามเงื่อนไข
 
+  $(document).on("change", "#form_select", function() {
+    checkSelectedForm();
+  });
+  
+  $(document).on("change", ".two_rs", function() {
+    checkSelectedForm();
+  });
+
+  function checkSelectedForm() {
+    const selectedOption = $('#form_select option:selected');
+    const selectedForm = selectedOption.val();
+    const selectedListType = selectedOption.text().trim();
+  
+
+    if (selectedForm === 'form4'&& selectedListType === 'ใบแจ้งคืนค่าบริการห้องพัก') {
+      $('.two_r').show();
+      const twoRValue = $('.two_rs').val();
+      console.log(twoRValue);
+
+      //คืน
+      if (twoRValue === 'form2') {
+        let returnTotal = 0;
+        
+        //หัก
+      } else if (twoRValue === 'form1') {
+        let reciveTotal = 0;
+        
+      }
+    } else {
+      $('.two_r').hide();
+    }
+  }
+
   function toggleFields() {
     $('.bill_list').each(function() {
       var tr = $(this).closest('tr');
@@ -28,7 +61,6 @@ $(document).ready(function() {
       const headTotal = amount * unitPrice;
       tr.find('.head_total').val(headTotal);
     } else {
-
       const oldUnit = parseFloat(tr.find('input.old_unit').val()) || 0;
       const newUnit = parseFloat(tr.find('input.new_unit').val()) || 0;
       const ePrice = newUnit - oldUnit;
@@ -82,23 +114,6 @@ $('body').on('click', '.add_nested_fields', function() {
   }
 });
 
-$('.two_r').hide();
-
-function checkSelectedForm() {
-  const selectedOption = $('#form_select option:selected');
-  const selectedForm = selectedOption.val();
-  const selectedListType = selectedOption.text().trim();
-  
-  if (selectedForm === 'form4' && selectedListType === 'ใบแจ้งคืนค่าบริการห้องพัก') {
-    $('.two_r').show();
-  } else {
-    $('.two_r').hide();
-  }
-}
-
-$(document).on("change", "#form_select", function() {
-  checkSelectedForm();
-});
 
 
 });

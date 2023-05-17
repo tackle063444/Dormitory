@@ -22,10 +22,11 @@ class HallsController < ApplicationController
   # POST /halls or /halls.json
   def create
     @hall = Hall.new(hall_params)
-  
+    @hall.hall_logo = params[:hall][:hall_logo]
+
     respond_to do |format|
       if @hall.save
-        format.html { redirect_to @hall, notice: "Hall was successfully created." }
+        format.html { redirect_to halls_path, notice: "Hall was successfully created." }
         format.json { render :show, status: :created, location: @hall }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class HallsController < ApplicationController
     respond_to do |format|
       if @hall.update(hall_params)
         format.html { redirect_to halls_url(@hall), notice: "Hall was successfully updated." }
-        format.json { render :show, status: :ok, location: @hall }
+        format.json { render :index, status: :ok, location: @hall }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @hall.errors, status: :unprocessable_entity }
@@ -64,8 +65,9 @@ class HallsController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def hall_params
-      params.require(:hall).permit(:hall_name, :hall_address, :hall_tel, :codename_hall)
-    end
+  def hall_params
+  params.require(:hall).permit(:hall_name, :hall_address, :hall_tel, :codename_hall, :hall_logo)
+  end
+
  
 end

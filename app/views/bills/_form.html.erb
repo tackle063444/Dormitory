@@ -12,7 +12,7 @@
     <br>
     <div class="field">
         <label for="form-select">เลือกแบบฟอร์มใบเสร็จ </label>
-        <%= form.select :form_select, options_for_select([["ใบแจ้งค่าบริการห้องพัก", "form1"], ["ใบเสร็จรับเงินค่าเช่าห้องพัก", "form2"], ["ใบเสร็จรับเงินค่ามัดจำห้องพัก", "form3"], ["ใบแจ้งคืนค่าบริการห้องพัก", "form4"]], selected: @bill.form_select),id: 'form_select', required: true %>
+        <%= form.select :form_select, options_for_select([["ใบแจ้งค่าบริการห้องพัก", "form1"], ["ใบเสร็จรับเงินค่าเช่าห้องพัก", "form2"], ["ใบเสร็จรับเงินค่ามัดจำห้องพัก", "form3"], ["ใบแจ้งคืนค่าบริการห้องพัก", "form4"]], selected: @bill.form_select),{}, id: 'form_select'  %>
       <br><br>
       <table class="table">
         <thead>

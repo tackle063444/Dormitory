@@ -1,12 +1,24 @@
+require 'carrierwave/processing/mini_magick'
+
 class HallLogoUploader < CarrierWave::Uploader::Base
+  include CarrierWave::MiniMagick
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
-  mount_uploader :hall_logo, HallLogoUploader
+ 
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
+  def filename
+    "#{secure_token}.#{file.extension}" if original_filename.present?
+  end
 
+  protected
+
+  def secure_token
+    var = :"@#{mounted_as}_secure_token"
+    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+  end
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
@@ -14,11 +26,15 @@ class HallLogoUploader < CarrierWave::Uploader::Base
   end
   
   version :thumb do
-    process resize_to_fit: [200, 200]
+    process resize_to_fit: [800, 800]
   end
 
   def extension_whitelist
     %w(jpg jpeg gif png)
+  end
+
+  def default_url(*args)
+    "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   end
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)

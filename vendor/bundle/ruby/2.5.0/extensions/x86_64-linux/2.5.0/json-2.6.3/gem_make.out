@@ -1,0 +1,13 @@
+current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/json-2.6.3/ext/json
+/home/arnon/.rvm/rubies/ruby-2.5.1/bin/ruby -I /home/arnon/.rvm/rubies/ruby-2.5.1/lib/ruby/site_ruby/2.5.0 -r ./siteconf20230517-21462-1cqj1h6.rb extconf.rb
+creating Makefile
+
+current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/json-2.6.3/ext/json
+make "DESTDIR=" clean
+
+current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/json-2.6.3/ext/json
+make "DESTDIR="
+make: Nothing to be done for 'all'.
+
+current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/json-2.6.3/ext/json
+make "DESTDIR=" install

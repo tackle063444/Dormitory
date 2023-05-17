@@ -5,9 +5,9 @@ class HeadList < ApplicationRecord
     def form_select_text
         case two_r
         when 'form1'
-        "หัก"
+            "คืน"
         when 'form2'
-        "คืน"
+            "หัก"
         end    
     end
 end

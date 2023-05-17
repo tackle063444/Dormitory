@@ -4,35 +4,41 @@
       <h2><%= pluralize(hall.errors.count, "error") %> prohibited this hall from being saved:</h2>
 
       <ul>
-      <% hall.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% hall.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-<div class="row g-3 align-items-center">
-  <div class="field">
-    <%= form.label :ชื่อหอพัก %>
-    <%= form.text_field :hall_name, id: :hall_name , class: 'form-control' %>
+
+  <div class="row g-3 align-items-center">
+    <div class="field">
+      <%= form.label :hall_name, "ชื่อหอพัก" %>
+      <%= form.text_field :hall_name, id: :hall_name , class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= form.label :codename_hall, "อักษรย่อหอพัก" %>
+      <%= form.text_field :codename_hall, id: :codename_hall, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= form.label :hall_address, "ที่อยู่หอพัก" %>
+      <%= form.text_field :hall_address, id: :hall_address, class: 'form-control'  %>
+    </div>
+
+    <div class="field">
+      <%= form.label :hall_tel, "เบอร์โทร" %>
+      <%= form.text_field :hall_tel, id: :hall_tel, class: 'form-control'  %>
+    </div>
+
+    <div class="field">
+      <%= form.label :hall_logo, "โลโก้หอพัก" %>
+      <%= form.file_field :hall_logo, id: :hall_logo, class: 'form-control' %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Confirm", class: "btn btn-primary" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :อักษรย่อหอพัก %>
-     <%= form.text_field :codename_hall, id: :codename_hall, class: 'form-control' %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ที่อยู่หอพัก %>
-    <%= form.text_field :hall_address, id: :hall_address, class: 'form-control'  %>
-  </div>
-
-  <div class="field">
-    <%= form.label :เบอร์โทร %>
-    <%= form.text_field :hall_tel, id: :hall_tel, class: 'form-control'  %>
-  </div>
-
-
-  <div class="actions">
-  <%= form.submit "Confirm", class: "btn btn-primary" %>
-</div>
 <% end %>

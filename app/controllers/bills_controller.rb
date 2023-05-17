@@ -141,13 +141,17 @@ class BillsController < ApplicationController
     @bill = Bill.find(params[:id])
     if @bill.present?
 
-      pdf = Prawn::Document.new
-      normal_thai_font = "#{Rails.root.to_s}/app/assets/fonts/THSarabunNew/THSarabunNew.ttf"
-      normal_thai_font = "#{Rails.root.to_s}/app/assets/fonts/THSarabunNew/THSarabunNew Bold.ttf"
-      pdf.font_families["THSarabun"] = { :normal => { :file => normal_thai_font } }
-      pdf.font "THSarabun", size: 15
-      pdf.image "#{Rails.root}/app/assets/images/logo001.png", position: :left, fit: [70, 70]
-     
+    pdf = Prawn::Document.new
+    normal_thai_font = "#{Rails.root.to_s}/app/assets/fonts/THSarabunNew/THSarabunNew.ttf"
+    bold_thai_font = "#{Rails.root.to_s}/app/assets/fonts/THSarabunNew/THSarabunNew Bold.ttf"
+    pdf.font_families.update(
+      "THSarabun" => {
+        normal: normal_thai_font,
+        bold: bold_thai_font
+      }
+    )
+    pdf.font('THSarabun', size: 15)
+
       pdf.bounding_box([pdf.bounds.right - 400, pdf.bounds.top - 0], width: 400, height: 80) do
         pdf.text "<color rgb='0000FF'>หมายเลขห้อง  #{@bill.room&.room_num}</color>", align: :right, inline_format: true
         pdf.text "<font size='20'>#{@bill.form_select_text}</font>", align: :right, inline_format: true
@@ -200,16 +204,34 @@ class BillsController < ApplicationController
       require 'prawn/table'
       require 'baht'
 
-      
 
-      data = [["ลำดับ", "รายการ", "จำนวน", "จำนวนเงิน"]] +
+    data = [["ลำดับ", "รายการ", "จำนวน", "จำนวนเงิน"]] +
+    if @bill.form_select == 'form4'
+      @bill.head_lists.each_with_index.map do |bh, i|
+        two_r_text = bh.form_select_text  
+        if bh.bill_list_id == 1 || bh.bill_list.list_typeName == 'ค่าไฟ'
+          if two_r_text == 'หัก'
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}", bh.e_price, -bh.head_total]
+          else
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}", bh.e_price, bh.head_total]
+          end
+        else
+          if two_r_text == 'หัก'
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}", bh.amount, -bh.head_total]
+          else
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}", bh.amount, bh.head_total]
+          end
+        end
+      end
+    else
       @bill.head_lists.each_with_index.map do |bh, i|
         if bh.bill_list_id == 1 || bh.bill_list.list_typeName == 'ค่าไฟ'
           [i + 1, bh.bill_list.list_typeName, bh.e_price, bh.head_total]
         else
           [i + 1, bh.bill_list.list_typeName, bh.amount, bh.head_total]
         end
-      end +
+      end
+    end +
       if @bill.form_select == 'form1'
         [
           [{:content => "(#{Baht.words(@bill.bill_total)})", :colspan => 2}, 
@@ -346,7 +368,7 @@ class BillsController < ApplicationController
     def bill_params
       params.require(:bill).permit(
         :bill_date, :bill_no, :bill_total, :bill_remark, :rent_id, :form_select, :room_id,
-        head_lists_attributes: [:id, :bill_list_id, :list_typeNmae, :unit_price, :old_unit, :new_unit, :amount, :e_price, :head_total, :_destroy]
+        head_lists_attributes: [:id, :bill_list_id, :list_typeNmae, :unit_price, :two_r, :old_unit, :new_unit, :amount, :e_price, :head_total, :_destroy]
       )
     end
     

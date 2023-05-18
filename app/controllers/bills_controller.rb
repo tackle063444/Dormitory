@@ -151,6 +151,9 @@ class BillsController < ApplicationController
       }
     )
     pdf.font('THSarabun', size: 15)
+    logo_from_object = @hall.hall_logo
+    logo_io = StringIO.open(logo_from_object.download)
+    pdf.image logo_io, width: 150, height: 150
 
       pdf.bounding_box([pdf.bounds.right - 400, pdf.bounds.top - 0], width: 400, height: 80) do
         pdf.text "<color rgb='0000FF'>หมายเลขห้อง  #{@bill.room&.room_num}</color>", align: :right, inline_format: true

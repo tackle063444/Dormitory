@@ -1,34 +1,17 @@
 $(document).ready(function() {
-  // ซ่อนหรือแสดง old_unit และ new_unit ตามเงื่อนไข
+
 
   $(document).on("change", "#form_select", function() {
     checkSelectedForm();
   });
-  
-  $(document).on("change", ".two_rs", function() {
-    checkSelectedForm();
-  });
 
   function checkSelectedForm() {
-    const selectedOption = $('#form_select option:selected');
-    const selectedForm = selectedOption.val();
-    const selectedListType = selectedOption.text().trim();
-  
+    let selectedOption = $('#form_select option:selected');
+    let selectedForm = selectedOption.val();
+    let selectedListType = selectedOption.text().trim();
 
     if (selectedForm === 'form4'&& selectedListType === 'ใบแจ้งคืนค่าบริการห้องพัก') {
       $('.two_r').show();
-      const twoRValue = $('.two_rs').val();
-      console.log(twoRValue);
-
-      //คืน
-      if (twoRValue === 'form2') {
-        let returnTotal = 0;
-        
-        //หัก
-      } else if (twoRValue === 'form1') {
-        let reciveTotal = 0;
-        
-      }
     } else {
       $('.two_r').hide();
     }
@@ -50,48 +33,87 @@ $(document).ready(function() {
   }
 
   function calculate_form(selector) {
-    const tr = selector.closest('tr');
-    const selectElement = tr.find('.bill_list');
-    const selectedOption = selectElement.find(':selected');
-    const unitPrice = parseFloat(selectedOption.data('unit-price'));
-    const selectedListType = selectedOption.text().trim();
-  
-    if (selectedOption.val() !== '1' && selectedListType !== 'ค่าไฟ') {
-      const amount = parseFloat(tr.find('input.amount').val()) || 0;
-      const headTotal = amount * unitPrice;
-      tr.find('.head_total').val(headTotal);
-    } else {
-      const oldUnit = parseFloat(tr.find('input.old_unit').val()) || 0;
-      const newUnit = parseFloat(tr.find('input.new_unit').val()) || 0;
-      const ePrice = newUnit - oldUnit;
-      const headTotal = ePrice * unitPrice;
-      tr.find('.e_price').val(ePrice);
-      tr.find('.head_total').val(headTotal);
-    }
-  }
+    let selectedOptionF = $('#form_select option:selected');
+    let selectedForm = selectedOptionF.val();
+    let tr = selector.closest('tr');
+    let selectElement = tr.find('.bill_list');
+    let selectedOption = selectElement.find(':selected');
+    let unitPrice = parseFloat(selectedOption.data('unit-price'));
+    let selectedListType = selectedOption.text().trim();
+    let selectedListTypeF = selectedOptionF.text().trim();
+    let twoRValue = $('.two_rs').val();
+    let bill_total = 0;  
+    
+    if (selectedForm === 'form4' && selectedListTypeF === 'ใบแจ้งคืนค่าบริการห้องพัก') {
+      let reT = 0;
+      let reC = 0;
+      
+      if (selectedOption.val() !== '1' && selectedListType !== 'ค่าไฟ') {
+        let amount = parseFloat(tr.find('input.amount').val()) || 0;
+        let headTotal = amount * unitPrice;
+    
+        if (twoRValue === 'form1') {
+          tr.find('.head_total').val(headTotal);
+          reT += headTotal;
+        } else if (twoRValue === 'form2') {
+          tr.find('.head_total').val('-' + headTotal);
+          reC += headTotal;
+        }
+      } else {
+        let oldUnit = parseFloat(tr.find('input.old_unit').val()) || 0;
+        let newUnit = parseFloat(tr.find('input.new_unit').val()) || 0;
+        let ePrice = newUnit - oldUnit;
+        let headTotal = ePrice * unitPrice;
+        
+        if (twoRValue === 'form1') {
+          tr.find('.e_price').val(ePrice);
+          tr.find('.head_total').val(headTotal);
+          reC += headTotal;
+        } else if (twoRValue === 'form2') {
+          tr.find('.e_price').val(ePrice);
+          tr.find('.head_total').val('-' + headTotal);
+          reT += headTotal;
+        }
+      }
+    
+      bill_total = reT - reC;
+      $('.bill_total').val(bill_total);
 
-  function calculateBillTotal() {
-    let bill_total = 0;
-    $('.head_total').each(function() {
-      const val = parseFloat($(this).val()) || 0;
-      bill_total += val;
-    });
-    $('.bill_total').val(bill_total);
-  }
+    }else{
+      if (selectedOption.val() !== '1' && selectedListType !== 'ค่าไฟ') {
+        let amount = parseFloat(tr.find('input.amount').val()) || 0;
+        let headTotal = amount * unitPrice;
+        tr.find('.head_total').val(headTotal);
+        } else {
+          let oldUnit = parseFloat(tr.find('input.old_unit').val()) || 0;
+          let newUnit = parseFloat(tr.find('input.new_unit').val()) || 0;
+          let ePrice = newUnit - oldUnit;
+          let headTotal = ePrice * unitPrice;
+          tr.find('.e_price').val(ePrice);
+          tr.find('.head_total').val(headTotal);
+        }
 
+        $('.head_total').each(function() {
+          let val = parseFloat($(this).val()) || 0;
+          bill_total += val;
+        });
+        $('.bill_total').val(bill_total);
+
+      }
+  }
+      
   
   toggleFields();
 
-  $(document).on("change", ".bill_list", function() {
+  $(document).on("change", ".bill_list",".two_rs", function() {
     toggleFields();
     calculate_form(); 
     });
     
-  $(document).on("change keyup", ".old_unit, .new_unit, .amount, .head_total", function() {
-    calculate_form($(this));
-    calculateBillTotal($(this));
-  });
-  
+    $(document).on("change keyup", ".old_unit, .new_unit, .amount, .head_total", function() {
+      calculate_form($(this));
+    });
+    
 
 $('body').on('change', '.bill_list', function() {
   var selectedOptionValue = $(this).val();

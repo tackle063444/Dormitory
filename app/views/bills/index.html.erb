@@ -30,8 +30,8 @@
         <table class="table table-dark table-hover">
           <thead>
             <tr>
-			  <th>id</th>
               <th> เลขที่บิล </th>
+			  <th> หอพัก</th>
               <th> ห้อง </th>
 			  <th> ประเภทบิล </th>
             </tr>
@@ -42,6 +42,7 @@
 			<tr> 
 
 			  <td><%= bill.bill_no %></td>
+			  <td><%= bill.room&.hall.hall_name %></td>
 			  <td><%= bill.room&.room_num %></td>
 			  <td><%= bill.form_select_text %></td>
 			  <td><%= link_to 'preview', preview_bill_path(bill), class:"btn btn-primary", target: "_blank" %></td>

@@ -38,6 +38,8 @@ gem 'wicked_pdf'
 gem 'vanilla_nested'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'axlsx'
+gem 'axlsx_rails'
 
 
 gem 'aws-sdk-s3', require: false

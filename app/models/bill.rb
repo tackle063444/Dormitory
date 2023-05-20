@@ -31,4 +31,6 @@ class Bill < ApplicationRecord
     end 
   end
 
+  
+
 end

@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   
   get '/bills/:id/preview', to: 'bills#preview', as: 'preview_bill'
   get '/bills/:id/download', to: 'bills#download', as: 'download_bill'
+  get '/export_exel/bills', to: 'bills#export_ex', as: 'export_exel'
+
+  get 'export_exel', to: 'bills#export_ex'
   get 'preview', to: 'bills#preview'
   get 'download', to: 'bills#download'
   get '/bill_form_partial', to: 'bills#bill_form_partial'

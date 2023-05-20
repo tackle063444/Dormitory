@@ -25,6 +25,7 @@
 		<div class="fh5co-narrow-content">
 				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Bill</h2>
 				<%= link_to 'เพิ่มบิล', new_bill_path, class:"btn btn-outline-success" %>
+				<%= link_to 'DowloadExel', export_exel_path, class: "btn btn-outline-success" %>
           <p id="notice"><%= notice %></p>
 	
         <table class="table table-dark table-hover">
@@ -40,7 +41,6 @@
           <tbody>
 		  <% @bills.sort_by { |bill| bill.room&.room_num.to_i }.each do |bill| %>
 			<tr> 
-
 			  <td><%= bill.bill_no %></td>
 			  <td><%= bill.room&.hall.hall_name %></td>
 			  <td><%= bill.room&.room_num %></td>

@@ -1,12 +1,67 @@
 class BillsController < ApplicationController
   before_action :set_bill, only: %i[ show edit update destroy  ]
-
+  
   # GET /bills or /bills.json
   def index
     @bills = Bill.includes(:room).all
     @bill = Bill.new(form_select: params[:form_select])
   end
+  # GET /bills/new
+  def new
+    @bill = Bill.new(form_select: params[:form_select])
+  
+  end
+  
+    # GET /bills/1/edit
+  def edit
+    total_users = Room.where(room_num: request.params[:room_num]).joins(:rents).distinct.count('rents.user_id')
+  end
+  
+  require 'axlsx'
 
+  def export
+    bills = Bill.all
+  
+    Axlsx::Package.new do |p|
+      p.workbook.add_worksheet(name: 'Bills') do |sheet|
+        sheet.add_row ['ID', 'Room Number']
+  
+        bills.each do |bill|
+          sheet.add_row [bill.id, bill.room_num]
+        end
+      end
+  
+      p.serialize('bills.xlsx')
+    end
+  end
+
+  def export_ex
+    require 'axlsx'
+    
+    workbook = Axlsx::Package.new
+    
+    workbook.workbook.add_worksheet(name: 'Sheet 1') do |sheet|
+      sheet.add_row ['Room','bill_list']
+      
+      existing_rooms = Set.new
+      
+      Bill.all.each do |bill|
+        hall_n = bill.room.hall.hall_name
+        next unless hall_n == '8home8'  
+        
+        room_num = bill.room.room_num
+        next if existing_rooms.include?(room_num)
+        
+        
+        sheet.add_row [room_num]
+        existing_rooms.add(room_num)
+      end
+    end
+  
+    send_data workbook.to_stream.read, filename: 'Dormitory.xlsx', type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  end
+  
+  
   def download
     @bill = Bill.find(params[:id])
     if @bill.present?
@@ -24,7 +79,6 @@ class BillsController < ApplicationController
     #pdf.image "#{Rails.root}/app/assets/images/#{@bill.hall.hall_logo}", position: :left, fit: [70, 70]
     pdf.image("#{Rails.root}/app/assets/images/logo001.png", position: :left, fit: [70, 70])
 
-      
 
       pdf.bounding_box([pdf.bounds.right - 400, pdf.bounds.top - 0], width: 400, height: 80) do
         pdf.text "<color rgb='0000FF'>หมายเลขห้อง  #{@bill.room&.room_num}</color>", align: :right, inline_format: true
@@ -309,16 +363,6 @@ class BillsController < ApplicationController
     end
   end
 
-  # GET /bills/new
-  def new
-    @bill = Bill.new(form_select: params[:form_select])
- 
-  end
-
-    # GET /bills/1/edit
-  def edit
-    total_users = Room.where(room_num: request.params[:room_num]).joins(:rents).distinct.count('rents.user_id')
-  end
 
   
   # POST /bills or /bills.json
@@ -367,7 +411,9 @@ class BillsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bill
-      @bill = Bill.find(params[:id])
+      if params[:id] != 'export_exel'
+        @bill = Bill.find(params[:id])
+      end
     end
 
     # Only allow a list of trusted parameters through.

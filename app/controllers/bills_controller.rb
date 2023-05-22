@@ -41,13 +41,18 @@ class BillsController < ApplicationController
     workbook = Axlsx::Package.new
     
     workbook.workbook.add_worksheet(name: 'Sheet 1') do |sheet|
-      sheet.add_row ['Room','bill_list']
+      head_sheet = ['Room']
+      bill_lists = BillList.all.order(:list_typeName)
+      bill_list_typenames = bill_lists.pluck(:list_typeName)
+      head_sheet += bill_list_typenames
+      sheet.add_row head_sheet
       
       existing_rooms = Set.new
       
       Bill.all.each do |bill|
         hall_n = bill.room.hall.hall_name
         next unless hall_n == '8home8'  
+
         
         room_num = bill.room.room_num
         next if existing_rooms.include?(room_num)

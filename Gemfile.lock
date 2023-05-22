@@ -46,8 +46,8 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     arel (9.0.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.765.0)
-    aws-sdk-core (3.172.0)
+    aws-partitions (1.767.0)
+    aws-sdk-core (3.173.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
       aws-sigv4 (~> 1.5)
@@ -299,9 +299,6 @@ DEPENDENCIES
   vanilla_nested
   web-console (>= 3.3.0)
   wicked_pdf
-
-RUBY VERSION
-   ruby 2.5.1p57
 
 BUNDLED WITH
    2.2.15

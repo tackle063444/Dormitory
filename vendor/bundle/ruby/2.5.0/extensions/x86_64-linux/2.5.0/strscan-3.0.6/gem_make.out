@@ -1,5 +1,5 @@
 current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/strscan-3.0.6/ext/strscan
-/home/arnon/.rvm/rubies/ruby-2.5.1/bin/ruby -I /home/arnon/.rvm/rubies/ruby-2.5.1/lib/ruby/site_ruby/2.5.0 -r ./siteconf20230427-6123-11bxqwb.rb extconf.rb
+/home/arnon/.rvm/rubies/ruby-2.5.1/bin/ruby -I /home/arnon/.rvm/rubies/ruby-2.5.1/lib/ruby/site_ruby/2.5.0 -r ./siteconf20230522-33840-1f788du.rb extconf.rb
 checking for onig_region_memsize() in ruby.h... yes
 creating Makefile
 
@@ -21,4 +21,4 @@ linking shared-object strscan.so
 
 current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/strscan-3.0.6/ext/strscan
 make "DESTDIR=" install
-/usr/bin/install -m 0755 strscan.so ./.gem.20230427-6123-1m5aq46
+/usr/bin/install -m 0755 strscan.so ./.gem.20230522-33840-12sr87o

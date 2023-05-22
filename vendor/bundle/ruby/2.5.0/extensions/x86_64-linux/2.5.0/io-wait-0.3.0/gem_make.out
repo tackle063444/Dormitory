@@ -1,5 +1,5 @@
 current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/io-wait-0.3.0/ext/io/wait
-/home/arnon/.rvm/rubies/ruby-2.5.1/bin/ruby -I /home/arnon/.rvm/rubies/ruby-2.5.1/lib/ruby/site_ruby/2.5.0 -r ./siteconf20230427-6123-1v01a80.rb extconf.rb
+/home/arnon/.rvm/rubies/ruby-2.5.1/bin/ruby -I /home/arnon/.rvm/rubies/ruby-2.5.1/lib/ruby/site_ruby/2.5.0 -r ./siteconf20230522-33840-1ckzszk.rb extconf.rb
 
 current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/io-wait-0.3.0/ext/io/wait
 make "DESTDIR=" clean

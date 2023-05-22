@@ -5,6 +5,9 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
+gem 'nokogiri', '>= 0', '< 3.1.0'
+
+gem 'loofah', '~> 2.21.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
@@ -37,7 +40,7 @@ gem 'pdfkit'
 gem 'wicked_pdf'
 gem 'vanilla_nested'
 gem 'carrierwave'
-gem 'mini_magick'
+
 gem 'axlsx'
 gem 'axlsx_rails'
 
@@ -45,7 +48,6 @@ gem 'axlsx_rails'
 gem 'aws-sdk-s3', require: false
 gem 'rack-timeout'
 
-gem 'byebug'
 gem 'figaro'
 gem 'unf'
 gem 'dotenv'

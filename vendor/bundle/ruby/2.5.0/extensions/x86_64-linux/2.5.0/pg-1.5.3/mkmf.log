@@ -420,7 +420,7 @@ checked program was:
 /* end */
 
 "gcc -o conftest -I/home/arnon/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0/x86_64-linux -I/home/arnon/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0/ruby/backward -I/home/arnon/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0 -I. -I/usr/include/postgresql    -O3 -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wmisleading-indentation -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wimplicit-fallthrough=0 -Wduplicated-cond -Wrestrict  -fPIC conftest.c  -L. -L/home/arnon/.rvm/rubies/ruby-2.5.1/lib -Wl,-rpath,/home/arnon/.rvm/rubies/ruby-2.5.1/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lpthread -lgmp -ldl -lcrypt -lm   -lc"
-/usr/bin/ld: /tmp/cceqjWgo.o: in function `t':
+/usr/bin/ld: /tmp/ccdKcWSi.o: in function `t':
 /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/pg-1.5.3/ext/conftest.c:14: undefined reference to `rb_gc_mark_movable'
 collect2: error: ld returned 1 exit status
 checked program was:
@@ -474,7 +474,7 @@ checked program was:
 /* end */
 
 "gcc -o conftest -I/home/arnon/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0/x86_64-linux -I/home/arnon/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0/ruby/backward -I/home/arnon/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0 -I. -I/usr/include/postgresql    -O3 -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wmisleading-indentation -Wno-packed-bitfield-compat -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wimplicit-fallthrough=0 -Wduplicated-cond -Wrestrict  -fPIC conftest.c  -L. -L/home/arnon/.rvm/rubies/ruby-2.5.1/lib -Wl,-rpath,/home/arnon/.rvm/rubies/ruby-2.5.1/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lpthread -lgmp -ldl -lcrypt -lm   -lc"
-/usr/bin/ld: /tmp/ccclZ7O4.o: in function `t':
+/usr/bin/ld: /tmp/ccI2roAY.o: in function `t':
 /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/pg-1.5.3/ext/conftest.c:14: undefined reference to `rb_io_wait'
 collect2: error: ld returned 1 exit status
 checked program was:

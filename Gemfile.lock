@@ -302,5 +302,8 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   wicked_pdf
 
+RUBY VERSION
+   ruby 2.5.1p57
+
 BUNDLED WITH
    2.2.15

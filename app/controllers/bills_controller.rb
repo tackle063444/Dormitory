@@ -17,24 +17,6 @@ class BillsController < ApplicationController
     total_users = Room.where(room_num: request.params[:room_num]).joins(:rents).distinct.count('rents.user_id')
   end
   
-  require 'axlsx'
-
-  def export
-    bills = Bill.all
-  
-    Axlsx::Package.new do |p|
-      p.workbook.add_worksheet(name: 'Bills') do |sheet|
-        sheet.add_row ['ID', 'Room Number']
-  
-        bills.each do |bill|
-          sheet.add_row [bill.id, bill.room_num]
-        end
-      end
-  
-      p.serialize('bills.xlsx')
-    end
-  end
-
   def export_ex
     require 'axlsx'
     

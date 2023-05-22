@@ -6,7 +6,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.5.1'
+ruby '3.2.2'
+
 gem 'nokogiri', '>= 0', '< 3.1.0'
 
 gem 'loofah', '~> 2.21.1'
@@ -44,9 +45,9 @@ gem 'vanilla_nested'
 gem 'carrierwave'
 
 gem 'axlsx'
-gem 'axlsx_rails'
+gem 'caxlsx_rails'
 
-
+gem 'matrix'
 gem 'aws-sdk-s3', require: false
 gem 'rack-timeout'
 

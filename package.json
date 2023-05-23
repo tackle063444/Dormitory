@@ -1,8 +1,28 @@
 {
   "name": "dormitory",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "yarn": "^1.22.19"
+  },
   "scripts": {
     "start": "node index.js"
-  }
+  },
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tackle063444/Dormitory.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tackle063444/Dormitory/issues"
+  },
+  "homepage": "https://github.com/tackle063444/Dormitory#readme"
 }

@@ -1,5 +1,5 @@
 current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/nio4r-2.5.9/ext/nio4r
-/home/arnon/.rvm/rubies/ruby-2.5.1/bin/ruby -I /home/arnon/.rvm/rubies/ruby-2.5.1/lib/ruby/site_ruby/2.5.0 -r ./siteconf20230522-33840-3hybpu.rb extconf.rb
+/home/arnon/.rvm/rubies/ruby-2.5.1/bin/ruby -I /home/arnon/.rvm/rubies/ruby-2.5.1/lib/ruby/site_ruby/2.5.0 -r ./siteconf20230523-23923-v7c5k1.rb extconf.rb
 checking for unistd.h... yes
 checking for linux/aio_abi.h... yes
 checking for linux/io_uring.h... yes
@@ -389,4 +389,4 @@ linking shared-object nio4r_ext.so
 
 current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.5.0/gems/nio4r-2.5.9/ext/nio4r
 make "DESTDIR=" install
-/usr/bin/install -m 0755 nio4r_ext.so ./.gem.20230522-33840-1pi7a7
+/usr/bin/install -m 0755 nio4r_ext.so ./.gem.20230523-23923-4hho0o

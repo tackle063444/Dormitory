@@ -1,0 +1,17 @@
+current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.7.0/gems/racc-1.6.2/ext/racc/cparse
+/home/arnon/.rvm/rubies/ruby-2.7.4/bin/ruby -I /home/arnon/.rvm/rubies/ruby-2.7.4/lib/ruby/2.7.0 -r ./siteconf20230523-18230-1dtj3gm.rb extconf.rb
+checking for rb_block_call()... yes
+checking for rb_ary_subseq()... yes
+creating Makefile
+
+current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.7.0/gems/racc-1.6.2/ext/racc/cparse
+make "DESTDIR=" clean
+
+current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.7.0/gems/racc-1.6.2/ext/racc/cparse
+make "DESTDIR="
+compiling cparse.c
+linking shared-object racc/cparse.so
+
+current directory: /home/arnon/Dormitory/vendor/bundle/ruby/2.7.0/gems/racc-1.6.2/ext/racc/cparse
+make "DESTDIR=" install
+/usr/bin/install -m 0755 cparse.so ./.gem.20230523-18230-1qqb18n/racc

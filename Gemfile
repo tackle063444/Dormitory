@@ -6,9 +6,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '3.2.2'
+ruby '2.7.4'
 
-gem 'nokogiri', '>= 0', '< 3.1.0'
+gem 'nokogiri', '~> 1.15', '>= 1.15.1'
 
 gem 'loofah', '~> 2.21.1'
 
@@ -55,7 +55,7 @@ gem 'figaro'
 gem 'unf'
 gem 'dotenv'
 
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails'
 gem 'nested_form_fields'
 gem 'cocoon'
 

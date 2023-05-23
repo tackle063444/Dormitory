@@ -16,7 +16,7 @@ tmp/pids
 
 /node_modules
 /yarn-error.log
-
+/vendor/*
 .byebug_history
 
 .idea/

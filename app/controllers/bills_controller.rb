@@ -16,37 +16,43 @@ class BillsController < ApplicationController
   def edit
     total_users = Room.where(room_num: request.params[:room_num]).joins(:rents).distinct.count('rents.user_id')
   end
-  
+
   def export_ex
     require 'axlsx'
-    
+  
     workbook = Axlsx::Package.new
-    
+  
     workbook.workbook.add_worksheet(name: 'Sheet 1') do |sheet|
-      head_sheet = ['Room']
+      head_sheet = ['Room', 'Bill Types', 'Amount', 'Head Total', 'Bill Total']
       bill_lists = BillList.all.order(:list_typeName)
       bill_list_typenames = bill_lists.pluck(:list_typeName)
       head_sheet += bill_list_typenames
       sheet.add_row head_sheet
-      
-      existing_rooms = Set.new
-      
-      Bill.all.each do |bill|
-        hall_n = bill.room.hall.hall_name
-        next unless hall_n == '8home8'  
-
-        
+  
+      bill_names = Set.new
+  
+      bills = Bill.joins(room: :hall).where("halls.hall_name = '8home8'").order("rooms.room_num")
+  
+      bills.each do |bill|
         room_num = bill.room.room_num
-        next if existing_rooms.include?(room_num)
-        
-        
-        sheet.add_row [room_num]
-        existing_rooms.add(room_num)
+        form_select_text = bill.form_select_text
+        amount = bill.head_lists.sum(:amount)
+        head_total = bill.head_lists.sum(:head_total)
+        bill_total = bill.bill_total
+  
+        next if form_select_text == 'form 1' # ตรวจสอบเงื่อนไขและข้ามรอบถัดไปถ้าเป็น "form 1"
+  
+        row_data = [room_num, form_select_text, amount, head_total, bill_total]
+        sheet.add_row row_data
+        bill_names.add(form_select_text)
       end
     end
   
     send_data workbook.to_stream.read, filename: 'Dormitory.xlsx', type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   end
+  
+  
+  
   
   
   def download

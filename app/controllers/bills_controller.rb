@@ -17,18 +17,19 @@ class BillsController < ApplicationController
     total_users = Room.where(room_num: request.params[:room_num]).joins(:rents).distinct.count('rents.user_id')
   end
 
-  def export_ex
-    require 'axlsx'
+  require 'axlsx'
+  require 'baht'
   
+  def export_ex
     workbook = Axlsx::Package.new
   
     workbook.workbook.add_worksheet(name: 'Sheet 1') do |sheet|
-      head_sheet = ['Room', 'Bill Types', 'Amount', 'Head Total', 'Bill Total']
       bill_lists = BillList.all.order(:list_typeName)
       bill_list_typenames = bill_lists.pluck(:list_typeName)
-      head_sheet += bill_list_typenames
+
+      head_sheet = ['ห้อง', 'ประเภทใบเสร็จ'] + bill_list_typenames + ['หน่วยเดิม','หน่วยใหม่','ใช้ไป','ราคาต่อหน่วย','ยอดรวมใบเสร็จทั้งหมด','', 'หมายเหตุ']
       sheet.add_row head_sheet
-  
+      
       bill_names = Set.new
   
       bills = Bill.joins(room: :hall).where("halls.hall_name = '8home8'").order("rooms.room_num")
@@ -39,21 +40,38 @@ class BillsController < ApplicationController
         amount = bill.head_lists.sum(:amount)
         head_total = bill.head_lists.sum(:head_total)
         bill_total = bill.bill_total
-  
-        next if form_select_text == 'form 1' # ตรวจสอบเงื่อนไขและข้ามรอบถัดไปถ้าเป็น "form 1"
-  
-        row_data = [room_num, form_select_text, amount, head_total, bill_total]
+        old_unit = bill.head_lists.sum(:old_unit)
+        new_unit = bill.head_lists.sum(:new_unit)
+        e_price = bill.head_lists.sum(:e_price)
+        unit_price = bill.head_lists.find_by(bill_list_id: 1)&.bill_list&.unit_price || 0
+
+        next if form_select_text == 'form 1'
+
+        
+        row_data = [room_num, form_select_text]
+        bill_lists.each do |bill_list|
+          head_list = bill.head_lists.find_by(bill_list_id: bill_list.id)
+          row_data << (head_list ? "#{head_list.head_total}" : "0")
+        end
+        row_data << old_unit
+        row_data << new_unit 
+        row_data << e_price
+        row_data << unit_price
+        row_data << bill_total
+        row_data << ("#{Baht.words(bill_total)}")
+        row_data << bill.bill_remark
         sheet.add_row row_data
+    
         bill_names.add(form_select_text)
       end
+      
+
     end
   
     send_data workbook.to_stream.read, filename: 'Dormitory.xlsx', type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   end
   
-  
-  
-  
+
   
   def download
     @bill = Bill.find(params[:id])

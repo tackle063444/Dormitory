@@ -13,66 +13,76 @@ class BillsController < ApplicationController
   end
   
     # GET /bills/1/edit
-  def edit
-    total_users = Room.where(room_num: request.params[:room_num]).joins(:rents).distinct.count('rents.user_id')
-  end
+    def export_ex
+      workbook = Axlsx::Package.new
+    
+      workbook.workbook.add_worksheet(name: 'Sheet 1') do |sheet|
+        bill_lists = BillList.all.order(:list_typeName)
+        bill_list_typenames = bill_lists.pluck(:list_typeName)
+    
+        header_style = sheet.styles.add_style(bg_color: '74B678')
+        listrow_style = sheet.styles.add_style(bg_color: 'D0D0D0')
 
-  require 'axlsx'
-  require 'baht'
-  
-  def export_ex
-    workbook = Axlsx::Package.new
-  
-    workbook.workbook.add_worksheet(name: 'Sheet 1') do |sheet|
-      bill_lists = BillList.all.order(:list_typeName)
-      bill_list_typenames = bill_lists.pluck(:list_typeName)
+        head_sheet = ['ห้อง', 'ประเภทใบเสร็จ'] + bill_list_typenames + ['หน่วยเดิม','หน่วยใหม่','ใช้ไป','ราคาต่อหน่วย','ยอดรวมใบเสร็จทั้งหมด','', 'หมายเหตุ']
+        sheet.add_row head_sheet, style: header_style
 
-      head_sheet = ['ห้อง', 'ประเภทใบเสร็จ'] + bill_list_typenames + ['หน่วยเดิม','หน่วยใหม่','ใช้ไป','ราคาต่อหน่วย','ยอดรวมใบเสร็จทั้งหมด','', 'หมายเหตุ']
-      sheet.add_row head_sheet
-      
-      bill_names = Set.new
-  
-      bills = Bill.joins(room: :hall).where("halls.hall_name = '8home8'").order("rooms.room_num")
-  
-      bills.each do |bill|
-        room_num = bill.room.room_num
-        form_select_text = bill.form_select_text
-        amount = bill.head_lists.sum(:amount)
-        head_total = bill.head_lists.sum(:head_total)
-        bill_total = bill.bill_total
-        old_unit = bill.head_lists.sum(:old_unit)
-        new_unit = bill.head_lists.sum(:new_unit)
-        e_price = bill.head_lists.sum(:e_price)
-        unit_price = bill.head_lists.find_by(bill_list_id: 1)&.bill_list&.unit_price || 0
-        column_all_Total = sum(head_total)
-        next if form_select_text == 'form 1'
+        bill_names = Set.new
+    
+        bills = Bill.joins(room: :hall).where("halls.hall_name = '8home8'").order("rooms.room_num")
+    
+        bills_by_form_select = bills.group_by(&:form_select_text)
+    
+        bills_by_form_select.each do |form_select_text, bills_for_form|
+          sheet.add_row [form_select_text], style: [listrow_style]
+    
+          bills_for_form.each do |bill|
+            room_num = bill.room.room_num
+            amount = bill.head_lists.sum(:amount)
+            head_total = bill.head_lists.sum(:head_total)
+            bill_total = bill.bill_total
+            old_unit = bill.head_lists.sum(:old_unit)
+            new_unit = bill.head_lists.sum(:new_unit)
+            e_price = bill.head_lists.sum(:e_price)
+            unit_price = bill.head_lists.find_by(bill_list_id: 1)&.bill_list&.unit_price || 0
+    
+            row_data = [room_num, form_select_text]
+            bill_lists.each do |bill_list|
+              head_list = bill.head_lists.find_by(bill_list_id: bill_list.id)
+              row_data << (head_list ? "#{head_list.head_total}" : "0")
+            end
+    
+            row_data << old_unit
+            row_data << new_unit 
+            row_data << e_price
+            row_data << unit_price
+            row_data << bill_total
+            row_data << ("#{Baht.words(bill_total)}")
+            row_data << bill.bill_remark
+            sheet.add_row row_data
+            bill_names.add(form_select_text)
+          end
 
-        
-        row_data = [room_num, form_select_text]
-        bill_lists.each do |bill_list|
-          head_list = bill.head_lists.find_by(bill_list_id: bill_list.id)
-          row_data << (head_list ? "#{head_list.head_total}" : "0")
+        end
+    
+        amount_sum = bills.sum { |bill| bill.head_lists.sum(:e_price) }
+        bill_total_sum = bills.sum(:bill_total)
+    
+        column_sums = bill_lists.map do |bill_list|
+          bills.sum { |bill| bill.head_lists.find_by(bill_list_id: bill_list.id)&.head_total || 0 }
         end
 
-        row_data << old_unit
-        row_data << new_unit 
-        row_data << e_price
-        row_data << unit_price
-        row_data << bill_total
-        row_data << ("#{Baht.words(bill_total)}")
-        row_data << bill.bill_remark
-        sheet.add_row row_data
-        sheet.add_row column_all_Total
-        bill_names.add(form_select_text)
+        other_income_row = ["รายรับอื่นๆ", "", *[""] * (bill_list_typenames.size + 5), "", "", "", "", "", "", "", ""]
+        
+
+        row_data = ["", "", *column_sums, "0", "0", amount_sum, "0", bill_total_sum, "", ""]
+        sheet.add_row row_data, style: header_style
+        sheet.add_row other_income_row, style: listrow_style
       end
-      
-
+    
+      send_data workbook.to_stream.read, filename: 'Dormitory.xlsx', type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     end
+    
   
-    send_data workbook.to_stream.read, filename: 'Dormitory.xlsx', type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-  end
-  
-
   
   def download
     @bill = Bill.find(params[:id])

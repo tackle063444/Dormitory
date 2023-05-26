@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_17_080134) do
+ActiveRecord::Schema.define(version: 2023_05_26_091908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,14 @@ ActiveRecord::Schema.define(version: 2023_05_17_080134) do
     t.string "two_r"
     t.index ["bill_id"], name: "index_head_lists_on_bill_id"
     t.index ["bill_list_id"], name: "index_head_lists_on_bill_list_id"
+  end
+
+  create_table "more_lists", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name_morelist"
+    t.float "unit_morelist"
+    t.string "type_morelist"
   end
 
   create_table "rents", force: :cascade do |t|

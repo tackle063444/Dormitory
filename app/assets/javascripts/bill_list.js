@@ -90,7 +90,6 @@ $(document).ready(function() {
       });
       $('.bill_total').val(bill_total);
       
-      
 
     }else{
       if (selectedOption.val() !== '1' && selectedListType !== 'ค่าไฟ') {

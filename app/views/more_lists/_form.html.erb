@@ -1,0 +1,34 @@
+<%= form_with(model: more_list, local: true) do |form| %>
+  <% if more_list.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(more_list.errors.count, "error") %> prohibited this more_list from being saved:</h2>
+      <ul>
+        <% more_list.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table class="table">
+    <thead></thead>
+    <tbody>
+      <tr>
+        <td><%= form.label :type_morelist, "ประเภทรายการ", class: "form-label" %></td>
+        <td><%= form.select :type_morelist, [['รายรับ', 'form1'], ['รายจ่าย', 'form2']], {}, class: 'type_morelist' %></td>
+      </tr>
+      <tr>
+        <td><%= form.label :name_morelist, "ชื่อรายการ", class: "form-label" %></td>
+        <td><%= form.text_field :name_morelist, id: :name_morelist %></td>
+      </tr>
+      <tr>
+        <td><%= form.label :unit_morelist, "ราคาหรือจำนวน", class: "form-label" %></td>
+        <td><%= form.text_field :unit_morelist, id: :unit_morelist %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

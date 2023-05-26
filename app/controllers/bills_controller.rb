@@ -44,7 +44,7 @@ class BillsController < ApplicationController
         new_unit = bill.head_lists.sum(:new_unit)
         e_price = bill.head_lists.sum(:e_price)
         unit_price = bill.head_lists.find_by(bill_list_id: 1)&.bill_list&.unit_price || 0
-
+        column_all_Total = sum(head_total)
         next if form_select_text == 'form 1'
 
         
@@ -53,6 +53,7 @@ class BillsController < ApplicationController
           head_list = bill.head_lists.find_by(bill_list_id: bill_list.id)
           row_data << (head_list ? "#{head_list.head_total}" : "0")
         end
+
         row_data << old_unit
         row_data << new_unit 
         row_data << e_price
@@ -61,7 +62,7 @@ class BillsController < ApplicationController
         row_data << ("#{Baht.words(bill_total)}")
         row_data << bill.bill_remark
         sheet.add_row row_data
-    
+        sheet.add_row column_all_Total
         bill_names.add(form_select_text)
       end
       

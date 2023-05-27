@@ -13,7 +13,7 @@ class RentsController < ApplicationController
   # GET /rents/1 or /rents/1.json
   def show
   end
-
+  
   def renters
     room_id = params[:room_id]
     rents = Rent.where(room_id: room_id).pluck(:user_id).uniq
@@ -40,7 +40,7 @@ class RentsController < ApplicationController
   # POST /rents or /rents.json
   def create
     @rent = Rent.new(rent_params)
-
+  
     respond_to do |format|
       if @rent.save
         format.html { redirect_to rents_url(@rent), notice: "Rent was successfully created." }
@@ -51,6 +51,7 @@ class RentsController < ApplicationController
       end
     end
   end
+  
 
   # PATCH/PUT /rents/1 or /rents/1.json
   def update

@@ -1,0 +1,26 @@
+<h1>Rent History</h1>
+
+<table class="table table-dark table-hover">
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Room</th>
+      <th>User</th>
+      <th>Rent Start</th>
+      <th>Rent End</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @rent_logs.each do |rent_log| %>
+      <tr>
+        <td><%= rent_log.action %></td>
+        <td><%= rent_log.rent.room.check_room_user_relation %></td>
+        <td><%= rent_log.rent.user_id_to_select_option %></td>
+        <td><%= rent_log.rent.rent_start %></td>
+        <td><%= rent_log.rent.rent_end %></td>
+        <td><%= rent_log.created_at.in_time_zone('Asia/Bangkok').strftime('%Y-%m-%d %H:%M:%S') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

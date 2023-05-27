@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  resources :rent_logs, only: [:index]
   resources :more_lists
   resources :head_lists
   get 'user_logs/index'
+  get 'rent_logs/index'
   resources :bills
   resources :statements
   resources :bill_lists
@@ -11,6 +13,7 @@ Rails.application.routes.draw do
   resources :rooms
   resources :halls
   resources :user_logs, only: [:index]
+
   
   get '/bills/:id/preview', to: 'bills#preview', as: 'preview_bill'
   get '/bills/:id/download', to: 'bills#download', as: 'download_bill'

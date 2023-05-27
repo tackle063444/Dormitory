@@ -1,18 +1,16 @@
 class BillsController < ApplicationController
   before_action :set_bill, only: %i[ show edit update destroy  ]
   
-  # GET /bills or /bills.json
   def index
     @bills = Bill.includes(:room).all
     @bill = Bill.new(form_select: params[:form_select])
   end
-  # GET /bills/new
+
   def new
     @bill = Bill.new(form_select: params[:form_select])
   
   end
   
-    # GET /bills/1/edit
     def export_ex
       workbook = Axlsx::Package.new
     
@@ -22,6 +20,8 @@ class BillsController < ApplicationController
     
         header_style = sheet.styles.add_style(bg_color: '74B678')
         listrow_style = sheet.styles.add_style(bg_color: 'D0D0D0')
+        expenes_style = sheet.styles.add_style(bg_color: 'E85061')
+        sum_style = sheet.styles.add_style(bg_color: '30CFB4')
 
         head_sheet = ['ห้อง', 'ประเภทใบเสร็จ'] + bill_list_typenames + ['หน่วยเดิม','หน่วยใหม่','ใช้ไป','ราคาต่อหน่วย','ยอดรวมใบเสร็จทั้งหมด','', 'หมายเหตุ']
         sheet.add_row head_sheet, style: header_style
@@ -33,9 +33,10 @@ class BillsController < ApplicationController
         bills_by_form_select = bills.group_by(&:form_select_text)
     
         bills_by_form_select.each do |form_select_text, bills_for_form|
-          sheet.add_row [form_select_text], style: [listrow_style]
+          sheet.add_row [form_select_text, *[""] * (bill_list_typenames.size + 4), "", "", "",""], style: listrow_style
     
           bills_for_form.each do |bill|
+            
             room_num = bill.room.room_num
             amount = bill.head_lists.sum(:amount)
             head_total = bill.head_lists.sum(:head_total)
@@ -44,7 +45,7 @@ class BillsController < ApplicationController
             new_unit = bill.head_lists.sum(:new_unit)
             e_price = bill.head_lists.sum(:e_price)
             unit_price = bill.head_lists.find_by(bill_list_id: 1)&.bill_list&.unit_price || 0
-    
+
             row_data = [room_num, form_select_text]
             bill_lists.each do |bill_list|
               head_list = bill.head_lists.find_by(bill_list_id: bill_list.id)
@@ -60,6 +61,7 @@ class BillsController < ApplicationController
             row_data << bill.bill_remark
             sheet.add_row row_data
             bill_names.add(form_select_text)
+
           end
 
         end
@@ -71,18 +73,63 @@ class BillsController < ApplicationController
           bills.sum { |bill| bill.head_lists.find_by(bill_list_id: bill_list.id)&.head_total || 0 }
         end
 
-        other_income_row = ["รายรับอื่นๆ", "", *[""] * (bill_list_typenames.size + 5), "", "", "", "", "", "", "", ""]
+        other_income_row = ["รายรับอื่นๆ", "", *[""] * (bill_list_typenames.size + 4), "", "", ""]
         
-
         row_data = ["", "", *column_sums, "0", "0", amount_sum, "0", bill_total_sum, "", ""]
         sheet.add_row row_data, style: header_style
         sheet.add_row other_income_row, style: listrow_style
+
+        @more_lists = MoreList.all
+
+        bill_total_sum_revenue = 0
+        bill_total_sum_expenses = 0
+
+        @more_lists.each do |more_list|
+          if more_list.form_select_text == "รายรับ"
+            name_morelist = more_list.name_morelist
+            unit_morelist = more_list.unit_morelist
+            sheet.add_row [name_morelist, "", *[""] * (bill_list_typenames.size + 4), unit_morelist, "", ""]
+            
+            if unit_morelist.present?
+              bill_total_sum_revenue += unit_morelist.to_i
+            end
+          end
+        end
+        bill_total_sum_morelist = bill_total_sum_revenue + bill_total_sum
+
+        sheet.add_row ["", "", *[""] * (bill_list_typenames.size + 3),"รวม", bill_total_sum_revenue, "", ""]
+        sheet.add_row ["", "", *[""] * (bill_list_typenames.size + 3),"รวมรายรับ", bill_total_sum_morelist, "", ""], style: header_style
+        other_expenses_row = ["รายจ่ายอื่นๆ", "", *[""] * (bill_list_typenames.size + 4), "", "", ""]
+        sheet.add_row other_expenses_row, style: expenes_style
+
+        other_expenses_row = ["วันที่", "รายการ","ราคา","หมายเหตุ"]
+        sheet.add_row other_expenses_row
+
+        @more_lists.each do |more_list|
+          if more_list.form_select_text == "รายจ่าย"
+            name_morelist = more_list.name_morelist
+            unit_morelist = more_list.unit_morelist
+            sheet.add_row ["", name_morelist, unit_morelist,""]
+            
+            if unit_morelist.present?
+              bill_total_sum_expenses += unit_morelist.to_i
+            end
+          end
+        end
+        sheet.add_row ["", "รวมรายจ่าย", bill_total_sum_expenses, ""]
+
+        sheet.add_row ["สรุป", "", ], style: sum_style
+        sheet.add_row ["รายรับ", bill_total_sum_morelist]
+        sheet.add_row ["รายจ่าย", bill_total_sum_expenses]
+
+        alltotal = bill_total_sum_morelist - bill_total_sum_expenses
+        
+        sheet.add_row ["คงเหลือ", alltotal]
+
       end
     
       send_data workbook.to_stream.read, filename: 'Dormitory.xlsx', type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     end
-    
-  
   
   def download
     @bill = Bill.find(params[:id])

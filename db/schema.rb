@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_26_091908) do
+ActiveRecord::Schema.define(version: 2023_05_27_101205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,18 @@ ActiveRecord::Schema.define(version: 2023_05_26_091908) do
     t.string "type_morelist"
   end
 
+  create_table "rent_logs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "action"
+    t.bigint "room_id"
+    t.string "rent_start"
+    t.string "rent_end"
+    t.bigint "user_id"
+    t.index ["room_id"], name: "index_rent_logs_on_room_id"
+    t.index ["user_id"], name: "index_rent_logs_on_user_id"
+  end
+
   create_table "rents", force: :cascade do |t|
     t.bigint "room_id"
     t.bigint "user_id"
@@ -159,6 +171,8 @@ ActiveRecord::Schema.define(version: 2023_05_26_091908) do
   add_foreign_key "bills", "rooms"
   add_foreign_key "head_lists", "bill_lists"
   add_foreign_key "head_lists", "bills"
+  add_foreign_key "rent_logs", "rooms"
+  add_foreign_key "rent_logs", "users"
   add_foreign_key "rents", "halls"
   add_foreign_key "rents", "rooms"
   add_foreign_key "rents", "users"

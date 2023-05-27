@@ -1,0 +1,17 @@
+<%= form_with(model: rent_log, local: true) do |form| %>
+  <% if rent_log.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rent_log.errors.count, "error") %> prohibited this rent_log from being saved:</h2>
+
+      <ul>
+      <% rent_log.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

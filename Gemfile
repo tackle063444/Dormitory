@@ -65,6 +65,8 @@ gem 'jquery-ui-rails'
 gem 'jquery-qtip2-wrapper-rails'
 
 gem 'mini_magick'
+gem 'paper_trail'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

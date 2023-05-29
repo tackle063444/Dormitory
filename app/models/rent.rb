@@ -8,6 +8,4 @@ class Rent < ApplicationRecord
     User.where.not(id: excluded_ids).pluck(:user_fname, :id) # ดึงข้อมูล user_fname และ id ของ user ที่ไม่อยู่ใน excluded_ids
   end
 
-
-
 end

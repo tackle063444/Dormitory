@@ -10,5 +10,6 @@ class AddColumnBill < ActiveRecord::Migration[5.1]
       t.text :bill_remark
 
       t.timestamps
+    end
   end
 end

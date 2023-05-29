@@ -3,11 +3,12 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-      if params[:room_id]
-        @users = User.joins(rents: :room).where(rooms: { id: params[:room_id] })
-      else
-        @users = User.all
-    end
+    @users = User.all
+    #if params[:room_id]
+    #  @users = User.joins(rents: :room).where(rooms: { id: params[:room_id] })
+    #else
+    #  @users = User.all
+    #end
   end
 
   def set_user

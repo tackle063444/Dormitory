@@ -20,6 +20,7 @@ class RentsController < ApplicationController
     users = User.where(id: rents)
     render json: users
   end
+  
 
   def get_rent_user_info
     room_id = params[:room_id]

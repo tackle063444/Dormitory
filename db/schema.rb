@@ -56,12 +56,10 @@ ActiveRecord::Schema.define(version: 2023_05_31_084344) do
     t.string "bill_remark"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "form_select"
     t.bigint "hall_id"
-    t.bigint "head_list_id"
+    t.string "form_select"
     t.index ["bill_list_id"], name: "index_bills_on_bill_list_id"
     t.index ["hall_id"], name: "index_bills_on_hall_id"
-    t.index ["head_list_id"], name: "index_bills_on_head_list_id"
     t.index ["rent_id"], name: "index_bills_on_rent_id"
     t.index ["room_id"], name: "index_bills_on_room_id"
   end
@@ -83,10 +81,8 @@ ActiveRecord::Schema.define(version: 2023_05_31_084344) do
     t.float "e_price"
     t.float "w_price"
     t.float "amount"
-    t.bigint "bill_id"
     t.float "head_total"
     t.string "two_r"
-    t.index ["bill_id"], name: "index_head_lists_on_bill_id"
     t.index ["bill_list_id"], name: "index_head_lists_on_bill_list_id"
   end
 
@@ -170,11 +166,9 @@ ActiveRecord::Schema.define(version: 2023_05_31_084344) do
   add_foreign_key "bill_lists", "bills"
   add_foreign_key "bills", "bill_lists"
   add_foreign_key "bills", "halls"
-  add_foreign_key "bills", "head_lists"
   add_foreign_key "bills", "rents"
   add_foreign_key "bills", "rooms"
   add_foreign_key "head_lists", "bill_lists"
-  add_foreign_key "head_lists", "bills"
   add_foreign_key "rent_logs", "rooms"
   add_foreign_key "rent_logs", "users"
   add_foreign_key "rents", "halls"

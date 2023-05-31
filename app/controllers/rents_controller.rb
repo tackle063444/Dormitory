@@ -44,6 +44,7 @@ class RentsController < ApplicationController
   
     respond_to do |format|
       if @rent.save
+        RentLog.create(action: "create", rent_id: @rent.id, user_id: @rent.user_id, user_fname: @rent.user.user_fname, user_lname: @rent.user.user_lname, room_num: @rent.room.room_num, rent_start: @rent.rent_start, rent_end: @rent.rent_end)
         format.html { redirect_to rents_url(@rent), notice: "Rent was successfully created." }
         format.json { render :show, status: :created, location: @rent }
       else
@@ -58,6 +59,7 @@ class RentsController < ApplicationController
   def update
     respond_to do |format|
       if @rent.update(rent_params)
+        RentLog.create(action: "update", rent_id: @rent.id, user_id: @rent.user_id, user_fname: @rent.user.user_fname, user_lname: @rent.user.user_lname, room_num: @rent.room.room_num, rent_start: @rent.rent_start, rent_end: @rent.rent_end)
         format.html { redirect_to rents_url(@rent), notice: "Rent was successfully updated." }
         format.json { render :show, status: :ok, location: @rent }
       else
@@ -69,14 +71,33 @@ class RentsController < ApplicationController
 
   # DELETE /rents/1 or /rents/1.json
   def destroy
+    rent_id = @rent.id
+    user_id = @rent.user_id
+    user_fname = @rent.user.user_fname
+    user_lname = @rent.user.user_lname
+    room_num = @rent.room.room_num
+    rent_start = @rent.rent_start
+    rent_end = @rent.rent_end
+  
     @rent.destroy
-
+  
+    RentLog.create(
+      action: "delete",
+      rent_id: rent_id,
+      user_id: user_id,
+      user_fname: user_fname,
+      user_lname: user_lname,
+      room_num: room_num,
+      rent_start: rent_start,
+      rent_end: rent_end
+    )
+  
     respond_to do |format|
       format.html { redirect_to rents_url, notice: "Rent was successfully destroyed." }
       format.json { head :no_content }
     end
   end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_rent

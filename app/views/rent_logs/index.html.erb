@@ -5,13 +5,24 @@
     <tr>
       <th>Action</th>
       <th>Room</th>
-      <th>User</th>
+      <th>FirstName</th>
+      <th>LastName</th>
       <th>Rent Start</th>
       <th>Rent End</th>
       <th>Created At</th>
     </tr>
   </thead>
   <tbody>
-   
+  <%  @rent_logs.reverse.each do |rent_log| %>
+    <tr>
+      <td><%= rent_log.action %></td>
+      <td><%= rent_log.room_num %></td>
+      <td><%= rent_log.user_fname %></td>
+      <td><%= rent_log.user_lname %></td>
+      <td><%= rent_log.rent_start %></td>
+      <td><%= rent_log.rent_end %></td>
+      <td><%= rent_log.created_at.in_time_zone('Asia/Bangkok').strftime('%Y-%m-%d %H:%M:%S') %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>

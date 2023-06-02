@@ -26,4 +26,5 @@ Rails.application.routes.draw do
   get '/get_rent_user_info', to: 'rents#get_rent_user_info'
   patch '/bills/:id', to: 'bills#update', as: 'update_bill'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: 'halls#index'
 end

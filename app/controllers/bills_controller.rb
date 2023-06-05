@@ -473,11 +473,17 @@ class BillsController < ApplicationController
   # DELETE /bills/1 or /bills/1.json
   def destroy
     respond_to do |format|
-    @bill.destroy
-      format.html { redirect_to bills_url, notice: "Bill was successfully destroyed." }
-      format.json { head :no_content }
+      begin
+        @bill.destroy
+        format.html { redirect_to bills_url, notice: "Bill was successfully destroyed." }
+        format.json { head :no_content }
+      rescue
+        format.html { redirect_to bills_url, notice: "Failed to delete Bill please check relatioship." }
+        format.json { head :no_content }
+      end
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

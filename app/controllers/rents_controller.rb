@@ -69,15 +69,20 @@ class RentsController < ApplicationController
     end
   end
 
-  # DELETE /rents/1 or /rents/1.json
+  
   def destroy
-    @rent.destroy
     respond_to do |format|
-      format.html { redirect_to rents_url, notice: "Rent was successfully destroyed." }
-      format.json { head :no_content }
+      begin
+        @rent.destroy
+        format.html { redirect_to rents_url, notice: "Rent was successfully destroyed." }
+        format.json { head :no_content }
+      rescue
+        format.html { redirect_to rents_url, notice: "Failed to delete Rent please check relatioship." }
+        format.json { head :no_content }
+      end
     end
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_rent

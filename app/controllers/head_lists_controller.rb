@@ -49,11 +49,13 @@ class HeadListsController < ApplicationController
 
   # DELETE /head_lists/1 or /head_lists/1.json
   def destroy
-    @head_list.destroy
-
     respond_to do |format|
+    if @head_list.destroy
       format.html { redirect_to head_lists_url, notice: "Head list was successfully destroyed." }
       format.json { head :no_content }
+    else
+      format.html { render :edit, status: :unprocessable_entity }
+      format.json { render json: @head_list.errors, status: :unprocessable_entity }
     end
   end
 

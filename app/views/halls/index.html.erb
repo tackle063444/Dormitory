@@ -37,8 +37,8 @@
 				</div>
          	<% end %>
 			<div class="card"> 
-				<%= button_to 'แก้ไข', edit_hall_path(hall), class: 'btn btn-outline-warning' %>
-                <%= button_to 'Destroy', hall, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class:"btn btn-outline-danger"  %>
+				<%= link_to 'แก้ไข', edit_hall_path(hall), class: 'btn btn-outline-warning' %>
+				<%= button_to 'ลบ', hall, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
 			</div>
 				</div>
         <% end %>

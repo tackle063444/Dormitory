@@ -48,6 +48,8 @@
     </p>
 
     <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' %> |
+	<%= button_to 'Destroy', user, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class:"btn btn-outline-danger"  %> |
+
     <%= link_to 'Back', users_path, class: 'btn btn-primary'  %>
 
 			</div>

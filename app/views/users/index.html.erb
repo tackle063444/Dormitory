@@ -46,8 +46,8 @@
                 <td><%= user.user_lname %></td>
                 <td><%= user.user_address %></td>
                 <td><%= user.user_tel %></td>
-                <td><%= link_to 'Show', user, class:"btn btn-outline-info"  %></td>
-                <td><%= link_to 'Edit', edit_user_path(user), class:"btn btn-outline-warning"  %></td>
+                <td><%= button_to 'Show', user, class:"btn btn-outline-info"  %></td>
+                <td><%= button_to 'Edit', edit_user_path(user), class:"btn btn-outline-warning"  %></td>
                 <td><%= button_to 'Destroy', user, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class:"btn btn-outline-danger"  %></td>
               </tr>
             <% end %>

@@ -42,8 +42,8 @@
                  <td><%= more_list.form_select_text %></td>
                  <td><%= more_list.name_morelist %></td>
                  <td><%= more_list.unit_morelist %></td>
-                 <td><%= link_to 'Edit', edit_more_list_path(more_list) %></td>
-                 <td><%= link_to 'Destroy', more_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                 <td><%= button_to 'Edit', edit_more_list_path(more_list) %></td>
+                 <td><%= button_to 'Destroy', more_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                </tr>
              <% end %>
            <% end %>
@@ -66,8 +66,8 @@
                  <td><%= more_list.form_select_text %></td>
                  <td><%= more_list.name_morelist %></td>
                  <td><%= more_list.unit_morelist %></td>
-                 <td><%= link_to 'Edit', edit_more_list_path(more_list) %></td>
-                 <td><%= link_to 'Destroy', more_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                 <td><%= button_to 'Edit', edit_more_list_path(more_list) %></td>
+                 <td><%= button_to 'Destroy', more_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                </tr>
              <% end %>
            <% end %>

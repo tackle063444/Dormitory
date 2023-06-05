@@ -46,10 +46,10 @@
 			  <td><%= bill.room&.hall.hall_name %></td>
 			  <td><%= bill.room&.room_num %></td>
 			  <td><%= bill.form_select_text %></td>
-			  <td><%= link_to 'preview', preview_bill_path(bill), class:"btn btn-primary", target: "_blank" %></td>
-			  <td><%= link_to 'download', download_bill_path(bill), class:"btn btn-primary", target: "_blank" %></td>
-			  <td><%= link_to 'Edit', edit_bill_path(bill), class:"btn btn-outline-warning" %></td>
-			  <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
+			  <td><%= button_to 'preview', preview_bill_path(bill), class:"btn btn-primary", target: "_blank" %></td>
+			  <td><%= button_to 'download', download_bill_path(bill), class:"btn btn-primary", target: "_blank" %></td>
+			  <td><%= button_to 'Edit', edit_bill_path(bill), class:"btn btn-outline-warning" %></td>
+			  <td><%= button_to 'Destroy', bill, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class:"btn btn-outline-danger"  %></td>
 			</tr>
 		  <% end %>
 		  

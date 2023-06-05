@@ -50,8 +50,8 @@
           <%= @room.room_status %>
         </p>
 
-        <%= link_to 'Edit', edit_room_path(@room), class: 'btn btn-primary' %> |
-        <%= link_to 'Back', rooms_path, class: 'btn btn-primary' %>
+        <%= button_to 'Edit', edit_room_path(@room), class: 'btn btn-primary' %> |
+        <%= button_to 'Back', rooms_path, class: 'btn btn-primary' %>
 
 			</div>
 		</div>

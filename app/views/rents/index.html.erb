@@ -52,8 +52,8 @@
                 <td><%= rent.rent_start %></td>
                 <td><%= rent.rent_end %></td>
                 <td><%= rent.rent_history %></td>
-                <td><%= link_to 'แก้ไข', edit_rent_path(rent), class: 'btn btn-outline-warning' %></td>
-                <td><%= link_to 'ลบ', rent, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-outline-danger' %></td>
+                <td><%= button_to 'แก้ไข', edit_rent_path(rent), class: 'btn btn-outline-warning' %></td>
+                <td><%= button_to 'ลบ', rent, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-outline-danger' %></td>
               </tr>
             <% end %>
           </tbody>

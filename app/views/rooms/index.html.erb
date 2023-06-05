@@ -44,8 +44,8 @@
 				  <div class="card">
 					<h3><%= room_status %></h3>	  
 					<p><%= "จำนวนคนที่เช่า: #{occupied_count}" %></p>
-					<%= link_to 'แก้ไข', edit_room_path(room), class: 'btn btn-outline-warning' %>
-					<%= link_to 'ลบ', room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+					<%= button_to 'แก้ไข', edit_room_path(room), class: 'btn btn-outline-warning' %>
+					<%= button_to 'ลบ', room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
 				  </div>
 				</div>
 			  <% end %>

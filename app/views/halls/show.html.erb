@@ -50,6 +50,8 @@
         </p>
         
        <%= link_to 'กลับ', halls_path, class: 'btn btn-outline-dark'%>
+	   <%= button_to 'Destroy', hall, method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class:"btn btn-outline-danger"  %>
+
 
 			</div>
 		</div>

@@ -47,14 +47,18 @@ class HallsController < ApplicationController
     end
   end
   
-  
 
-  # DELETE /halls/1 or /halls/1.json
+  # DELETE /rooms/1 or /rooms/1.json
   def destroy
-    @hall.destroy
     respond_to do |format|
-      format.html { redirect_to halls_url, notice: "Hall was successfully destroyed." }
-      format.json { head :no_content }
+      begin
+        @hall.destroy
+        format.html { redirect_to halls_url, notice: "Hall was successfully destroyed." }
+        format.json { head :no_content }
+      rescue
+        format.html { redirect_to halls_url, notice: "Failed to delete Hall please check relatioship." }
+        format.json { head :no_content }
+      end
     end
   end
 

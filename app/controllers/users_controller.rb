@@ -62,13 +62,19 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1 or /users/1.json
+
   def destroy
-    @user.destroy
     UserLog.create(action: "delete", user_id: @user.id, user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
     respond_to do |format|
+    begin
+      @room.destroy
       format.html { redirect_to users_url, notice: "User was successfully destroyed." }
       format.json { head :no_content }
+    rescue
+      format.html { redirect_to users_url, notice: "Failed to delete User please check relatioship." }
+      format.json { head :no_content }
+    end
+
     end
   end
 

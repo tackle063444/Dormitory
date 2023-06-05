@@ -25,7 +25,7 @@
 				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Dormitory</h2>
 				<%= link_to 'เพิ่มหอพักใหม่', new_hall_path,  id: 'open-form' ,class: 'btn btn-outline-success' %>
 			<div class="row row-bottom-padded-md">
-					
+			<p id="notice"><%= notice %></p>
         <% @halls.each do |hall| %>
         <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
 			  <%= link_to rooms_path(hall_id: hall.id), class: "work image-popup", style: "background-image: url('/assets/images/002.jpg')" do %>

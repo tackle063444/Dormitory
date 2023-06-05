@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_31_084344) do
+ActiveRecord::Schema.define(version: 2023_06_05_060017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 2023_05_31_084344) do
     t.float "amount"
     t.float "head_total"
     t.string "two_r"
+    t.bigint "bill_id"
+    t.index ["bill_id"], name: "index_head_lists_on_bill_id"
     t.index ["bill_list_id"], name: "index_head_lists_on_bill_list_id"
   end
 
@@ -166,6 +168,7 @@ ActiveRecord::Schema.define(version: 2023_05_31_084344) do
   add_foreign_key "bills", "rents"
   add_foreign_key "bills", "rooms"
   add_foreign_key "head_lists", "bill_lists"
+  add_foreign_key "head_lists", "bills"
   add_foreign_key "rent_logs", "rooms"
   add_foreign_key "rent_logs", "users"
   add_foreign_key "rents", "halls"

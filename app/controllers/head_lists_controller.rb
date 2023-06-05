@@ -26,7 +26,7 @@ class HeadListsController < ApplicationController
     respond_to do |format|
       if @head_list.save
         format.html { redirect_to head_list_url(@head_list), notice: "Head list was successfully created." }
-        format.json { render :show, status: :created, location: @head_list }
+        format.json { render :index, status: :created, location: @head_list }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @head_list.errors, status: :unprocessable_entity }

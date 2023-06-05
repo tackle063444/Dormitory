@@ -39,8 +39,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         UserLog.create(action: "create", user_id: @user.id, user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
-        format.html { redirect_to user_url(@user), notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
+        format.html { redirect_to users_url(@user), notice: "User was successfully created." }
+        format.json { render :index, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }

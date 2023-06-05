@@ -25,7 +25,7 @@ class MoreListsController < ApplicationController
 
     respond_to do |format|
       if @more_list.save
-        format.html { redirect_to more_list_url(@more_list), notice: "More list was successfully created." }
+        format.html { redirect_to more_lists_url(@more_list), notice: "More list was successfully created." }
         format.json { render :show, status: :created, location: @more_list }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class MoreListsController < ApplicationController
   def update
     respond_to do |format|
       if @more_list.update(more_list_params)
-        format.html { redirect_to more_list_url(@more_list), notice: "More list was successfully updated." }
+        format.html { redirect_to more_lists_url(@more_list), notice: "More list was successfully updated." }
         format.json { render :show, status: :ok, location: @more_list }
       else
         format.html { render :edit, status: :unprocessable_entity }

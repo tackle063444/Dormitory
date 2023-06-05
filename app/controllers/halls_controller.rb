@@ -27,7 +27,7 @@ class HallsController < ApplicationController
     respond_to do |format|
       if @hall.save
         format.html { redirect_to halls_path, notice: "Hall was successfully created." }
-        format.json { render :show, status: :created, location: @hall }
+        format.json { render :index, status: :created, location: @hall }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @hall.errors, status: :unprocessable_entity }

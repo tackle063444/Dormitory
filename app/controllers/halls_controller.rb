@@ -51,7 +51,7 @@ class HallsController < ApplicationController
 
   # DELETE /halls/1 or /halls/1.json
   def destroy
-    @hall.destroy
+    @hall.destroy(hall_params)
     respond_to do |format|
       format.html { redirect_to halls_url, notice: "Hall was successfully destroyed." }
       format.json { head :no_content }

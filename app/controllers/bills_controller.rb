@@ -4,6 +4,7 @@ class BillsController < ApplicationController
   def index
     @bills = Bill.includes(:room).all
     @bill = Bill.new(form_select: params[:form_select])
+    @form = Hall.new
   end
 
   def new
@@ -28,8 +29,9 @@ class BillsController < ApplicationController
 
         bill_names = Set.new
     
-        bills = Bill.joins(room: :hall).where("halls.hall_name = '8home8'").order("rooms.room_num")
-    
+        bills = Bill.joins(room: :hall).where("halls.hall_name = 'หอพักหญิง บ้านนาย'").order("rooms.room_num")
+        #bills = Bill.joins(room: :hall).where("halls.id = ?", params[:form][:hall_id]).order("rooms.room_num")
+
         bills_by_form_select = bills.group_by(&:form_select_text)
     
         bills_by_form_select.each do |form_select_text, bills_for_form|
@@ -146,7 +148,8 @@ class BillsController < ApplicationController
     )
     pdf.font('THSarabun', size: 15)
     #pdf.image "#{Rails.root}/app/assets/images/#{@bill.hall.hall_logo}", position: :left, fit: [70, 70]
-    pdf.image("#{Rails.root}/app/assets/images/logo001.png", position: :left, fit: [70, 70])
+    up_images = File.open(Rails.root + "public/#{@bill.room.hall.hall_logo.url}", 'rb')
+    pdf.image up_images, fit: [70, 70]
 
 
       pdf.bounding_box([pdf.bounds.right - 400, pdf.bounds.top - 0], width: 400, height: 80) do

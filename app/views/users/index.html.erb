@@ -48,7 +48,7 @@
                 <td><%= user.user_tel %></td>
                 <td><%= link_to 'Show', user, class:"btn btn-outline-info"  %></td>
                 <td><%= link_to 'Edit', edit_user_path(user), class:"btn btn-outline-warning"  %></td>
-                <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger"  %></td>
+                <td><%= button_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-outline-danger"  %></td>
               </tr>
             <% end %>
           </tbody>

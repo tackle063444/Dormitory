@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_05_060017) do
+ActiveRecord::Schema.define(version: 2023_06_06_034511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,16 +98,12 @@ ActiveRecord::Schema.define(version: 2023_06_05_060017) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "action"
-    t.integer "room_id"
     t.string "rent_start"
     t.string "rent_end"
-    t.integer "user_id"
     t.integer "rent_id"
     t.string "user_fname"
     t.string "user_lname"
     t.string "room_num"
-    t.index ["room_id"], name: "index_rent_logs_on_room_id"
-    t.index ["user_id"], name: "index_rent_logs_on_user_id"
   end
 
   create_table "rents", force: :cascade do |t|
@@ -144,7 +140,6 @@ ActiveRecord::Schema.define(version: 2023_06_05_060017) do
 
   create_table "user_logs", force: :cascade do |t|
     t.string "action"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_fname"
@@ -169,8 +164,6 @@ ActiveRecord::Schema.define(version: 2023_06_05_060017) do
   add_foreign_key "bills", "rooms"
   add_foreign_key "head_lists", "bill_lists"
   add_foreign_key "head_lists", "bills"
-  add_foreign_key "rent_logs", "rooms"
-  add_foreign_key "rent_logs", "users"
   add_foreign_key "rents", "halls"
   add_foreign_key "rents", "rooms"
   add_foreign_key "rents", "users"

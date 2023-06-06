@@ -50,7 +50,6 @@ class HeadListsController < ApplicationController
   # DELETE /head_lists/1 or /head_lists/1.json
   def destroy
     @head_list.destroy
-
     respond_to do |format|
       format.html { redirect_to head_lists_url, notice: "Head list was successfully destroyed." }
       format.json { head :no_content }

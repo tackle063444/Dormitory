@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        UserLog.create(action: "create", user_id: @user.id, user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
+        #UserLog.create(action: "create", user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
         format.html { redirect_to users_url(@user), notice: "User was successfully created." }
         format.json { render :index, status: :created, location: @user }
       else
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        UserLog.create(action: "update", user_id: @user.id, user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
+        #UserLog.create(action: "update", user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -62,12 +62,12 @@ class UsersController < ApplicationController
     end
   end
 
-
+ 
   def destroy
-    UserLog.create(action: "delete", user_id: @user.id, user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
+    #UserLog.create(action: "delete", user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
     respond_to do |format|
       begin
-        @room.destroy
+        @user.destroy
         format.html { redirect_to users_url, notice: "User was successfully destroyed." }
         format.json { head :no_content }
       rescue
@@ -76,6 +76,7 @@ class UsersController < ApplicationController
       end
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

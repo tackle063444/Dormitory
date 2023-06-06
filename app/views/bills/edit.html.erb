@@ -52,3 +52,30 @@
 </html>
 
 
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+  handleAddAssociation();
+});
+
+function handleAddAssociation() {
+  var addButton = document.querySelector('.btn.btn-primary');
+
+  if (addButton) {
+    addButton.addEventListener('click', function(event) {
+      event.preventDefault();
+	  alert(41541515)
+      var formId = addButton.getAttribute('data-association-insertion-template');
+      var form = document.getElementById(formId);
+
+      // Add your logic here for handling the addition of the item
+
+      // After handling the addition, you can call the Cocoon function to reinitialize the associations
+      // This will update the indices and prepare for adding more associations
+      if (typeof $.fn.cocoon === 'function') {
+        $(form).trigger('cocoon:after-insert');
+      }
+    });
+  }
+}
+
+</script>

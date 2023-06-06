@@ -44,7 +44,7 @@ class RentsController < ApplicationController
   
     respond_to do |format|
       if @rent.save
-        #RentLog.create(action: "create", user_fname: @rent.user.user_fname, user_lname: @rent.user.user_lname, room_num: @rent.room.room_num, rent_start: @rent.rent_start, rent_end: @rent.rent_end)
+        RentLog.create(action: "create", user_fname: @rent.user.user_fname, user_lname: @rent.user.user_lname, room_num: @rent.room.room_num, rent_start: @rent.rent_start, rent_end: @rent.rent_end)
         format.html { redirect_to rents_url(@rent), notice: "Rent was successfully created." }
         format.json { render :show, status: :created, location: @rent }
       else
@@ -59,7 +59,7 @@ class RentsController < ApplicationController
   def update
     respond_to do |format|
       if @rent.update(rent_params)
-        #RentLog.create(action: "update", user_fname: @rent.user.user_fname, user_lname: @rent.user.user_lname, room_num: @rent.room.room_num, rent_start: @rent.rent_start, rent_end: @rent.rent_end)
+        RentLog.create(action: "update", user_fname: @rent.user.user_fname, user_lname: @rent.user.user_lname, room_num: @rent.room.room_num, rent_start: @rent.rent_start, rent_end: @rent.rent_end)
         format.html { redirect_to rents_url(@rent), notice: "Rent was successfully updated." }
         format.json { render :show, status: :ok, location: @rent }
       else

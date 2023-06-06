@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        #UserLog.create(action: "create", user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
+        UserLog.create(action: "create", user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
         format.html { redirect_to users_url(@user), notice: "User was successfully created." }
         format.json { render :index, status: :created, location: @user }
       else
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        #UserLog.create(action: "update", user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
+        UserLog.create(action: "update", user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
 
  
   def destroy
-    #UserLog.create(action: "delete", user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
+    UserLog.create(action: "delete", user_fname: @user.user_fname, user_lname: @user.user_lname, user_address: @user.user_address, user_tel: @user.user_tel)
     respond_to do |format|
       begin
         @user.destroy

@@ -14,8 +14,14 @@ class BillsController < ApplicationController
   
     def export_ex
       workbook = Axlsx::Package.new
+
+      halls = Hall.all
+
+      halls.each do |hall|
+        bills = Bill.joins(room: :hall).where("halls.id = ?", hall.id).order("rooms.room_num")
     
-      workbook.workbook.add_worksheet(name: 'Sheet 1') do |sheet|
+      workbook.workbook.add_worksheet(name: hall.hall_name) do |sheet|
+
         bill_lists = BillList.all.order(:list_typeName)
         bill_list_typenames = bill_lists.pluck(:list_typeName)
     
@@ -29,12 +35,12 @@ class BillsController < ApplicationController
 
         bill_names = Set.new
     
-        bills = Bill.joins(room: :hall).where("halls.hall_name = 'หอพักหญิง บ้านนาย'").order("rooms.room_num")
         #bills = Bill.joins(room: :hall).where("halls.id = ?", params[:form][:hall_id]).order("rooms.room_num")
 
         bills_by_form_select = bills.group_by(&:form_select_text)
-    
+        
         bills_by_form_select.each do |form_select_text, bills_for_form|
+      
           sheet.add_row [form_select_text, *[""] * (bill_list_typenames.size + 4), "", "", "",""], style: listrow_style
     
           bills_for_form.each do |bill|
@@ -128,11 +134,12 @@ class BillsController < ApplicationController
         
         sheet.add_row ["คงเหลือ", alltotal]
 
-      end
-    
+    end
+  end
       send_data workbook.to_stream.read, filename: 'Dormitory.xlsx', type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     end
   
+
   def download
     @bill = Bill.find(params[:id])
     if @bill.present?
@@ -459,7 +466,6 @@ class BillsController < ApplicationController
   # PATCH/PUT /bills/1 or /bills/1.json
   def update
     respond_to do |format|
-      #byebug
       if @bill.update(bill_params)
         format.html { redirect_to bills_url(@bill), notice: "Bill was successfully updated." }
         format.json { render :index, status: :ok, location: @bill }

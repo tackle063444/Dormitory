@@ -40,6 +40,7 @@ $(document).ready(function() {
       $('#rent-user-info').html(html);
     }
   });
+
   });
 
     var formSelect = document.getElementById("bill_form");
@@ -72,7 +73,6 @@ $(document).ready(function() {
       });
     });
 
-    
-    
 
-  });
+
+});

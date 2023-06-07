@@ -75,12 +75,12 @@ class BillsController < ApplicationController
         end
     
         amount_sum = bills.sum { |bill| bill.head_lists.sum(:e_price) }
-        bill_total_sum = bills.sum(:bill_total)
+        bill_total_sum = bills.reject { |bill| bill.form_select_text == 'ใบแจ้งค่าบริการห้องพัก' }.sum(&:bill_total)
     
         column_sums = bill_lists.map do |bill_list|
-          bills.sum { |bill| bill.head_lists.find_by(bill_list_id: bill_list.id)&.head_total || 0 }
+          bills.reject { |bill| bill.form_select_text == 'ใบแจ้งค่าบริการห้องพัก' }.sum { |bill| bill.head_lists.find_by(bill_list_id: bill_list.id)&.head_total || 0 }
         end
-
+        
         other_income_row = ["รายรับอื่นๆ", "", *[""] * (bill_list_typenames.size + 4), "", "", ""]
         
         row_data = ["", "", *column_sums, "0", "0", amount_sum, "0", bill_total_sum, "", ""]

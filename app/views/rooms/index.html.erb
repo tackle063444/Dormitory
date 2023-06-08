@@ -23,32 +23,54 @@
 			</nav>
 
 		</aside>
-
-	<div id="fh5co-main">
+		<div id="fh5co-main">
 		<div class="fh5co-narrow-content">
-				<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Room</h2>
-				<%= link_to 'เพิ่มห้องพักใหม่', new_room_path,  id: 'open-form' ,class: 'btn btn-outline-success' %>
-			<div class="row row-bottom-padded-md">
+		  <h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Room</h2>
+		  <%= link_to 'เพิ่มห้องพักใหม่', new_room_path, id: 'open-form', class: 'btn btn-outline-success' %>
+		  <div class="row row-bottom-padded-md">
 			<p id="notice"><%= notice %></p>
-			<% @room.order(room_num: :asc).each do |room| %>
-				<% room_status = room.room_show_status %>
-				<% occupied_count = room.occupied_count %>
-				
-				<div class="col-md-3 col-sm-6 col-padding text-center animate-box">
-				  <%= link_to users_path(room_id: room.id), class: "work image-popup", style: "background-image: url('/assets/images1/img_bg_3.jpg')" do %>
-					<div class="card">
-					  <h2>เลขห้อง</h2>
-					  <h3><%= room.room_num %></h3>
-					</div>
-				  <% end %>
-				  <div class="card">
-					<h3><%= room_status %></h3>	  
-					<p><%= "จำนวนคนที่เช่า: #{occupied_count}" %></p>
-					<%= link_to 'แก้ไข', edit_room_path(room), class: 'btn btn-outline-warning' %>
-					<%= button_to 'ลบ', room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
-				  </div>
+	  
+			<!-- Filter -->
+			<div class="filter">
+			<%= form_tag rooms_path, method: :get do %>
+				<div class="form-group">
+				<label for="room_num">หมายเลขห้อง:</label>
+				<%= text_field_tag :room_num, nil, class: "form-control", placeholder: "กรอกหมายเลขห้อง" %>
 				</div>
-			  <% end %>
+				<div class="form-group">
+				<label for="hall_id">ชื่อหอพัก:</label>
+				<%= select_tag :hall_id, options_from_collection_for_select(Hall.all, :id, :hall_name),  prompt: "เลือกหอพัก", class: "form-control" %>
+				</div>
+				<button type="submit" class="btn btn-primary">ค้นหา</button>
+			<% end %>
+			</div>
+			<!-- End Filter -->
+
+
+	  
+			<% @rooms.order(room_num: :asc).each do |room| %>
+			  <% room_status = room.room_show_status %>
+			  <% occupied_count = room.occupied_count %>
+	  
+			  <div class="col-md-3 col-sm-6 col-padding text-center animate-box">
+				<%= link_to users_path(room_id: room.id), class: "work image-popup", style: "background-image: url('/assets/images1/img_bg_3.jpg')" do %>
+				  <div class="card">
+					<h2>เลขห้อง</h2>
+					<h3><%= room.room_num %></h3>
+				  </div>
+				<% end %>
+				<div class="card">
+				  <h3><%= room_status %></h3>
+				  <p><%= "จำนวนคนที่เช่า: #{occupied_count}" %></p>
+				  <%= link_to 'แก้ไข', edit_room_path(room), class: 'btn btn-outline-warning' %>
+				  <%= button_to 'ลบ', room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+				</div>
+			  </div>
+			<% end %>
+		  </div>
+		</div>
+	  </div>
+	  
 			  
 			  
 			  

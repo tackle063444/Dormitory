@@ -29,8 +29,11 @@ class Room < ApplicationRecord
       room_status = "ว่าง 3"
     end
     
-    return room_status
+    self.room_status = room_status 
+    room_status 
   end
+  
+  
 
   
 end

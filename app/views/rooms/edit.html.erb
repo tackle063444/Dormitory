@@ -47,30 +47,25 @@
 
 			<tbody>
 				<tr>
-					<td><%= form.label :Hall_id, class:"form-label" %></td>
+					<td><%= form.label :หอพัก, class:"form-label" %></td>
 					<td><%= form.collection_select :hall_id, Hall.all, :id, :hall_name, class:"form-control" %></td>
 				</tr>
             	<tr>
-					<td><%= form.label :room_num, class:"form-label" %></td>
+					<td><%= form.label :เลขห้อง, class:"form-label" %></td>
 					<td><%= form.text_field :room_num, id: :room_num , class: 'form-control' %></td>
 				</tr>
             	<tr>
-					<td><%= form.label :user_id, class:"form-label" %></td>
-					<td><%= form.select :user_id, options_for_select(@room.rents.map { |r| [r.user.user_fname, r.user_id] }), {}, class: "form-control" %></td>
-				</tr>
-
-            	<tr>
-					<td><%= form.label :สถานะห้อง, class:"form-label" %></td>
-                <td>
-                	<%= form.radio_button :room_status, true, id: :room_status_empty %>
-                	<%= form.label :room_status_empty, 'ห้องว่าง' %>
-                		<br>
-                	<%= form.radio_button :room_status, false, id: :room_status_occupied %>
-                	<%= form.label :room_status_occupied, 'ห้องไม่ว่าง' %>
-                </td>
+ 				 <td><%= form.label :ผู้เช่าในห้อง, class: "form-label" %></td>
+				<td>
+					<% @room.rents.each do |rent| %>
+						<%= rent.user.user_fname %><br>
+					<% end %>
+				</td>
 				</tr>
 			</tbody>
+
   		</table>
+
             <div class="actions">
               <%= form.submit  "Confirm", class: "btn btn-primary" %>
             </div>

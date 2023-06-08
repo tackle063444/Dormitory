@@ -4,11 +4,18 @@ class RoomsController < ApplicationController
   # GET /rooms or /rooms.json
   def index
     if params[:hall_id].present?
-      @room = Room.where(hall_id: params[:hall_id])
+      @rooms = Room.where(hall_id: params[:hall_id])
     else
-      @room = Room.all
+      @rooms = Room.all
     end
+  
+    if params[:room_num].present?
+      @rooms = @rooms.where(room_num: params[:room_num])
+    end
+  
+  
   end
+  
 
   # GET /rooms/1 or /rooms/1.json
   def show

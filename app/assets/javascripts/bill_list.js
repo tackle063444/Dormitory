@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on("turbolinks:load", function()  {
 
   $(document).on("change", "#form_select", function() {
     checkSelectedForm();

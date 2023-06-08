@@ -32,6 +32,9 @@
          <thead>
            <tr>
              <th colspan="3">รายรับ</th>
+             <th></th>
+             <th></th>
+
            </tr>
          </thead>
        
@@ -42,8 +45,8 @@
                  <td><%= more_list.form_select_text %></td>
                  <td><%= more_list.name_morelist %></td>
                  <td><%= more_list.unit_morelist %></td>
-                 <td><%= link_to 'Edit', edit_more_list_path(more_list) %></td>
-                 <td><%= button_to 'Destroy', more_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                 <td><%= link_to 'Edit', edit_more_list_path(more_list) , class:"btn btn-outline-warning" %></td>
+                 <td><%= button_to 'Destroy', more_list, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
                </tr>
              <% end %>
            <% end %>
@@ -56,6 +59,9 @@
          <thead>
            <tr>
              <th colspan="3">รายจ่าย</th>
+             <th></th>
+             <th></th>
+
            </tr>
          </thead>
        
@@ -66,8 +72,8 @@
                  <td><%= more_list.form_select_text %></td>
                  <td><%= more_list.name_morelist %></td>
                  <td><%= more_list.unit_morelist %></td>
-                 <td><%= link_to 'Edit', edit_more_list_path(more_list) %></td>
-                 <td><%= button_to 'Destroy', more_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                 <td><%= link_to 'Edit', edit_more_list_path(more_list) , class:"btn btn-outline-warning" %></td>
+                 <td><%= button_to 'Destroy', more_list, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
                </tr>
              <% end %>
            <% end %>

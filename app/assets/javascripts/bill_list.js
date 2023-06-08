@@ -1,4 +1,4 @@
-$(document).on("turbolinks:load", function()  {
+$(document).ready(function() {
 
   $(document).on("change", "#form_select", function() {
     checkSelectedForm();
@@ -127,9 +127,9 @@ $(document).on("turbolinks:load", function()  {
     calculate_form($(this));
   })
     
-   $(document).on("change keyup", ".old_unit, .new_unit, .amount, .head_total, .two_rs", function() {
+  $(document).on("change keyup", ".old_unit, .new_unit, .amount, .head_total, .two_rs", function() {
   calculate_form($(this));
-});
+  });
 
 
 $('body').on('change', '.bill_list', function() {
@@ -141,15 +141,13 @@ $('body').on('change', '.bill_list', function() {
   }
 });
 
-// เมื่อกดปุ่มเพิ่มฟอร์ม
 $('body').on('click', '.add_nested_fields', function() {
   
-  var selectedOptionValue = $(this).closest('.nested-fields').find('.bill_list').val(); // ค่าของ option ที่ถูกเลือกในฟอร์มก่อนหน้านี้
+  var selectedOptionValue = $(this).closest('.nested-fields').find('.bill_list').val(); 
 
-  // ถ้ามีฟอร์มที่มี bill_list_id เดียวกับ option ที่ถูกเลือกในฟอร์มก่อนหน้านี้
   if ($('.bill_list').filter(function() { return $(this).val() == selectedOptionValue; }).length > 0) {
     alert('ไม่สามารถเพิ่มฟอร์มที่มี bill_list_id เดียวกับฟอร์มก่อนหน้าได้');
-    return false; // ไม่ให้เพิ่มฟอร์ม
+    return false; 
   }
 });
 

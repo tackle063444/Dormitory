@@ -22,21 +22,20 @@
 $(document).ready(function() {
   
 
- // show user rent in room
  $('#room-select').on('change', function() {
-  var room_id = $(this).val(); // ดึงค่าของหมายเลขห้องที่ถูกเลือก
-  // ส่ง request เพื่อดึงข้อมูลผู้ใช้งาน
+  var room_id = $(this).val(); 
+
   $.ajax({
     url: '/get_rent_user_info',
     data: { room_id: room_id },
     success: function(response) {
-      // สร้าง HTML สำหรับแสดงผลข้อมูลผู้ใช้งาน
+    
       var html = '<ul>';
       $.each(response, function(index, user) {
         html += '<li>' + ' -> ' + user.user_fname + ' ' + user.user_lname + '</li>';
       });
       html += '</ul>';
-      // แสดงผลข้อมูลผู้ใช้งานใน tag HTML ที่มี id เท่ากับ "rent-user-info"
+   
       $('#rent-user-info').html(html);
     }
   });
@@ -64,7 +63,7 @@ $(document).ready(function() {
           if (response == 'rented' || selected_user_id == '<%= @rent.user_id %>') {
             $(`#c_user option[value="${selected_user_id}"]`).hide();
           } else {
-            // ถ้ายังไม่เช่าให้แสดงผลต่อไป
+     
           }
         },
         error: function() {
@@ -72,7 +71,5 @@ $(document).ready(function() {
         }
       });
     });
-
-
 
 });

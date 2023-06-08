@@ -16,7 +16,6 @@ class RoomsController < ApplicationController
   
   end
   
-
   # GET /rooms/1 or /rooms/1.json
   def show
   end

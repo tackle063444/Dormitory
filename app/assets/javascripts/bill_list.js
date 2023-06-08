@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-
-
   $(document).on("change", "#form_select", function() {
     checkSelectedForm();
   });
@@ -129,10 +127,10 @@ $(document).ready(function() {
     calculate_form($(this));
   })
     
-    $(document).on("change keyup", ".old_unit, .new_unit, .amount, .head_total",".two_rs", function() {
-      calculate_form($(this));
-    });
-    
+  $(document).on("change keyup", ".old_unit, .new_unit, .amount, .head_total, .two_rs", function() {
+    calculate_form($(this));
+  });
+  
 
 $('body').on('change', '.bill_list', function() {
   var selectedOptionValue = $(this).val();

@@ -9,7 +9,7 @@ class BillsController < ApplicationController
 
   def new
     @bill = Bill.new(form_select: params[:form_select])
-  
+    @bill.bill_date = Date.today
   end
   
     def export_ex
@@ -346,7 +346,7 @@ class BillsController < ApplicationController
     end
 
       pdf.bounding_box([pdf.bounds.right - 190, pdf.bounds.top - 80], width: 190, height: 70) do
-        pdf.text "วันที่ #{Time.now.strftime('%Y-%m-%d')}"
+        pdf.text "วันที่ #{@bill.bill_date.strftime('%Y-%m-%d')}"
         pdf.text "เลขที่ #{@bill.bill_no}"
         pdf.stroke_bounds
       end

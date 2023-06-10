@@ -26,62 +26,64 @@
 					<%= link_to 'DowloadExel', export_exel_path, class: "btn btn-outline-success" %>
 					<p id="notice"><%= notice %></p>
 					<div class="filter">
-						<%= form_tag bills_path, method: :get do %>
-							<div class="form-group">
-								<label for="hall_id">ชื่อหอพัก:</label>
-								<%= select_tag :hall_id, options_from_collection_for_select(Hall.all, :id, :hall_name, params[:hall_id]), prompt: "ทั้งหมด", class: "form-control" %>
-							</div>
-							<div class="form-group">
-								<label for="form_select">ประเภทบิล:</label>
-								<%= select_tag :form_select, options_for_select(Bill.distinct.pluck(:form_select).map { |form_select| [Bill.new(form_select: form_select).form_select_text, form_select] }, params[:form_select]), prompt: "ทั้งหมด", class: "form-control" %>
-							</div>
-							<div class="form-group">
-								<label for="bill_date">วันที่:</label>
-								<%= date_field_tag :bill_date, params[:bill_date], class: "form-control", style: "width: 200px;" %>
-							</div>
-							<button type="submit" class="btn btn-primary">ค้นหา</button>
-						<% end %>
-					</div><br>
-					<% @bills.sort_by { |bill| bill.room&.room_num.to_i }.each do |bill| %>
-						<% if bill.form_select_text.present? && ((params[:hall_id].blank? && bill.room&.hall_id.present?) || (params[:hall_id].present? && bill.room&.hall_id == params[:hall_id].to_i)) && (params[:form_select].blank? || bill.form_select_text == params[:form_select]) && (params[:bill_date].blank? || bill.bill_date == params[:bill_date]) %>
+					<%= form_tag({ controller: 'bills', action: 'index' }, method: :get) do %>
+						<div class="form-group">
+						  <label for="hall_id">ชื่อหอพัก:</label>
+						  <%= select_tag :hall_id, options_from_collection_for_select(@halls, :id, :hall_name, @selected_hall_id), prompt: "ทั้งหมด", class: "form-control" %>
+						</div>
+						<div class="form-group">
+						<label for="form_select">ประเภทบิล:</label>
+						<%= select_tag :form_select, options_for_select(Bill.distinct.pluck(:form_select).map { |form_select| [Bill.new(form_select: form_select).form_select_text, form_select] }, @selected_form_select), prompt: "ทั้งหมด", class: "form-control" %>
+						</div>
+						<div class="form-group">
+						  <label for="bill_date">วันที่:</label>
+						  <%= date_field_tag :bill_date, @selected_bill_date, class: "form-control", style: "width: 200px;" %>
+						</div>
+						<button type="submit" class="btn btn-primary">ค้นหา</button>
+					  <% end %>
+					  
+					  <% @bills.sort_by { |bill| bill.room&.room_num.to_i }.each do |bill| %>
+						<% if ((@selected_form_select.present? && bill.form_select == @selected_form_select) || @selected_form_select.blank?) && ((@selected_hall_id.present? && bill.room&.hall_id == @selected_hall_id.to_i) || @selected_hall_id.blank?) && ((@selected_bill_date.present? && bill.bill_date.to_date == @selected_bill_date.to_date) || @selected_bill_date.blank?) %>
 						<% unless @current_form_select_text == bill.form_select_text %>
-								<% if @current_form_select_text.present? %>
-									</tbody>
-								</table>
-								<% end %>
-								<% @current_form_select_text = bill.form_select_text %>
-								<h2><%= @current_form_select_text %></h2>
-								<table class="table table-dark table-hover">
-									<thead>
-										<tr>
-											<th>วันที่</th>
-											<th>หอพัก</th>
-											<th>ห้อง</th>
-											<th>ประเภทบิล</th>
-											<th></th>
-											<th></th>
-											<th></th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-							<% end %>
-							<tr> 
-								<td><%= bill.bill_date %></td>
-								<td><%= bill.room&.hall.hall_name %></td>
-								<td><%= bill.room&.room_num %></td>
-								<td><%= bill.form_select_text %></td>
-								<td><%= link_to 'preview', preview_bill_path(bill), class: "btn btn-primary", target: "_blank" %></td>
-								<td><%= link_to 'download', download_bill_path(bill), class: "btn btn-primary", target: "_blank" %></td>
-								<td><%= link_to 'Edit', edit_bill_path(bill), class: "btn btn-outline-warning" %></td>
-								<td><%= button_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
-							</tr>
+						<% if @current_form_select_text.present? %>
+							</tbody>
+							</table>
 						<% end %>
+						<% @current_form_select_text = bill.form_select_text %>
+						<h2><%= @current_form_select_text %></h2>
+						<table class="table table-dark table-hover">
+							<thead>
+							<tr>
+								<th>วันที่</th>
+								<th>หอพัก</th>
+								<th>ห้อง</th>
+								<th>ประเภทบิล</th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+							</thead>
+							<tbody>
+						<% end %>
+						<tr> 
+						<td><%= bill.bill_date %></td>
+						<td><%= bill.room&.hall.hall_name %></td>
+						<td><%= bill.room&.room_num %></td>
+						<td><%= bill.form_select_text %></td>
+						<% if bill.form_select_text == 'ใบแจ้งค่าบริการห้องพัก' %>
+						<td><%= link_to 'Clone', clone_bill_path(bill), method: :post, class: 'btn btn-primary' %></td>
+						<% end %>
+						<td><%= link_to 'ดูตัวอย่าง', preview_bill_path(bill), class: "btn btn-primary", target: "_blank" %></td>
+						<td><%= link_to 'ดาวน์โหลด', download_bill_path(bill), class: "btn btn-primary", target: "_blank" %></td>
+						<td><%= link_to 'แก้ไข', edit_bill_path(bill), class: "btn btn-outline-warning" %></td>
+						<td><%= button_to 'ลบ', bill, method: :delete, data: { confirm: 'คุณแน่ใจหรือไม่?' }, class: "btn btn-outline-danger" %></td>
+						
+						</tr>
 					<% end %>
-					<% if @current_form_select_text.present? %>
-						</tbody>
-						</table>
 					<% end %>
+
+
 					<br>
 				</div>
 			</div>

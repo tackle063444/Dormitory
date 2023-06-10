@@ -2,15 +2,38 @@ class BillsController < ApplicationController
   before_action :set_bill, only: %i[ show edit update destroy  ]
   
   def index
-    @bills = Bill.includes(:room).all
+    @bills = Bill.includes(room: :hall).all
     @bill = Bill.new(form_select: params[:form_select])
-    @form = Hall.new
+    @halls = Hall.all
+    @selected_hall_id = params[:hall_id]
+    @selected_form_select = params[:form_select]
+    @selected_bill_date = params[:bill_date]
+    
+    if params[:form_select].present?
+      @bills = @bills.where(form_select: params[:form_select])
+    end
+    
   end
+  
 
   def new
     @bill = Bill.new(form_select: params[:form_select])
     @bill.bill_date = Date.today
   end
+  
+  def clone
+    bill = Bill.find(params[:id])
+    cloned_bill = bill.dup
+    cloned_bill.form_select = 'form2' 
+    cloned_bill.save!
+    bill.head_lists.each do |head_list|
+      new_head_list = head_list.dup
+      new_head_list.bill_id = cloned_bill.id
+      new_head_list.save
+    end
+    redirect_to bills_path, notice: 'Bill cloned successfully.'
+  end
+  
   
     def export_ex
       workbook = Axlsx::Package.new

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :halls
   resources :user_logs, only: [:index]
 
-  
+  post '/bills/:id/clone', to: 'bills#clone', as: 'clone_bill'
   get '/bills/:id/preview', to: 'bills#preview', as: 'preview_bill'
   get '/bills/:id/download', to: 'bills#download', as: 'download_bill'
   get '/export_exel/bills', to: 'bills#export_ex', as: 'export_exel'

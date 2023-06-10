@@ -72,7 +72,7 @@
 						<td><%= bill.room&.room_num %></td>
 						<td><%= bill.form_select_text %></td>
 						<% if bill.form_select_text == 'ใบแจ้งค่าบริการห้องพัก' %>
-						<td><%= link_to 'Clone', clone_bill_path(bill), method: :post, class: 'btn btn-primary' %></td>
+						<td><%= link_to 'ออกใบเสร็จ', clone_bill_path(bill), method: :post, class: 'btn btn-primary' %></td>
 						<% end %>
 						<td><%= link_to 'ดูตัวอย่าง', preview_bill_path(bill), class: "btn btn-primary", target: "_blank" %></td>
 						<td><%= link_to 'ดาวน์โหลด', download_bill_path(bill), class: "btn btn-primary", target: "_blank" %></td>

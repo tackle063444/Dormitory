@@ -3,7 +3,14 @@ class MoreListsController < ApplicationController
 
   # GET /more_lists or /more_lists.json
   def index
+  @halls = Hall.all
+  @selected_hall_id = params[:hall_id] # เพิ่มบรรทัดนี้
+  
+  if @selected_hall_id.present?
+    @more_lists = MoreList.where(hall_id: @selected_hall_id)
+  else
     @more_lists = MoreList.all
+  end
   end
 
   # GET /more_lists/1 or /more_lists/1.json
@@ -65,6 +72,6 @@ class MoreListsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def more_list_params
-      params.require(:more_list).permit(:type_morelist, :name_morelist, :unit_morelist)
+      params.require(:more_list).permit(:hall_id,:type_morelist, :name_morelist, :unit_morelist)
     end
 end

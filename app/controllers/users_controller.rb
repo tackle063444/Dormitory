@@ -9,6 +9,13 @@ class UsersController < ApplicationController
     else
      @users = User.all
     end
+    
+    @users = if params[:search_term].present?
+      User.where("user_fname LIKE ? OR user_lname LIKE ?", "%#{params[:search_term]}%", "%#{params[:search_term]}%")
+    else
+      User.all
+    end
+    
   end
 
   def set_user

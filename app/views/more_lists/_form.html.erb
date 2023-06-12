@@ -13,6 +13,10 @@
   <table class="table">
     <thead></thead>
     <tbody>
+    <tr>
+        <td><%= form.label :hall_name, "หอพัก", class: "form-label" %></td>
+        <td><%= form.collection_select :hall_id, Hall.all, :id, :hall_name, class:"form-control" %></td>
+      </tr>
       <tr>
         <td><%= form.label :type_morelist, "ประเภทรายการ", class: "form-label" %></td>
         <td><%= form.select :type_morelist, [['รายรับ', 'form1'], ['รายจ่าย', 'form2']], {}, class: 'type_morelist' %></td>

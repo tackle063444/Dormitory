@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_06_034511) do
+ActiveRecord::Schema.define(version: 2023_06_12_094525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(version: 2023_06_06_034511) do
     t.string "name_morelist"
     t.float "unit_morelist"
     t.string "type_morelist"
+    t.bigint "hall_id"
+    t.index ["hall_id"], name: "index_more_lists_on_hall_id"
   end
 
   create_table "rent_logs", force: :cascade do |t|
@@ -164,6 +166,7 @@ ActiveRecord::Schema.define(version: 2023_06_06_034511) do
   add_foreign_key "bills", "rooms"
   add_foreign_key "head_lists", "bill_lists"
   add_foreign_key "head_lists", "bills"
+  add_foreign_key "more_lists", "halls"
   add_foreign_key "rents", "halls"
   add_foreign_key "rents", "rooms"
   add_foreign_key "rents", "users"

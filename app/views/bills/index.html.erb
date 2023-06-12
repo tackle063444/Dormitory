@@ -40,7 +40,7 @@
 						  <%= date_field_tag :bill_date, @selected_bill_date, class: "form-control", style: "width: 200px;" %>
 						</div>
 						<button type="submit" class="btn btn-primary">ค้นหา</button>
-					  <% end %>
+					  <% end %><br>
 					  
 					  <% @bills.sort_by { |bill| bill.room&.room_num.to_i }.each do |bill| %>
 						<% if ((@selected_form_select.present? && bill.form_select == @selected_form_select) || @selected_form_select.blank?) && ((@selected_hall_id.present? && bill.room&.hall_id == @selected_hall_id.to_i) || @selected_hall_id.blank?) && ((@selected_bill_date.present? && bill.bill_date.to_date == @selected_bill_date.to_date) || @selected_bill_date.blank?) %>

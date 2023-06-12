@@ -10,6 +10,7 @@
       </div>
     <% end %>
     <br>
+
     <div class="field">
         <label for="form-select">เลือกแบบฟอร์มใบเสร็จ </label>
         <%= form.select :form_select, options_for_select([["ใบแจ้งค่าบริการห้องพัก", "form1"], ["ใบเสร็จรับเงินค่าเช่าห้องพัก", "form2"], ["ใบเสร็จรับเงินค่ามัดจำห้องพัก", "form3"], ["ใบแจ้งคืนค่าบริการห้องพัก", "form4"]], selected: @bill.form_select),{}, id: 'form_select'  %>
@@ -44,5 +45,51 @@
       <%= form.submit "ยืนยัน", class: 'btn btn-primary', id: 'ss_form'%>
       <%= link_to 'กลับ', bills_path , class: "btn btn-primary"%>
       </div>
+     
+      <% if @bill.form_select == "form1" %>
+      <% if @bill.head_lists.empty? %>
+        <% 3.times do %>
+          <%= form.fields_for :head_lists, HeadList.new do |head_list| %>
+            <%= render 'head_list_fields', f: head_list %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% @bill.head_lists.each do |head_list| %>
+          <%= form.fields_for :head_lists, head_list do |head_list_form| %>
+            <%= render 'head_list_fields', f: head_list_form %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% elsif @bill.form_select == "form3" %>
+      <% if @bill.head_lists.empty? %>
+        <% 1.times do %>
+          <%= form.fields_for :head_lists, HeadList.new do |head_list| %>
+            <%= render 'head_list_fields', f: head_list %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% @bill.head_lists.each do |head_list| %>
+          <%= form.fields_for :head_lists, head_list do |head_list_form| %>
+            <%= render 'head_list_fields', f: head_list_form %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% elsif @bill.form_select == "form4" %>
+      <% if @bill.head_lists.empty? %>
+        <% 4.times do %>
+          <%= form.fields_for :head_lists, HeadList.new do |head_list| %>
+            <%= render 'head_list_fields', f: head_list %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% @bill.head_lists.each do |head_list| %>
+          <%= form.fields_for :head_lists, head_list do |head_list_form| %>
+            <%= render 'head_list_fields', f: head_list_form %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>    
+    
+
     <% end %>
   

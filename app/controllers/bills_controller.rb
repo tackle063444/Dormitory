@@ -110,7 +110,7 @@ class BillsController < ApplicationController
         sheet.add_row row_data, style: header_style
         sheet.add_row other_income_row, style: listrow_style
 
-        @more_lists = MoreList.all
+        @more_lists = MoreList.where(hall_id: hall.id)
 
         bill_total_sum_revenue = 0
         bill_total_sum_expenses = 0

@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-  <% if @bill_list.list_typeName != "ค่าไฟ" %>
+  <% if @bill_list.list_typeName != "ค่าไฟ" || @bill_list.list_typeName != "ค่าน้ำ" || @bill_list.list_typeName != "ค่าเช่าห้องพักล่วงหน้า" || @bill_list.list_typeName != "ค่ามัดจำห้องพัก" || @bill_list.list_typeName != "ค่าประกัน" || @bill_list.list_typeName != "ค่าทำความสะอาด"%>
     <%= form.label :ชื่อรายการ %>
     <%= form.text_field :list_typeName, id: :list_typeName , class:"form-control" %>
   <% else %>

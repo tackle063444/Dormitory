@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+
   $(document).on("change", "#form_select", function() {
     checkSelectedForm();
   });
@@ -136,7 +137,7 @@ $('body').on('change', '.bill_list', function() {
   var selectedOptionValue = $(this).val();
 
   if ($('.bill_list').filter(function() { return $(this).val() == selectedOptionValue; }).length > 1) {
-    alert('ไม่สามารถเลือก bill_list_id ที่ซ้ำกันได้');
+    alert('ไม่สามารถเลือกเลือก รายการที่ซ้ำกันได้');
     $(this).val(''); 
   }
 });
@@ -146,7 +147,7 @@ $('body').on('click', '.add_nested_fields', function() {
   var selectedOptionValue = $(this).closest('.nested-fields').find('.bill_list').val(); 
 
   if ($('.bill_list').filter(function() { return $(this).val() == selectedOptionValue; }).length > 0) {
-    alert('ไม่สามารถเพิ่มฟอร์มที่มี bill_list_id เดียวกับฟอร์มก่อนหน้าได้');
+    alert('ไม่สามารถเพิ่มฟอร์มที่มี bill_list_id เดียวกันได้');
     return false; 
   }
 });

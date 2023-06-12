@@ -5,11 +5,12 @@
         <%= link_to_remove_association "ลบรายการ", f, class: 'btn btn-danger' %>
       </td>
 
+      <% if @bill.form_select == "form4" %>
       <td class="two_r">
-      <%= f.label :"สถานะ"%>
-      <%= f.select :two_r, options_for_select([ ['คืน', 'form1'],['หัก', 'form2']],f.object.two_r), {}, class: 'two_rs' %>
-    </td>
-
+          <%= f.label :"สถานะ"%>
+          <%= f.select :two_r, options_for_select([ ['คืน', 'form1'],['หัก', 'form2']], f.object.two_r), {}, class: 'two_rs' %>
+          </td>
+      <% end %>
       <td>
       <%= f.select :bill_list_id, options_for_select(BillList.all.map {|p| [p.bill_list_price, p.id, {'data-unit-price' => p.unit_price }]},f.object.bill_list_id),{},  prompt: "กรุณาเลือกรายการ", data: { id: f.object.id } , class: 'bill_list'  %>
       </td>

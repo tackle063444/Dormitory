@@ -46,50 +46,58 @@
       <%= link_to 'กลับ', bills_path , class: "btn btn-primary"%>
       </div>
      
-      <% if @bill.form_select == "form1" %>
-      <% if @bill.head_lists.empty? %>
-        <% 3.times do %>
-          <%= form.fields_for :head_lists, HeadList.new do |head_list| %>
+            <% if @bill.form_select == "form1" %>
+        <% if @bill.head_lists.empty? %>
+          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 1) do |head_list| %>
             <%= render 'head_list_fields', f: head_list %>
           <% end %>
+          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 2) do |head_list| %>
+            <%= render 'head_list_fields', f: head_list %>
+          <% end %>
+          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 3) do |head_list| %>
+            <%= render 'head_list_fields', f: head_list %>
+          <% end %>
+        <% else %>
+          <% @bill.head_lists.each do |head_list| %>
+            <%= form.fields_for :head_lists, head_list do |head_list_form| %>
+              <%= render 'head_list_fields', f: head_list_form %>
+            <% end %>
+          <% end %>
         <% end %>
-      <% else %>
-        <% @bill.head_lists.each do |head_list| %>
-          <%= form.fields_for :head_lists, head_list do |head_list_form| %>
-            <%= render 'head_list_fields', f: head_list_form %>
+      <% elsif @bill.form_select == "form3" %>
+        <% if @bill.head_lists.empty? %>
+          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 4) do |head_list| %>
+            <%= render 'head_list_fields', f: head_list %>
+          <% end %>
+        <% else %>
+          <% @bill.head_lists.each do |head_list| %>
+            <%= form.fields_for :head_lists, head_list do |head_list_form| %>
+              <%= render 'head_list_fields', f: head_list_form %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% elsif @bill.form_select == "form4" %>
+        <% if @bill.head_lists.empty? %>
+          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 5) do |head_list| %>
+            <%= render 'head_list_fields', f: head_list %>
+          <% end %>
+          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 3) do |head_list| %>
+            <%= render 'head_list_fields', f: head_list %>
+          <% end %>
+          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 1) do |head_list| %>
+            <%= render 'head_list_fields', f: head_list %>
+          <% end %>
+          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 6) do |head_list| %>
+            <%= render 'head_list_fields', f: head_list %>
+          <% end %>
+        <% else %>
+          <% @bill.head_lists.each do |head_list| %>
+            <%= form.fields_for :head_lists, head_list do |head_list_form| %>
+              <%= render 'head_list_fields', f: head_list_form %>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
-    <% elsif @bill.form_select == "form3" %>
-      <% if @bill.head_lists.empty? %>
-        <% 1.times do %>
-          <%= form.fields_for :head_lists, HeadList.new do |head_list| %>
-            <%= render 'head_list_fields', f: head_list %>
-          <% end %>
-        <% end %>
-      <% else %>
-        <% @bill.head_lists.each do |head_list| %>
-          <%= form.fields_for :head_lists, head_list do |head_list_form| %>
-            <%= render 'head_list_fields', f: head_list_form %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% elsif @bill.form_select == "form4" %>
-      <% if @bill.head_lists.empty? %>
-        <% 4.times do %>
-          <%= form.fields_for :head_lists, HeadList.new do |head_list| %>
-            <%= render 'head_list_fields', f: head_list %>
-          <% end %>
-        <% end %>
-      <% else %>
-        <% @bill.head_lists.each do |head_list| %>
-          <%= form.fields_for :head_lists, head_list do |head_list_form| %>
-            <%= render 'head_list_fields', f: head_list_form %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>    
-    
-
+   
     <% end %>
   

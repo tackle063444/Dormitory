@@ -43,7 +43,7 @@
                   <td><%= bill_list.unit_price %></td>
                   <td><%= link_to 'Edit', edit_bill_list_path(bill_list), class:"btn btn-outline-warning" %></td>
                   <td>
-				  	<% if bill_list.list_typeName != "ค่าไฟ" %>
+				  	<% if bill_list.list_typeName != "ค่าไฟ" && bill_list.list_typeName != "ค่าน้ำ" && bill_list.list_typeName != "ค่าเช่าห้องพักล่วงหน้า" && bill_list.list_typeName != "ค่ามัดจำห้องพัก" && bill_list.list_typeName != "ค่าประกัน" && bill_list.list_typeName != "ค่าทำความสะอาด" %>
 				 		 <%= button_to 'Destroy', bill_list, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %>
 					<% end %> 
 				  </td>

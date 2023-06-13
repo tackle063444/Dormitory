@@ -13,25 +13,25 @@
 <tr>
   <td>
   <%= form.label :Room_id %>
-  <%= form.collection_select :room_id, Room.check_room_user_relation, :id, :room_name, class: 'form-control', id: 'room-select' %>
+  <%= form.collection_select :room_id, Room.check_room_user_relation, :id, :room_name, id: 'room-select', class: "form-control" %>
   </td>
 </tr>
 <tr>
   <td>
   <%= form.label :User_id %>
-  <%= form.collection_select :user_id, @rent.user_id_to_select_option, :last, :first, {class: 'form-control', multiple: true} %>
+  <%= form.collection_select :user_id, @rent.user_id_to_select_option, :last, :first, {class: "form-control", multiple: true} %>
   </td>
 </tr>
 <tr>
   <td>
     <%= form.label :rent_start %>
-    <%= form.date_select :rent_start, id: :rent_start, class: 'form-control'  %>
+    <%= form.date_select :rent_start, id: :rent_start, class: "form-control"  %>
   </td>
 </tr>
 <tr>
   <td>
   <%= form.label :rent_end %>
-  <%= form.date_select :rent_end, id: :rent_end, class: 'form-control'  %>
+  <%= form.date_select :rent_end, id: :rent_end, class: "form-control"  %>
   </td>
 </tr>
 </table>

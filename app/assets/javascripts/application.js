@@ -19,6 +19,7 @@
 //= require jquery_ujs
 //= require cocoon
 
+
 $(document).ready(function() {
   
 

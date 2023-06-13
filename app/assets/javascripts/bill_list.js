@@ -1,4 +1,14 @@
+//= require jquery-ui/widgets/sortable
+
+
 $(document).ready(function() {
+
+  $('.bill_list').each(function() {
+    var selectedOption = $(this).find('option:selected');
+    var unitPrice = parseFloat(selectedOption.data('unit-price'));
+    var reValueInput = $(this).closest('tr').find('.re_value');
+    reValueInput.val(unitPrice);
+  });
 
 
   $(document).on("change", "#form_select", function() {
@@ -31,6 +41,19 @@ $(document).ready(function() {
       }
     });
   }
+
+  function updateUnitPrice(selector) {
+    let selectedOption = selector.find(':selected');
+    let unitPrice = parseFloat(selectedOption.data('unit-price'));
+    let tr = selector.closest('tr');
+    let reValue = parseFloat(tr.find('.re_value').val()) || 0;
+  
+    if (reValue !== unitPrice) {
+      tr.find('.re_value').val(unitPrice);
+    }
+  }
+
+
 
   function calculate_form(selector) {
     let selectedOptionF = $('#form_select option:selected');
@@ -118,9 +141,11 @@ $(document).ready(function() {
   
   toggleFields();
 
+
   $('body').on('change','.bill_list', function() {
     toggleFields();
     calculate_form($(this));
+    updateUnitPrice($(this));
   })
 
   $('body').on('change','.two_rs', function() {
@@ -143,7 +168,7 @@ $('body').on('change', '.bill_list', function() {
 });
 
 $('body').on('click', '.add_nested_fields', function() {
-  
+  updateUnitPrice($(this));
   var selectedOptionValue = $(this).closest('.nested-fields').find('.bill_list').val(); 
 
   if ($('.bill_list').filter(function() { return $(this).val() == selectedOptionValue; }).length > 0) {

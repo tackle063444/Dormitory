@@ -29,6 +29,9 @@
             <td>
               <%= form.fields_for :head_lists do |head_list| %>
                 <%= render 'head_list_fields', f: head_list %>
+                <script>
+                updateUnitPrice($(this)); 
+                </script>
               <% end %>
 
               <div class="links">

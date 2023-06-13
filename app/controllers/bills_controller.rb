@@ -207,7 +207,7 @@ class BillsController < ApplicationController
       if @bill.form_select == 'form1' || @bill.form_select == 'form2' || @bill.form_select == 'form4'
       pdf.bounding_box([pdf.bounds.left - 0, pdf.bounds.top - 80], width: 335, height: 70) do
         pdf.text "ชื่อผู้เช่า : #{firstName_users}"
-        pdf.text "ที่อยู่ : ห้อง #{@bill.room.room_num}"
+        pdf.text "ที่อยู่ : #{address_users}"
         pdf.text "โทร #{tel_users}"
         pdf.stroke_bounds
 
@@ -353,7 +353,7 @@ class BillsController < ApplicationController
       if @bill.form_select == 'form1' || @bill.form_select == 'form2' || @bill.form_select == 'form4'
       pdf.bounding_box([pdf.bounds.left - 0, pdf.bounds.top - 80], width: 335, height: 70) do
         pdf.text "ชื่อผู้เช่า : #{firstName_users}"
-        pdf.text "ที่อยู่ : ห้อง #{@bill.room.room_num}"
+        pdf.text "ที่อยู่ : #{address_users}"
         pdf.text "โทร #{tel_users}"
         pdf.stroke_bounds
       end
@@ -432,9 +432,10 @@ class BillsController < ApplicationController
      
     if @bill.form_select == 'form2' || @bill.form_select == 'form3'
       pdf.bounding_box([pdf.bounds.left - -240, pdf.bounds.top - 550], width: 300, height: 300) do
-        pdf.image("#{Rails.root}/app/assets/images/li.png", position: :right, fit: [120, 120])
+        pdf.image(@bill.bill_signature.path, position: :right, fit: [120, 120]) if @bill.bill_signature.attached?
       end
     end
+    
 
     if @bill.form_select == 'form2' || @bill.form_select == 'form3'
       pdf.bounding_box([pdf.bounds.left - 0, pdf.bounds.top - 680], width: 540, height: 70) do
@@ -525,8 +526,8 @@ class BillsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def bill_params
       params.require(:bill).permit(
-        :bill_date, :bill_no, :bill_total, :bill_remark, :rent_id, :form_select, :room_id,
-        head_lists_attributes: [:id, :bill_list_id, :list_typeNmae, :unit_price, :two_r, :old_unit, :new_unit, :amount, :e_price, :head_total, :_destroy]
+        :bill_date, :bill_no, :bill_total, :bill_remark, :rent_id, :form_select, :room_id, :bill_signature,
+        head_lists_attributes: [:id, :bill_list_id, :check_list, :list_typeNmae, :unit_price, :two_r, :old_unit, :new_unit, :amount, :e_price, :head_total, :_destroy]
       )
     end
     

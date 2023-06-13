@@ -25,7 +25,11 @@
   <div class="field">
     <%= form.label :ราคาต่อหหน่วย %>
     <%= form.text_field :unit_price, id: :unit_price , class:"form-control" %>
+
+     <label for="form-select">ชื่อหน่วย </label>
+        <%= form.select :name_unit, options_for_select([["ท่าน", "form1"], ["ห้อง", "form2"], ["หน่วย", "form3"], ["เครื่อง", "form4"], ["บาท", "form5"]], selected: @bill_list.name_unit),{}, id: 'form_select' , class: "form-control"  %>
   </div>
+
 
   <div class="actions">
     <%= form.submit "Confirm"  , class: "btn btn-primary" %> |

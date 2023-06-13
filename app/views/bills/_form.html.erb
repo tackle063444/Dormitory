@@ -13,7 +13,7 @@
 
     <div class="field">
         <label for="form-select">เลือกแบบฟอร์มใบเสร็จ </label>
-        <%= form.select :form_select, options_for_select([["ใบแจ้งค่าบริการห้องพัก", "form1"], ["ใบเสร็จรับเงินค่าเช่าห้องพัก", "form2"], ["ใบเสร็จรับเงินค่ามัดจำห้องพัก", "form3"], ["ใบแจ้งคืนค่าบริการห้องพัก", "form4"]], selected: @bill.form_select),{}, id: 'form_select'  %>
+        <%= form.select :form_select, options_for_select([["ใบแจ้งค่าบริการห้องพัก", "form1"], ["ใบเสร็จรับเงินค่าเช่าห้องพัก", "form2"], ["ใบเสร็จรับเงินค่ามัดจำห้องพัก", "form3"], ["ใบแจ้งคืนค่าบริการห้องพัก", "form4"]], selected: @bill.form_select),{}, id: 'form_select'  , class: "form-control" %>
       <br><br>
       <table class="table">
         <thead>
@@ -22,13 +22,13 @@
           <tr>
             <td>
               <%= form.label :หมายเลขห้อง %>
-              <%= form.collection_select :room_id, Room.all, :id, "room_name", { prompt: "เลือกห้อง" }, { id: "room-select" } %>
+              <%= form.collection_select :room_id, Room.all, :id, "room_name", { prompt: "เลือกห้อง" }, { id: "room-select", class: "form-control"  }  %>
             </td>        
            </tr>
           <tr>
             <td>
               <%= form.label :วันที่ออกบิล %>
-              <%= form.date_field :bill_date %>              
+              <%= form.date_field :bill_date , class: "form-control" , style: "width: 200px;"   %>              
             </td>
             <td>
             </td>
@@ -36,9 +36,10 @@
           <tr>
             <td>
               <%= form.label :หมายเหตุ %>
-              <%= form.text_field :bill_remark, id: :bill_remark %>
+              <%= form.text_field :bill_remark, id: :bill_remark , class: "form-control" %>
             </td>
             </tr>
+
         </tbody>
       </table>
       <div class="actions">
@@ -46,58 +47,41 @@
       <%= link_to 'กลับ', bills_path , class: "btn btn-primary"%>
       </div>
      
-            <% if @bill.form_select == "form1" %>
-        <% if @bill.head_lists.empty? %>
-          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 1) do |head_list| %>
-            <%= render 'head_list_fields', f: head_list %>
-          <% end %>
-          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 2) do |head_list| %>
-            <%= render 'head_list_fields', f: head_list %>
-          <% end %>
-          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 3) do |head_list| %>
-            <%= render 'head_list_fields', f: head_list %>
-          <% end %>
-        <% else %>
-          <% @bill.head_lists.each do |head_list| %>
-            <%= form.fields_for :head_lists, head_list do |head_list_form| %>
-              <%= render 'head_list_fields', f: head_list_form %>
-            <% end %>
-          <% end %>
+      <% unless @bill.head_lists.present? %>
+      <% if @bill.form_select == "form1" %>
+        <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 1) do |head_list| %>
+          <%= render 'head_list_fields', f: head_list %>
+        <% end %>
+        <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 2) do |head_list| %>
+          <%= render 'head_list_fields', f: head_list %>
+        <% end %>
+        <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 3) do |head_list| %>
+          <%= render 'head_list_fields', f: head_list %>
         <% end %>
       <% elsif @bill.form_select == "form3" %>
-        <% if @bill.head_lists.empty? %>
-          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 4) do |head_list| %>
-            <%= render 'head_list_fields', f: head_list %>
-          <% end %>
-        <% else %>
-          <% @bill.head_lists.each do |head_list| %>
-            <%= form.fields_for :head_lists, head_list do |head_list_form| %>
-              <%= render 'head_list_fields', f: head_list_form %>
-            <% end %>
-          <% end %>
+        <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 4) do |head_list| %>
+          <%= render 'head_list_fields', f: head_list %>
         <% end %>
       <% elsif @bill.form_select == "form4" %>
-        <% if @bill.head_lists.empty? %>
-          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 5) do |head_list| %>
-            <%= render 'head_list_fields', f: head_list %>
-          <% end %>
-          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 3) do |head_list| %>
-            <%= render 'head_list_fields', f: head_list %>
-          <% end %>
-          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 1) do |head_list| %>
-            <%= render 'head_list_fields', f: head_list %>
-          <% end %>
-          <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 6) do |head_list| %>
-            <%= render 'head_list_fields', f: head_list %>
-          <% end %>
-        <% else %>
-          <% @bill.head_lists.each do |head_list| %>
-            <%= form.fields_for :head_lists, head_list do |head_list_form| %>
-              <%= render 'head_list_fields', f: head_list_form %>
-            <% end %>
-          <% end %>
+        <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 5) do |head_list| %>
+          <%= render 'head_list_fields', f: head_list %>
+        <% end %>
+        <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 3) do |head_list| %>
+          <%= render 'head_list_fields', f: head_list %>
+        <% end %>
+        <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 1) do |head_list| %>
+          <%= render 'head_list_fields', f: head_list %>
+        <% end %>
+        <%= form.fields_for :head_lists, HeadList.new(bill_list_id: 6) do |head_list| %>
+          <%= render 'head_list_fields', f: head_list %>
         <% end %>
       <% end %>
+    <% else %>
+    <% unless @bill.head_lists %>
+    <% end %>
+    <% end %>
+
+    
    
     <% end %>
   

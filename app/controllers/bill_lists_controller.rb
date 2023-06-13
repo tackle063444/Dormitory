@@ -66,6 +66,6 @@ class BillListsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bill_list_params
-      params.require(:bill_list).permit(:list_typeName, :unit_price)
+      params.require(:bill_list).permit(:list_typeName, :unit_price, :check_list, :name_unit)
     end
 end

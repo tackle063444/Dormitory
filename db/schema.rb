@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_12_094525) do
+ActiveRecord::Schema.define(version: 2023_06_13_103210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 2023_06_12_094525) do
     t.float "unit_price"
     t.string "list_typeName"
     t.bigint "bill_id"
+    t.boolean "check_list"
+    t.string "name_unit"
     t.index ["bill_id"], name: "index_bill_lists_on_bill_id"
   end
 
@@ -57,6 +59,7 @@ ActiveRecord::Schema.define(version: 2023_06_12_094525) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "form_select"
+    t.string "bill_signature"
     t.index ["bill_list_id"], name: "index_bills_on_bill_list_id"
     t.index ["rent_id"], name: "index_bills_on_rent_id"
     t.index ["room_id"], name: "index_bills_on_room_id"
@@ -82,6 +85,8 @@ ActiveRecord::Schema.define(version: 2023_06_12_094525) do
     t.float "head_total"
     t.string "two_r"
     t.bigint "bill_id"
+    t.boolean "check_list"
+    t.float "re_value"
     t.index ["bill_id"], name: "index_head_lists_on_bill_id"
     t.index ["bill_list_id"], name: "index_head_lists_on_bill_list_id"
   end

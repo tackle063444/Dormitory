@@ -177,10 +177,10 @@ class BillsController < ApplicationController
       }
     )
     pdf.font('THSarabun', size: 15)
-    #pdf.image "#{Rails.root}/app/assets/images/#{@bill.hall.hall_logo}", position: :left, fit: [70, 70]
+    #pdf.image("/public/uploads/hall/hall_logo/11/d18c27c3-b822-42ab-b5f3-43404009e109.jpg", position: :left, fit: [70, 70])
     up_images = File.open(Rails.root + "public/#{@bill.room.hall.hall_logo.url}", 'rb')
     pdf.image up_images, fit: [70, 70]
-
+    
 
       pdf.bounding_box([pdf.bounds.right - 400, pdf.bounds.top - 0], width: 400, height: 80) do
         pdf.text "<color rgb='0000FF'>หมายเลขห้อง  #{@bill.room&.room_num}</color>", align: :right, inline_format: true
@@ -210,7 +210,6 @@ class BillsController < ApplicationController
         pdf.text "ที่อยู่ : #{address_users}"
         pdf.text "โทร #{tel_users}"
         pdf.stroke_bounds
-
       end
     end
 
@@ -223,9 +222,8 @@ class BillsController < ApplicationController
       end
     end
 
-      
       pdf.bounding_box([pdf.bounds.right - 190, pdf.bounds.top - 80], width: 190, height: 70) do
-        pdf.text "วันที่ #{Time.now.strftime('%Y-%m-%d')}"
+        pdf.text "วันที่ #{@bill.bill_date.strftime('%Y-%m-%d')}"
         pdf.text "เลขที่ #{@bill.bill_no}"
         pdf.stroke_bounds
       end
@@ -240,17 +238,25 @@ class BillsController < ApplicationController
       @bill.head_lists.each_with_index.map do |bh, i|
         two_r_text = bh.form_select_text  
         if bh.bill_list_id == 1 || bh.bill_list.list_typeName == 'ค่าไฟ'
-            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}", bh.e_price, bh.head_total.to_s]
+          if bh.re_value.present?
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}  #{bh.re_value} บาท #{bh.new_unit} - #{bh.old_unit}","#{bh.e_price} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
+          else
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}  #{bh.bill_list.unit_price} บาท #{bh.new_unit} - #{bh.old_unit}","#{bh.e_price} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
+          end
         else
-            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}", bh.amount, bh.head_total.to_s]
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName} ", "#{bh.amount.to_i} #{bh.bill_list.form_select_text} ", bh.head_total.to_i.to_s]
         end
       end
     else
       @bill.head_lists.each_with_index.map do |bh, i|
         if bh.bill_list_id == 1 || bh.bill_list.list_typeName == 'ค่าไฟ'
-          [i + 1, bh.bill_list.list_typeName, bh.e_price, bh.head_total]
+          if bh.re_value.present?
+            [i + 1, "#{bh.bill_list.list_typeName}  #{bh.re_value} บาท #{bh.new_unit} - #{bh.old_unit}","#{bh.e_price} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
+          else
+            [i + 1, "#{bh.bill_list.list_typeName}  #{bh.bill_list.unit_price} บาท #{bh.new_unit} - #{bh.old_unit}","#{bh.e_price} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
+          end
         else
-          [i + 1, bh.bill_list.list_typeName, bh.amount, bh.head_total]
+            [i + 1, "#{bh.bill_list.list_typeName} ", "#{bh.amount.to_i} #{bh.bill_list.form_select_text} ", bh.head_total.to_i.to_s]
         end
       end
     end +
@@ -271,7 +277,6 @@ class BillsController < ApplicationController
         ]
       end
       
-      
       pdf.bounding_box([pdf.bounds.left - 0, pdf.bounds.top - 180], width: 540, height: 800) do
         pdf.table(data,
            width: pdf.bounds.width,
@@ -289,9 +294,10 @@ class BillsController < ApplicationController
      
     if @bill.form_select == 'form2' || @bill.form_select == 'form3'
       pdf.bounding_box([pdf.bounds.left - -240, pdf.bounds.top - 550], width: 300, height: 300) do
-        pdf.image("#{Rails.root}/app/assets/images/li.png", position: :right, fit: [120, 120])
+        pdf.image(@bill.bill_signature.path, position: :right, fit: [120, 120]) if @bill.bill_signature.attached?
       end
     end
+    
 
     if @bill.form_select == 'form2' || @bill.form_select == 'form3'
       pdf.bounding_box([pdf.bounds.left - 0, pdf.bounds.top - 680], width: 540, height: 70) do
@@ -385,28 +391,28 @@ class BillsController < ApplicationController
         two_r_text = bh.form_select_text  
         if bh.bill_list_id == 1 || bh.bill_list.list_typeName == 'ค่าไฟ'
           if bh.re_value.present?
-            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}  #{bh.re_value} บาท #{bh.new_unit} - #{bh.old_unit}","#{bh.e_price} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName} หน่วยละ #{bh.re_value.to_i} บาท #{bh.new_unit.to_i} - #{bh.old_unit}","#{bh.e_price.to_i} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
           else
-            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}  #{bh.bill_list.unit_price} บาท #{bh.new_unit} - #{bh.old_unit}","#{bh.e_price} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName} หน่วยละ #{bh.bill_list.unit_price} บาท #{bh.new_unit} - #{bh.old_unit}","#{bh.e_price.to_i} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
           end
         else
-            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName} ", "#{bh.amount} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName} ", "#{bh.amount.to_i} #{bh.bill_list.form_select_text} ", bh.head_total.to_i.to_s]
         end
       end
     else
       @bill.head_lists.each_with_index.map do |bh, i|
         if bh.bill_list_id == 1 || bh.bill_list.list_typeName == 'ค่าไฟ'
           if bh.re_value.present?
-            [i + 1, "#{bh.bill_list.list_typeName}  #{bh.re_value} บาท #{bh.new_unit} - #{bh.old_unit}","#{bh.e_price} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
+            [i + 1, "#{bh.bill_list.list_typeName} หน่วยละ #{bh.re_value} บาท #{bh.new_unit.to_i} - #{bh.old_unit.to_i}","#{bh.e_price.to_i} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
           else
-            [i + 1, "#{bh.bill_list.list_typeName}  #{bh.bill_list.unit_price} บาท #{bh.new_unit} - #{bh.old_unit}","#{bh.e_price} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
+            [i + 1, "#{bh.bill_list.list_typeName} หน่วยละ #{bh.bill_list.unit_price} บาท #{bh.new_unit} - #{bh.old_unit}","#{bh.e_price.to_i} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
           end
         else
-            [i + 1, "#{bh.bill_list.list_typeName} ", "#{bh.amount} #{bh.bill_list.form_select_text} ", bh.head_total.to_s]
+            [i + 1, "#{bh.bill_list.list_typeName} ", "#{bh.amount.to_i} #{bh.bill_list.form_select_text} ", bh.head_total.to_i.to_s]
         end
       end
     end +
-      if @bill.form_select == 'form1'
+    if @bill.form_select == 'form1'
         [
           [{:content => "(#{Baht.words(@bill.bill_total)})", :colspan => 2}, 
            {:content => "รวมจำนวนเงินทั้งสิ้น"}, 
@@ -436,11 +442,11 @@ class BillsController < ApplicationController
       pdf.bounding_box([pdf.bounds.left - -380, pdf.bounds.top - 670], width: 190, height: 100) do
         pdf.image("#{Rails.root}/app/assets/images/qrcode.png", position: :right, fit: [80, 80])
       end
-    end
+    end 
      
     if @bill.form_select == 'form2' || @bill.form_select == 'form3'
       pdf.bounding_box([pdf.bounds.left - -240, pdf.bounds.top - 550], width: 300, height: 300) do
-        pdf.image(@bill.bill_signature.path, position: :right, fit: [120, 120]) if @bill.bill_signature.attached?
+        pdf.image("#{Rails.root}/app/assets/images/li.png", position: :right, fit: [120, 120])      
       end
     end
     
@@ -452,7 +458,6 @@ class BillsController < ApplicationController
 
       end
     end
-      
       send_data pdf.render,
                 filename: "preview.pdf",
                 type: 'application/pdf',

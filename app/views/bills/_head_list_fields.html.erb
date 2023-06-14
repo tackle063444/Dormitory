@@ -15,8 +15,8 @@
       <%= f.select :bill_list_id, options_for_select(BillList.all.map {|p| [p.bill_list_price, p.id, {'data-unit-price' => p.unit_price }]},f.object.bill_list_id),{},  prompt: "กรุณาเลือกรายการ", data: { id: f.object.id } , class: 'bill_list'  %>
       </td>
       <td class="re_value">
-      <%= f.label :ราคาต่อหน่วย %>
-      <%= f.number_field :re_value, class: 're_value', step: 'any' %>
+      <%= f.label :ราคาใหม่ %>
+      <%= f.number_field :re_value, class: 're_value', step: 'any', placeholder: 'กรอกราคาใหม่' %>
     </td>
       <td class="old_unit">
         <%= f.label :หน่วยเดิม %>

@@ -18,7 +18,8 @@
 //= require jquery3
 //= require jquery_ujs
 //= require cocoon
-
+//= require jquery-ui/widgets/sortable
+//= require rails_sortable
 
 $(document).ready(function() {
   

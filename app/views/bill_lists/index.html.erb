@@ -27,10 +27,11 @@
 				<%= link_to 'เพิ่มรายการ', new_bill_list_path, class:"btn btn-outline-success" %>
           <p id="notice"><%= notice %></p>
           <table class="table table-dark table-hover">
-            <thead>
+            <thead></thead>
               <tr>
                 <th>ชื่อรายการ</th>
                 <th>ราคาต่อหน่วย</th>
+				<th>ชื่อหน่วย</th>
                 <th colspan="2"></th>
               </tr>
             </thead>
@@ -41,6 +42,8 @@
                 <tr>
                   <td><%= bill_list.list_typeName %></td>
                   <td><%= bill_list.unit_price %></td>
+				  <td><%= bill_list.form_select_text %></td>
+
                   <td><%= link_to 'Edit', edit_bill_list_path(bill_list), class:"btn btn-outline-warning" %></td>
                   <td>
 				  	<% if bill_list.list_typeName != "ค่าไฟ" && bill_list.list_typeName != "ค่าน้ำ" && bill_list.list_typeName != "ค่าเช่าห้องพักล่วงหน้า" && bill_list.list_typeName != "ค่ามัดจำห้องพัก" && bill_list.list_typeName != "ค่าประกัน" && bill_list.list_typeName != "ค่าทำความสะอาด" %>

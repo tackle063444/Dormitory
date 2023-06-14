@@ -384,17 +384,17 @@ class BillsController < ApplicationController
       @bill.head_lists.each_with_index.map do |bh, i|
         two_r_text = bh.form_select_text  
         if bh.bill_list_id == 1 || bh.bill_list.list_typeName == 'ค่าไฟ'
-            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}", bh.e_price, bh.head_total.to_s]
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName} #{bh.new_unit} - #{bh.old_unit}", bh.e_price, bh.head_total.to_s]
         else
-            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName}", bh.amount, bh.head_total.to_s]
+            [i + 1, "#{two_r_text} #{bh.bill_list.list_typeName} ", bh.amount, bh.head_total.to_s]
         end
       end
     else
       @bill.head_lists.each_with_index.map do |bh, i|
         if bh.bill_list_id == 1 || bh.bill_list.list_typeName == 'ค่าไฟ'
-          [i + 1, bh.bill_list.list_typeName, bh.e_price, bh.head_total]
+          [i + 1, "#{bh.bill_list.list_typeName} #{bh.new_unit} - #{bh.old_unit} ", "#{bh.e_price} #{bh.bill_list.form_select_text}", bh.head_total]
         else
-          [i + 1, bh.bill_list.list_typeName, bh.amount, bh.head_total]
+          [i + 1, "#{bh.bill_list.list_typeName} ", "#{bh.amount} #{bh.bill_list.form_select_text}", bh.head_total]
         end
       end
     end +
@@ -527,7 +527,7 @@ class BillsController < ApplicationController
     def bill_params
       params.require(:bill).permit(
         :bill_date, :bill_no, :bill_total, :bill_remark, :rent_id, :form_select, :room_id, :bill_signature,
-        head_lists_attributes: [:id, :bill_list_id, :check_list, :list_typeNmae, :unit_price, :two_r, :old_unit, :new_unit, :amount, :e_price, :head_total, :_destroy]
+        head_lists_attributes: [:id, :bill_list_id, :check_list, :list_typeNmae, :re_value, :unit_price, :two_r, :old_unit, :new_unit, :amount, :e_price, :head_total, :_destroy]
       )
     end
     

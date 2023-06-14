@@ -18,6 +18,8 @@ class BillList < ApplicationRecord
      "เครื่อง"
     when 'form5' 
       "บาท"
+    when 'form6' 
+      "เดือน"
     end 
   end
 

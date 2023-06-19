@@ -9,5 +9,4 @@ class MoreList < ApplicationRecord
           "รายจ่าย"
         end
     end
-a
 end

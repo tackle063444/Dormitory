@@ -55,6 +55,7 @@ class BillsController < ApplicationController
         listrow_style = sheet.styles.add_style(bg_color: 'D0D0D0')
         expenes_style = sheet.styles.add_style(bg_color: 'E85061')
         sum_style = sheet.styles.add_style(bg_color: '30CFB4')
+        bill_sumstyle = sheet.styles.add_style(bg_color: 'FF8F08')
 
         head_sheet = ['ห้อง', 'ประเภทใบเสร็จ'] + bill_list_typenames + ['หน่วยเดิม','หน่วยใหม่','ใช้ไป','ราคาต่อหน่วย','ยอดรวมใบเสร็จทั้งหมด','', 'หมายเหตุ']
         sheet.add_row head_sheet, style: header_style
@@ -109,8 +110,8 @@ class BillsController < ApplicationController
         
         other_income_row = ["รายรับอื่นๆ", "", *[""] * (bill_list_typenames.size + 4), "", "", ""]
         
-        row_data = ["", "", *column_sums, "0", "0", amount_sum, "0","รวม" bill_total_sum, "", ""]
-        sheet.add_row row_data, style: header_style
+        row_data = ["", "", *column_sums, "0", "0", amount_sum, "0", bill_total_sum, "", ""]
+        sheet.add_row row_data,  style: bill_sumstyle 
         sheet.add_row other_income_row, style: listrow_style
 
         @more_lists = MoreList.where(hall_id: hall.id).where(more_list_date: start_date..end_date)

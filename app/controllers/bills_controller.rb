@@ -36,14 +36,17 @@ class BillsController < ApplicationController
   
   
     def export_ex
+      start_date = Date.parse(params[:start_date])
+      end_date = Date.parse(params[:end_date])
+
       workbook = Axlsx::Package.new
 
       halls = Hall.all
 
       halls.each do |hall|
-        bills = Bill.joins(room: :hall).where("halls.id = ?", hall.id).order("rooms.room_num")
-    
-      workbook.workbook.add_worksheet(name: hall.hall_name) do |sheet|
+        bills = Bill.joins(room: :hall).where("halls.id = ?", hall.id).where(bill_date: start_date..end_date).order("rooms.room_num")    
+      
+        workbook.workbook.add_worksheet(name: hall.hall_name) do |sheet|
 
         bill_lists = BillList.all.order(:list_typeName)
         bill_list_typenames = bill_lists.pluck(:list_typeName)
@@ -110,7 +113,7 @@ class BillsController < ApplicationController
         sheet.add_row row_data, style: header_style
         sheet.add_row other_income_row, style: listrow_style
 
-        @more_lists = MoreList.where(hall_id: hall.id)
+        @more_lists = MoreList.where(hall_id: hall.id).where(more_list_date: start_date..end_date)
 
         bill_total_sum_revenue = 0
         bill_total_sum_expenses = 0

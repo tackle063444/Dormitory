@@ -32,6 +32,10 @@
             <label for="hall_id">ชื่อหอพัก:</label>
             <%= select_tag :hall_id, options_from_collection_for_select(@halls, :id, :hall_name, params[:hall_id]), prompt: "ทั้งหมด", class: "form-control" %>
             </div>
+            <div class="form-group">
+              <label for="more_list_date">วันที่:</label>
+              <%= date_field_tag :more_list_date, @selected_more_list_date, class: "form-control", style: "width: 200px;" %>
+            </div>
           <button type="submit" class="btn btn-primary">ค้นหา</button>
           <% end %>
          <p id="notice"><%= notice %></p>
@@ -39,6 +43,7 @@
          <thead>
            <tr>
              <th>หอพัก</th>
+             <th>วันที่</th>
              <th>รายรับ</th>
              <th>ชื่อรายการ</th>
              <th>จำนวน</th>
@@ -52,6 +57,7 @@
              <% if more_list.type_morelist == 'form1' %>
                <tr>
                <td><%= more_list.hall.hall_name %></td>
+               <td><%= more_list.more_list_date %></td>
                  <td><%= more_list.form_select_text %></td>
                  <td><%= more_list.name_morelist %></td>
                  <td><%= more_list.unit_morelist %></td>
@@ -69,7 +75,8 @@
          <thead>
            <tr>
            <th>หอพัก</th>
-           <th>รายรับ</th>
+           <th>วันที่</th>
+           <th>รายจ่าย</th>
            <th>ชื่อรายการ</th>
            <th>จำนวน</th>
            <th></th>
@@ -83,6 +90,7 @@
              <% if more_list.type_morelist == 'form2' %>
                <tr>
                  <td><%= more_list.hall.hall_name %></td>
+                  <td><%= more_list.more_list_date %></td>
                  <td><%= more_list.form_select_text %></td>
                  <td><%= more_list.name_morelist %></td>
                  <td><%= more_list.unit_morelist %></td>

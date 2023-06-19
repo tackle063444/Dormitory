@@ -13,9 +13,13 @@
   <table class="table">
     <thead></thead>
     <tbody>
-    <tr>
+      <tr>
         <td><%= form.label :hall_name, "หอพัก", class: "form-label" %></td>
-        <td><%= form.collection_select :hall_id, Hall.all, :id, :hall_name, class:"form-control" %></td>
+        <td><%= form.collection_select :hall_id, Hall.all, :id, :hall_name , class: "form-control" %></td>
+      </tr>
+      <tr>
+      <td><%= form.label :more_list_date, "วันที่", class: "form-label" %></td>
+      <td><%= form.date_field :more_list_date, class: "form-control", style: "width: 200px;" %></td>
       </tr>
       <tr>
         <td><%= form.label :type_morelist, "ประเภทรายการ", class: "form-label" %></td>

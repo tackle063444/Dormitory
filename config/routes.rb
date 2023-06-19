@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   post '/bills/:id/clone', to: 'bills#clone', as: 'clone_bill'
   get '/bills/:id/preview', to: 'bills#preview', as: 'preview_bill'
   get '/bills/:id/download', to: 'bills#download', as: 'download_bill'
-  get '/export_exel/bills', to: 'bills#export_ex', as: 'export_exel'
+  post '/export_exel/bills', to: 'bills#export_ex', as: 'export_excel_bills'
 
   get 'export_exel', to: 'bills#export_ex'
   get 'preview', to: 'bills#preview'

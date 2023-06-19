@@ -22,8 +22,16 @@
 			<div id="fh5co-main">
 				<div class="fh5co-narrow-content">
 					<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">Bill</h2>
+
 					<%= link_to 'เพิ่มบิล', new_bill_path, class: "btn btn-outline-success" %>
-					<%= link_to 'DowloadExel', export_exel_path, class: "btn btn-outline-success" %>
+
+					<%= form_tag export_excel_bills_path, method: :post do %>
+					<%= label_tag "Start Date" %> <%= date_field_tag "start_date" %>
+					<%= label_tag "End Date" %> <%= date_field_tag "end_date" %>
+					<%= submit_tag "Download Excel" %>
+					<% end %>
+
+
 					<p id="notice"><%= notice %></p>
 					<div class="filter">
 					<%= form_tag({ controller: 'bills', action: 'index' }, method: :get) do %>

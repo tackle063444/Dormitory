@@ -109,7 +109,7 @@ class BillsController < ApplicationController
         
         other_income_row = ["รายรับอื่นๆ", "", *[""] * (bill_list_typenames.size + 4), "", "", ""]
         
-        row_data = ["", "", *column_sums, "0", "0", amount_sum, "0", bill_total_sum, "", ""]
+        row_data = ["", "", *column_sums, "0", "0", amount_sum, "0","รวม" bill_total_sum, "", ""]
         sheet.add_row row_data, style: header_style
         sheet.add_row other_income_row, style: listrow_style
 

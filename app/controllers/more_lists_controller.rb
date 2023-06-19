@@ -12,7 +12,7 @@ class MoreListsController < ApplicationController
   else
     @more_lists = MoreList.all
   end
-  
+
   if @selected_more_list_date.present?
     @more_lists = @more_lists.where(more_list_date: @selected_more_list_date)
   end
@@ -78,6 +78,6 @@ class MoreListsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def more_list_params
-      params.require(:more_list).permit(:hall_id, :more_list_date,:type_morelist, :name_morelist, :unit_morelist)
+      params.require(:more_list).permit(:hall_id, :more_list_date, :type_morelist, :name_morelist, :unit_morelist)
     end
 end
